@@ -27,7 +27,7 @@ size = Vector3(0.455, 0.8, 0.265)
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
 radius = 0.2
 
-[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("plat_comp", "model", "spring_arm", "buffer_timer", "coyote_timer")]
+[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("plat_comp", "model", "spring_arm", "buffer_timer", "coyote_timer", "debug_label")]
 floor_constant_speed = true
 floor_max_angle = 0.80285144
 floor_snap_length = 0.2
@@ -37,6 +37,7 @@ model = NodePath("Model")
 spring_arm = NodePath("SpringArm3D")
 buffer_timer = NodePath("BufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
+debug_label = NodePath("DebugLabel")
 
 [node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("2_qjkh3")]
 target = NodePath("..")
@@ -81,9 +82,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
 fov = 70.0
 
 [node name="BufferTimer" type="Timer" parent="." unique_id=2052782670]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=1601898135]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
+
+[node name="DebugLabel" type="Label3D" parent="." unique_id=361566345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0007677, 0)
+pixel_size = 0.01
+billboard = 1

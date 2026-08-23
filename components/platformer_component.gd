@@ -14,10 +14,7 @@ const MAX_FALL_SPEED := -1000.0
 @export var turn_acceleration := 30.0
 
 var last_desired_dir := Vector2.UP
-var move_dir := Vector2.ZERO:
-	set(value):
-		move_dir = value
-		if not value.is_zero_approx(): last_desired_dir = value
+var move_dir := Vector2.ZERO
 #var move_multiplier := 1.0
 #var explosive_jumping := false
 #var stunned := false
@@ -98,8 +95,9 @@ func horizontal_movement(delta : float) -> void :
 		#target.velocity.z = Global.decay_towards(target.velocity.z, 0.0, friction, delta)
 
 
-func model_controls(dir := move_dir) -> void :
+func model_controls(dir: Vector2) -> void :
 	if not dir.is_zero_approx():# and turning and not stunned:
+		last_desired_dir = dir
 		model.rotation.y = Global.decay_angle_towards(
 				model.rotation.y,
 				atan2(dir.x, dir.y),
