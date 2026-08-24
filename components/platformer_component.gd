@@ -22,17 +22,17 @@ var move_dir := Vector2.ZERO
 var turn_target := Vector2()
 var is_jumping := false
 
-@export_category("Nodes")
-@export var target: CharacterBody3D
-@export var model: Node3D
-#@export var health_comp: HealthComponent
-
 #@onready var stun_timer: Timer = $StunTimer
 @onready var speed := base_speed
 @onready var acceleration := base_acceleration
 @onready var friction := base_friction
 @onready var jump_force := base_jump_force
 @onready var gravity := base_gravity
+
+@export_category("Nodes")
+@export var target: CharacterBody3D
+@export var model: Node3D
+#@export var health_comp: HealthComponent
 
 
 func _ready():

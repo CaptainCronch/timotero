@@ -125,6 +125,10 @@ debug_key={
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Camera Blocking"
 
+[physics]
+
+common/enable_object_picking=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

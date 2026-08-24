@@ -2,7 +2,7 @@ extends Node
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug_key"):
+	if Input.is_action_just_pressed("inventory"):
 		#if DisplayServer.window_get_vsync_mode() == DisplayServer.VSYNC_ENABLED:
 			#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 			#Engine.max_fps = 0

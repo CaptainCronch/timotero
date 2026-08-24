@@ -1,4 +1,4 @@
-extends Resource
+extends RefCounted
 class_name BoonManager
 ## Manager for positive or negative stat / number modifiers.
 ##

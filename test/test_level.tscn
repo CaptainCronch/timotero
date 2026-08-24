@@ -118,96 +118,72 @@ material = SubResource("StandardMaterial3D_wagxh")
 [node name="Gap" type="CSGBox3D" parent="World" unique_id=1725153330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 9)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap2" type="CSGBox3D" parent="World" unique_id=1919732498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 9)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap3" type="CSGBox3D" parent="World" unique_id=1133586957]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 11.627766)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap4" type="CSGBox3D" parent="World" unique_id=1546844415]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 11.628)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap5" type="CSGBox3D" parent="World" unique_id=413934517]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 14.343124)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap6" type="CSGBox3D" parent="World" unique_id=1561889480]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 14.343)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap7" type="CSGBox3D" parent="World" unique_id=1565754254]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 16.948994)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap8" type="CSGBox3D" parent="World" unique_id=228480197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, 16.949)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap9" type="CSGBox3D" parent="World" unique_id=246522104]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 19.423473)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap10" type="CSGBox3D" parent="World" unique_id=112822733]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 1, 19.423409)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap11" type="CSGBox3D" parent="World" unique_id=1181369042]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 21.963644)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap12" type="CSGBox3D" parent="World" unique_id=160893201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 21.964)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
@@ -342,13 +318,13 @@ environment = SubResource("Environment_kgsy5")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." unique_id=1381430318 instance=ExtResource("2_klfgi")]
-
 [node name="Teleport" type="Area3D" parent="." unique_id=967717672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.436684, 0)
 script = SubResource("GDScript_7qk3k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Teleport" unique_id=142623080]
 shape = SubResource("WorldBoundaryShape3D_wagxh")
+
+[node name="Player" parent="." unique_id=1381430318 instance=ExtResource("2_klfgi")]
 
 [connection signal="body_entered" from="Teleport" to="Teleport" method="_on_body_entered"]

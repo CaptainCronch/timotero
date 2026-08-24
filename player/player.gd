@@ -1,6 +1,25 @@
 extends CharacterBody3D
 class_name Player
 
+const SPECIES: Array[Dictionary] = [
+	{
+		"name": "Bunny",
+		"texture": preload("uid://cw4q0pwveeu68"),
+		"face": preload("uid://bmi03s6dgewoj"),
+	},
+	{
+		"name": "Capy",
+		"texture": preload("uid://l6a5h0elmrqi"),
+		"face": preload("uid://g4oiluox7fq1"),
+	},
+	{
+		"name": "Kitty",
+		"texture": preload("uid://bwqt52rut5ecg"),
+		"face": preload("uid://b3gq08y3fat6c"),
+	},
+]
+var current_species := 0
+
 @export var jump_boost := 0.3
 @export var peak_velocity_range := 2.0
 @export var peak_gravity_bane := 0.3
@@ -48,6 +67,18 @@ func get_input() -> void:
 		#print("cutting")
 		#gravity_boon.add_boon("falling", falling_gravity_boon)
 		#gravity_boon.remove_bane("peak")
+	
+	if Input.is_action_just_pressed("debug_key"):
+		current_species += 1
+		if current_species > SPECIES.size() - 1: current_species = 0
+		
+		for child in model.get_children():
+			if child.name == "Face": continue
+			elif child.name == SPECIES[current_species]["name"]: child.visible = true
+			else: child.visible = false
+		
+		$Model/Face.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["face"]
+		model.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["texture"]
 
 
 func vertical_movement() -> void:
