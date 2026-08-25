@@ -57,11 +57,14 @@ func hurt(attack: Attack):
 	#var current_damage := attack.attack_damage if not is_player else attack.player_damage
 	if attack.attack_damage <= 0.0: return
 	if attack.attack_damage - defense <= 0.0: return
-
+	#TODO: use the more complicated defense formula from that one blogpost that makes defense \
+	#more effective the higher the damage is which effectively enables high DPS low damage builds \
+	#to be better at hitting low defense entities VS low DPS high damage builds to be better at \
+	#hitting high defense entities but both can still always do some damage at least?
 	health -= attack.attack_damage - defense
 	damage_taken.emit(attack.attack_damage - defense)
 	health_changed.emit(health)
-
+	
 	if health <= 0.0:
 		die(attack)
 		#return

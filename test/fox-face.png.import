@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bps40p8oleq7g"
-path.s3tc="res://.godot/imported/proto-white.png-3812abe74e944acfde7e77c7e72fc081.s3tc.ctex"
+uid="uid://dwvek7mgsrihw"
+path.s3tc="res://.godot/imported/fox-face.png-fdf9355642d782a8cd8e71fb7221c2ed.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/proto-white.png"
-dest_files=["res://.godot/imported/proto-white.png-3812abe74e944acfde7e77c7e72fc081.s3tc.ctex"]
+source_file="res://test/fox-face.png"
+dest_files=["res://.godot/imported/fox-face.png-fdf9355642d782a8cd8e71fb7221c2ed.s3tc.ctex"]
 
 [params]
 

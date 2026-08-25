@@ -29,6 +29,10 @@ size = Vector3(0.192, 0.299, 0.306)
 left_to_right = 0.8
 size = Vector3(0.46, 0.565, 0.18)
 
+[sub_resource type="PrismMesh" id="PrismMesh_rgyib"]
+left_to_right = 0.6
+size = Vector3(0.46, 0.79, 0.24)
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wagxh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
@@ -101,6 +105,21 @@ surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 [node name="EarRight" type="MeshInstance3D" parent="Model/Kitty" unique_id=1425298479]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, -0.236, 1.269, -0.072)
 mesh = SubResource("PrismMesh_boad6")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Fox" type="Node3D" parent="Model" unique_id=867193664]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Fox" unique_id=1523584878]
+transform = Transform3D(0.9884938, 0, 0.15126081, 0, 1, 0, -0.15126081, 0, 0.9884938, 0.23619926, 1.3928971, -0.072362944)
+mesh = SubResource("PrismMesh_rgyib")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Fox" unique_id=1128432530]
+transform = Transform3D(0.9884938, 0, -0.15126081, 0, 1, 0, 0.15126081, 0, 0.9884938, -0.236, 1.393, -0.072)
+mesh = SubResource("PrismMesh_rgyib")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 

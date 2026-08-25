@@ -17,6 +17,11 @@ const SPECIES: Array[Dictionary] = [
 		"texture": preload("uid://bwqt52rut5ecg"),
 		"face": preload("uid://b3gq08y3fat6c"),
 	},
+	{
+		"name": "Fox",
+		"texture": preload("uid://bps40p8oleq7g"),
+		"face": preload("uid://dwvek7mgsrihw"),
+	},
 ]
 var current_species := 0
 
