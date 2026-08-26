@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g4oiluox7fq1"
-path.s3tc="res://.godot/imported/capy-face.png-7e65e2ff43ac160101512f2c4d7b9486.s3tc.ctex"
+uid="uid://bon71ubk8crgc"
+path.s3tc="res://.godot/imported/face-bug.png-2aeefdbc935f270cccc9f347d27a082b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/capy-face.png"
-dest_files=["res://.godot/imported/capy-face.png-7e65e2ff43ac160101512f2c4d7b9486.s3tc.ctex"]
+source_file="res://test/faces/face-bug.png"
+dest_files=["res://.godot/imported/face-bug.png-2aeefdbc935f270cccc9f347d27a082b.s3tc.ctex"]
 
 [params]
 

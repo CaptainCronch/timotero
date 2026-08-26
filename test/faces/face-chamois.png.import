@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3gq08y3fat6c"
-path.s3tc="res://.godot/imported/kitty-face.png-bb30c5dc2688a9b98f410af4a483add3.s3tc.ctex"
+uid="uid://bgjecbjhhwyod"
+path.s3tc="res://.godot/imported/face-chamois.png-1a9e680ff4d4ea331fddd748cd202b06.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/kitty-face.png"
-dest_files=["res://.godot/imported/kitty-face.png-bb30c5dc2688a9b98f410af4a483add3.s3tc.ctex"]
+source_file="res://test/faces/face-chamois.png"
+dest_files=["res://.godot/imported/face-chamois.png-1a9e680ff4d4ea331fddd748cd202b06.s3tc.ctex"]
 
 [params]
 

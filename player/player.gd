@@ -3,24 +3,89 @@ class_name Player
 
 const SPECIES: Array[Dictionary] = [
 	{
-		"name": "Bunny",
-		"texture": preload("uid://cw4q0pwveeu68"),
+		"ears": "Bunny",
+		"texture": preload("uid://ddnalu3w85bxd"),
 		"face": preload("uid://bmi03s6dgewoj"),
 	},
 	{
-		"name": "Capy",
+		"ears": "Capy",
 		"texture": preload("uid://l6a5h0elmrqi"),
 		"face": preload("uid://g4oiluox7fq1"),
 	},
 	{
-		"name": "Kitty",
+		"ears": "Kitty",
 		"texture": preload("uid://bwqt52rut5ecg"),
 		"face": preload("uid://b3gq08y3fat6c"),
 	},
 	{
-		"name": "Fox",
+		"ears": "Fox",
 		"texture": preload("uid://bps40p8oleq7g"),
 		"face": preload("uid://dwvek7mgsrihw"),
+	},
+	{
+		"ears": "Derg",
+		"texture": preload("uid://dlqajrarf3um4"),
+		"face": preload("uid://4mvy3t8187da"),
+	},
+	{
+		"ears": "Racc",
+		"texture": preload("uid://xalsfixindqb"),
+		"face": preload("uid://dq0ou37v6o4qe"),
+	},
+	{
+		"ears": "Badger",
+		"texture": preload("uid://cfu2q5qpnw2ot"),
+		"face": preload("uid://du2jmnlpk3hdt"),
+	},
+	{
+		"ears": "Sparkle",
+		"texture": preload("uid://c75uwlm4sjgpt"),
+		"face": preload("uid://ccjw27wydxybm"),
+	},
+	{
+		"ears": "Chamois",
+		"texture": preload("uid://dhae0yd01wks"),
+		"face": preload("uid://bgjecbjhhwyod"),
+	},
+	{
+		"ears": "Kitty",
+		"texture": preload("uid://chphs1ovrpfd4"),
+		"face": preload("uid://br6ga0wm5bift"),
+	},
+	{
+		"ears": "Fox",
+		"texture": preload("uid://bps40p8oleq7g"),
+		"face": preload("uid://buoe4ubhtjkf0"),
+	},
+	{
+		"ears": "Badger",
+		"texture": preload("uid://bo4mmsugh08el"),
+		"face": preload("uid://thdgal88y6ts"),
+	},
+	{
+		"ears": "Capy",
+		"texture": preload("uid://cw4q0pwveeu68"),
+		"face": preload("uid://c6ogvoo134aoy"),
+	},
+	{
+		"ears": "Fox",
+		"texture": preload("uid://cqk6875dbohhs"),
+		"face": preload("uid://bon71ubk8crgc"),
+	},
+	{
+		"ears": "Fox",
+		"texture": preload("uid://c4brwswnyipu8"),
+		"face": preload("uid://uarhe68pqcpa"),
+	},
+	{
+		"ears": "Kitty",
+		"texture": preload("uid://8fbj2m4uso7l"),
+		"face": preload("uid://b1ft0rmgdxqhx"),
+	},
+	{
+		"ears": "Bunny",
+		"texture": preload("uid://cggfpc80ubw21"),
+		"face": preload("uid://ckwwmar45c7up"),
 	},
 ]
 var current_species := 0
@@ -73,13 +138,13 @@ func get_input() -> void:
 		#gravity_boon.add_boon("falling", falling_gravity_boon)
 		#gravity_boon.remove_bane("peak")
 	
-	if Input.is_action_just_pressed("debug_key"):
+	if Input.is_action_just_released("debug_key"):
 		current_species += 1
 		if current_species > SPECIES.size() - 1: current_species = 0
 		
 		for child in model.get_children():
 			if child.name == "Face": continue
-			elif child.name == SPECIES[current_species]["name"]: child.visible = true
+			elif child.name == SPECIES[current_species]["ears"]: child.visible = true
 			else: child.visible = false
 		
 		$Model/Face.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["face"]

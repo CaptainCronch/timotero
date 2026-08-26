@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwqt52rut5ecg"
-path.s3tc="res://.godot/imported/proto-purple.png-a1bfd3bacb84a03b2eca848453aeb065.s3tc.ctex"
+uid="uid://thdgal88y6ts"
+path.s3tc="res://.godot/imported/face-gremlin.png-2ffe274a22fe593be9cb47322bdcbfb5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/proto-purple.png"
-dest_files=["res://.godot/imported/proto-purple.png-a1bfd3bacb84a03b2eca848453aeb065.s3tc.ctex"]
+source_file="res://test/faces/face-gremlin.png"
+dest_files=["res://.godot/imported/face-gremlin.png-2ffe274a22fe593be9cb47322bdcbfb5.s3tc.ctex"]
 
 [params]
 

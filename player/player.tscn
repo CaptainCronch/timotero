@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://nw0kmvmm5cs"]
 
 [ext_resource type="Script" uid="uid://qlcjclmtgwts" path="res://player/player.gd" id="1_g1dw6"]
-[ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/bunny-face.png" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://c0g4mht1empq3" path="res://components/platformer_component.tscn" id="2_qjkh3"]
-[ext_resource type="Texture2D" uid="uid://cw4q0pwveeu68" path="res://test/proto-yellow.png" id="3_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://ddnalu3w85bxd" path="res://test/proto-textures/proto-beige.png" id="3_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="4_g6k8r"]
 [ext_resource type="Script" uid="uid://bden2ailx6gmc" path="res://player/spring_arm.gd" id="5_qjkh3"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wagxh"]
@@ -15,7 +15,8 @@ albedo_texture = ExtResource("3_qjkh3")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rmco"]
 transparency = 1
-albedo_texture = ExtResource("2_g1dw6")
+shading_mode = 0
+albedo_texture = ExtResource("4_g6k8r")
 texture_filter = 0
 
 [sub_resource type="PrismMesh" id="PrismMesh_wagxh"]
@@ -32,6 +33,25 @@ size = Vector3(0.46, 0.565, 0.18)
 [sub_resource type="PrismMesh" id="PrismMesh_rgyib"]
 left_to_right = 0.6
 size = Vector3(0.46, 0.79, 0.24)
+
+[sub_resource type="PrismMesh" id="PrismMesh_qjkh3"]
+left_to_right = 1.6
+size = Vector3(0.455, 0.63, 0.265)
+
+[sub_resource type="PrismMesh" id="PrismMesh_hg6s5"]
+size = Vector3(0.585, 0.635, 0.18)
+
+[sub_resource type="PrismMesh" id="PrismMesh_8t03j"]
+left_to_right = 0.6
+size = Vector3(0.585, 0.535, 0.18)
+
+[sub_resource type="PrismMesh" id="PrismMesh_2ieo8"]
+left_to_right = 0.2
+size = Vector3(0.78, 0.82, 0.18)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ebec5"]
+left_to_right = 0.7
+size = Vector3(0.46, 1.03, 0.24)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wagxh"]
 
@@ -118,8 +138,83 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
 [node name="EarRight" type="MeshInstance3D" parent="Model/Fox" unique_id=1128432530]
-transform = Transform3D(0.9884938, 0, -0.15126081, 0, 1, 0, 0.15126081, 0, 0.9884938, -0.236, 1.393, -0.072)
+transform = Transform3D(-0.98849386, 0, -0.15126081, 0, 1, 0, -0.15126081, 0, 0.98849386, -0.236, 1.393, -0.072)
 mesh = SubResource("PrismMesh_rgyib")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Derg" type="Node3D" parent="Model" unique_id=1852325644]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Derg" unique_id=1390086447]
+transform = Transform3D(0.7950561, 0.4191856, 0.43837115, -0.46638665, 0.8845811, 0, -0.38777477, -0.20445049, 0.89879405, 0.41465038, 1.1708486, -0.09821677)
+mesh = SubResource("PrismMesh_qjkh3")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Derg" unique_id=1733235257]
+transform = Transform3D(-0.7950561, -0.41918555, -0.43837115, -0.46638665, 0.88458097, 0, -0.38777477, -0.20445046, 0.89879405, -0.415, 1.171, -0.098)
+mesh = SubResource("PrismMesh_qjkh3")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Racc" type="Node3D" parent="Model" unique_id=894488762]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Racc" unique_id=1315831927]
+transform = Transform3D(0.6717441, 0.70968294, 0.21239053, -0.7181356, 0.69422007, -0.048367813, -0.18177162, -0.12003442, 0.9759871, 0.51007116, 1.004966, -0.072362944)
+mesh = SubResource("PrismMesh_hg6s5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Racc" unique_id=1070047956]
+transform = Transform3D(0.6712271, -0.7100567, -0.21277605, 0.718481, 0.69382906, -0.04884977, 0.18231632, -0.12008626, 0.97587913, -0.51, 1.005, -0.072)
+mesh = SubResource("PrismMesh_hg6s5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Badger" type="Node3D" parent="Model" unique_id=1839715208]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Badger" unique_id=2088595884]
+transform = Transform3D(0.84548545, 0.48771882, 0.21744993, -0.50210863, 0.864709, 0.012833935, -0.18177162, -0.12003444, 0.975987, 0.36223233, 1.0813789, -0.072362944)
+mesh = SubResource("PrismMesh_8t03j")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Badger" unique_id=1137998684]
+transform = Transform3D(-0.84565234, -0.48712704, -0.21812697, -0.5014733, 0.86508685, 0.012217001, -0.18274753, -0.11971618, 0.9758439, -0.362, 1.081, -0.072)
+mesh = SubResource("PrismMesh_8t03j")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Sparkle" type="Node3D" parent="Model" unique_id=881329958]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Sparkle" unique_id=1929378789]
+transform = Transform3D(0.6717441, 0.70968294, 0.21239053, -0.7181356, 0.69422007, -0.048367813, -0.18177162, -0.12003442, 0.9759871, 0.51007116, 1.004966, -0.072362944)
+mesh = SubResource("PrismMesh_2ieo8")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Sparkle" unique_id=424893808]
+transform = Transform3D(-0.6712271, -0.7100567, -0.21277605, -0.718481, 0.69382906, -0.04884977, -0.18231632, -0.12008626, 0.97587913, -0.51, 1.005, -0.072)
+mesh = SubResource("PrismMesh_2ieo8")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Chamois" type="Node3D" parent="Model" unique_id=1749055865]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Chamois" unique_id=1223373614]
+transform = Transform3D(0.94284517, 0.32203943, 0.085636, -0.31887013, 0.94654167, -0.048794, -0.09677161, 0.018698424, 0.9951309, 0.42407316, 1.4100108, -0.0043389946)
+mesh = SubResource("PrismMesh_ebec5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Chamois" unique_id=196028662]
+transform = Transform3D(-0.9429737, -0.32174826, -0.085314944, -0.3185785, 0.94663686, -0.04884977, -0.09647961, 0.01888454, 0.99515575, -0.424, 1.41, -0.004)
+mesh = SubResource("PrismMesh_ebec5")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 

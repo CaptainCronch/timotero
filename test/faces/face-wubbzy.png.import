@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwvek7mgsrihw"
-path.s3tc="res://.godot/imported/fox-face.png-fdf9355642d782a8cd8e71fb7221c2ed.s3tc.ctex"
+uid="uid://c6ogvoo134aoy"
+path.s3tc="res://.godot/imported/face-wubbzy.png-23d1981e9b18b30bdf6d93b79dd28b3b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/fox-face.png"
-dest_files=["res://.godot/imported/fox-face.png-fdf9355642d782a8cd8e71fb7221c2ed.s3tc.ctex"]
+source_file="res://test/faces/face-wubbzy.png"
+dest_files=["res://.godot/imported/face-wubbzy.png-23d1981e9b18b30bdf6d93b79dd28b3b.s3tc.ctex"]
 
 [params]
 

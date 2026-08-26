@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crmg7q2nc7ewu"
-path.s3tc="res://.godot/imported/proto-green.png-ef5e88c3b24dfa1eb58c48d52ab3635d.s3tc.ctex"
+uid="uid://dhae0yd01wks"
+path.s3tc="res://.godot/imported/proto-brown.png-9535b5a3fb7ad2da0b140517d0f9011c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/proto-green.png"
-dest_files=["res://.godot/imported/proto-green.png-ef5e88c3b24dfa1eb58c48d52ab3635d.s3tc.ctex"]
+source_file="res://test/proto-textures/proto-brown.png"
+dest_files=["res://.godot/imported/proto-brown.png-9535b5a3fb7ad2da0b140517d0f9011c.s3tc.ctex"]
 
 [params]
 

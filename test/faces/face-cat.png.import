@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtl1ioc75ftgd"
-path.s3tc="res://.godot/imported/proto-orange.png-2d3256ba9c1be7f3a158bb74b1276a87.s3tc.ctex"
+uid="uid://br6ga0wm5bift"
+path.s3tc="res://.godot/imported/face-cat.png-ac207cba480cb4931eaab97f3ffc94ee.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/proto-orange.png"
-dest_files=["res://.godot/imported/proto-orange.png-2d3256ba9c1be7f3a158bb74b1276a87.s3tc.ctex"]
+source_file="res://test/faces/face-cat.png"
+dest_files=["res://.godot/imported/face-cat.png-ac207cba480cb4931eaab97f3ffc94ee.s3tc.ctex"]
 
 [params]
 

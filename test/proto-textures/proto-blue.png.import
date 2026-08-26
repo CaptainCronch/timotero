@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmi03s6dgewoj"
-path.s3tc="res://.godot/imported/bunny-face.png-68c3edf6c7fe0729730640f22f63ec39.s3tc.ctex"
+uid="uid://cfu2q5qpnw2ot"
+path.s3tc="res://.godot/imported/proto-blue.png-a221b918629be9261e89a533dbe7beb2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/bunny-face.png"
-dest_files=["res://.godot/imported/bunny-face.png-68c3edf6c7fe0729730640f22f63ec39.s3tc.ctex"]
+source_file="res://test/proto-textures/proto-blue.png"
+dest_files=["res://.godot/imported/proto-blue.png-a221b918629be9261e89a533dbe7beb2.s3tc.ctex"]
 
 [params]
 
