@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://bx7qrcpplghho"]
+
+[ext_resource type="Script" uid="uid://ct6fy8kpahx88" path="res://test/test_dummy.gd" id="1_0cd2w"]
+[ext_resource type="PackedScene" uid="uid://bmh0i38737jgt" path="res://components/health_component.tscn" id="2_w48vd"]
+[ext_resource type="PackedScene" uid="uid://cqrprkhrapxbf" path="res://components/hitbox_component.tscn" id="3_4ceke"]
+[ext_resource type="PackedScene" uid="uid://1ljsygj5qxht" path="res://components/hurtbox_component.tscn" id="4_4ceke"]
+[ext_resource type="PackedScene" uid="uid://c0g4mht1empq3" path="res://components/platformer_component.tscn" id="4_g7mv1"]
+[ext_resource type="Texture2D" uid="uid://c75uwlm4sjgpt" path="res://test/proto-textures/proto-magenta.png" id="5_111av"]
+[ext_resource type="Script" uid="uid://cwmtuce3mypoy" path="res://classes/attack.gd" id="5_g7mv1"]
+[ext_resource type="Texture2D" uid="uid://d2b8i1xgn50oh" path="res://test/faces/face-dummy.png" id="6_4sqvp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wagxh"]
+
+[sub_resource type="Resource" id="Resource_7qk3k"]
+script = ExtResource("5_g7mv1")
+attack_damage = 0.1
+knockback_force = 5.0
+knockup_force = 2.0
+origin_name = "Test Dummy"
+metadata/_custom_type_script = "uid://cwmtuce3mypoy"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wagxh"]
+radius = 2.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_wagxh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wagxh"]
+albedo_texture = ExtResource("5_111av")
+
+[sub_resource type="QuadMesh" id="QuadMesh_f3teu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v43yw"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("6_4sqvp")
+texture_filter = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_wagxh"]
+radius = 2.0
+height = 4.0
+
+[node name="TestDummy" type="CharacterBody3D" unique_id=627899500 node_paths=PackedStringArray("hitbox_comp", "hurtbox_comp", "plat_comp", "model", "hit_visual", "debug_label")]
+collision_layer = 256
+collision_mask = 3
+script = ExtResource("1_0cd2w")
+hitbox_comp = NodePath("HitboxComponent")
+hurtbox_comp = NodePath("HurtboxComponent")
+plat_comp = NodePath("PlatformerComponent")
+model = NodePath("Model")
+hit_visual = NodePath("HitVisual")
+debug_label = NodePath("DebugLabel")
+
+[node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("2_w48vd")]
+max_health = 10.0
+target = NodePath("..")
+plat_comp = NodePath("../PlatformerComponent")
+
+[node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("3_4ceke")]
+collision_layer = 256
+collision_mask = 256
+alignment = 2
+target = NodePath("..")
+health_comp = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=606370035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_wagxh")
+
+[node name="HurtboxComponent" parent="." unique_id=2113987217 instance=ExtResource("4_4ceke")]
+collision_layer = 256
+collision_mask = 256
+attack = SubResource("Resource_7qk3k")
+alignment = 2
+direct_towards_hit = true
+update_delay = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=907685239]
+shape = SubResource("SphereShape3D_wagxh")
+
+[node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("4_g7mv1")]
+target = NodePath("..")
+model = NodePath("../Model")
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=1149076503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_wagxh")
+
+[node name="Model" type="MeshInstance3D" parent="." unique_id=172650213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("PrismMesh_wagxh")
+surface_material_override/0 = SubResource("StandardMaterial3D_wagxh")
+
+[node name="Face" type="MeshInstance3D" parent="Model" unique_id=792492113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6)
+mesh = SubResource("QuadMesh_f3teu")
+surface_material_override/0 = SubResource("StandardMaterial3D_v43yw")
+
+[node name="HitVisual" type="MeshInstance3D" parent="." unique_id=2018330095]
+visible = false
+mesh = SubResource("SphereMesh_wagxh")
+surface_material_override/0 = SubResource("StandardMaterial3D_wagxh")
+
+[node name="DebugLabel" type="Label3D" parent="." unique_id=110686437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5512624, 0)
+pixel_size = 0.01
+billboard = 1
+
+[connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]
+[connection signal="struck" from="HitboxComponent" to="." method="_on_hitbox_struck"]
+[connection signal="area_entered" from="HurtboxComponent" to="." method="_on_hurtbox_area_entered"]
+[connection signal="hit" from="HurtboxComponent" to="." method="_on_hurtbox_hit"]

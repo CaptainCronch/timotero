@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd2vx3pe6nh2q"
-path.s3tc="res://.godot/imported/proto-black.png-02d861da0fa34a36cdc1150b8d94af3a.s3tc.ctex"
+uid="uid://d2b8i1xgn50oh"
+path.s3tc="res://.godot/imported/face-dummy.png-3ab8f661d2be9bafb5c3089da1142246.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://test/proto-textures/proto-black.png"
-dest_files=["res://.godot/imported/proto-black.png-02d861da0fa34a36cdc1150b8d94af3a.s3tc.ctex"]
+source_file="res://test/faces/face-dummy.png"
+dest_files=["res://.godot/imported/face-dummy.png-3ab8f661d2be9bafb5c3089da1142246.s3tc.ctex"]
 
 [params]
 

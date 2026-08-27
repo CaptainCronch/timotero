@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dtl1ioc75ftgd" path="res://test/proto-textures/proto-orange.png" id="1_8rkqs"]
 [ext_resource type="PackedScene" uid="uid://nw0kmvmm5cs" path="res://player/player.tscn" id="2_klfgi"]
 [ext_resource type="Texture2D" uid="uid://bwqt52rut5ecg" path="res://test/proto-textures/proto-violet.png" id="2_ls30l"]
+[ext_resource type="PackedScene" uid="uid://bx7qrcpplghho" path="res://test/test_dummy.tscn" id="4_kgsy5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgsy5"]
 albedo_texture = ExtResource("1_8rkqs")
@@ -43,185 +44,163 @@ func _on_body_entered(body: Node3D) -> void:
 [node name="Ground" type="CSGBox3D" parent="World" unique_id=1460988255]
 transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -0.5, 0)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 material = SubResource("StandardMaterial3D_kgsy5")
 
 [node name="Slope" type="CSGBox3D" parent="World" unique_id=149149882]
 transform = Transform3D(0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 0, 0, 0, 1, 12.5, 0.5235691, 2.5818944)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Slope2" type="CSGBox3D" parent="World" unique_id=770804380]
 transform = Transform3D(0.86602545, -0.50000006, 0, 0.50000006, 0.86602545, 0, 0, 0, 1, 12.5, 0.5235691, -2.8293328)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Slope3" type="CSGBox3D" parent="World" unique_id=269870406]
 transform = Transform3D(0.70710677, -0.7071068, 0, 0.7071068, 0.70710677, 0, 0, 0, 1, 12.5, 0.5235691, -8.335633)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Slope4" type="CSGBox3D" parent="World" unique_id=511897463]
 transform = Transform3D(0.49999994, -0.86602545, 0, 0.86602545, 0.49999994, 0, 0, 0, 1, 12.5, 0.5235691, -13.883916)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Platform" type="CSGBox3D" parent="World" unique_id=1778632591]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.5, 9)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Platform2" type="CSGBox3D" parent="World" unique_id=704060621]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 11.627)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Platform3" type="CSGBox3D" parent="World" unique_id=1430086221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 14.345)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Platform4" type="CSGBox3D" parent="World" unique_id=2095877427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 16.862)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Platform5" type="CSGBox3D" parent="World" unique_id=986162623]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.5, 19.39)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Platform6" type="CSGBox3D" parent="World" unique_id=100595876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, 21.889)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap" type="CSGBox3D" parent="World" unique_id=1725153330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 9)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap2" type="CSGBox3D" parent="World" unique_id=1919732498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 9)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap3" type="CSGBox3D" parent="World" unique_id=1133586957]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 11.627766)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap4" type="CSGBox3D" parent="World" unique_id=1546844415]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 11.628)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap5" type="CSGBox3D" parent="World" unique_id=413934517]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 14.343124)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap6" type="CSGBox3D" parent="World" unique_id=1561889480]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 14.343)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap7" type="CSGBox3D" parent="World" unique_id=1565754254]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 16.948994)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap8" type="CSGBox3D" parent="World" unique_id=228480197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, 16.949)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap9" type="CSGBox3D" parent="World" unique_id=246522104]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 19.423473)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap10" type="CSGBox3D" parent="World" unique_id=112822733]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 1, 19.423409)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap11" type="CSGBox3D" parent="World" unique_id=1181369042]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 21.963644)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Gap12" type="CSGBox3D" parent="World" unique_id=160893201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 21.964)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Pole" type="CSGCylinder3D" parent="World" unique_id=1698923444]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5563087, 5.0086093, 17.443819)
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 height = 10.0
 material = SubResource("StandardMaterial3D_wagxh")
 
 [node name="Pole2" type="CSGCylinder3D" parent="World" unique_id=1585542973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9901514, 5.0086093, 17.443819)
 use_collision = true
-collision_layer = 3
-collision_mask = 3
 height = 10.0
 material = SubResource("StandardMaterial3D_wagxh")
 
@@ -344,11 +323,23 @@ shadow_enabled = true
 
 [node name="Teleport" type="Area3D" parent="." unique_id=967717672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.436684, 0)
+collision_mask = 256
 script = SubResource("GDScript_7qk3k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Teleport" unique_id=142623080]
 shape = SubResource("WorldBoundaryShape3D_wagxh")
 
 [node name="Player" parent="." unique_id=1381430318 instance=ExtResource("2_klfgi")]
+
+[node name="TestDummy" parent="." unique_id=627899500 instance=ExtResource("4_kgsy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.081768, 0, 9.92841)
+
+[node name="TestDummy2" parent="." unique_id=1519805031 instance=ExtResource("4_kgsy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.081768, 0, 4.3920302)
+attack_type = "Timed Multihit"
+
+[node name="TestDummy3" parent="." unique_id=1960929110 instance=ExtResource("4_kgsy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.021591, 0, -0.24167919)
+attack_type = "On Enter"
 
 [connection signal="body_entered" from="Teleport" to="Teleport" method="_on_body_entered"]

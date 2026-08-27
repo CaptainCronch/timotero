@@ -123,11 +123,9 @@ debug_key={
 [layer_names]
 
 3d_physics/layer_1="Environment"
-3d_physics/layer_2="Camera Blocking"
-
-[physics]
-
-common/enable_object_picking=false
+3d_physics/layer_2="Passable"
+3d_physics/layer_5="Player"
+3d_physics/layer_9="Entity"
 
 [rendering]
 

@@ -2,7 +2,7 @@ extends Node3D
 class_name HealthComponent
 
 #TODO: emit percentage change in signals
-signal damage_taken(attack: Attack)
+signal damage_taken(amount: float, attack: Attack)
 signal healed(amount: float)
 signal health_changed(total: float)
 signal death(attack: Attack)
@@ -15,8 +15,6 @@ signal unstunned()
 @export var max_health: float
 #@export var invincibility_time := 0.0
 @export var defense := 0.0
-@export var knockback_factor := 1.0
-@export var knockup_factor := 1.0
 @export var target: Node3D
 @export var plat_comp: PlatformerComponent
 
@@ -34,6 +32,11 @@ var stun_timer := 0.0
 #@onready var invincibility_timer: Timer = $Invincibility
 
 
+func _ready() -> void:
+	if is_zero_approx(max_health):
+		push_warning("HealthComponent spawned with 0 max health!")
+
+
 func _process(delta: float) -> void:
 	if stun_timer > 0.0:
 		stun_timer -= delta
@@ -46,14 +49,11 @@ func hurt(attack: Attack):
 	if dead: return
 	#if not invincibility_timer.is_stopped(): return
 	stun(attack)
-	if target is CharacterBody3D:
-		target.velocity += Vector3(
-			attack.attack_direction.x * attack.knockback_force * knockback_factor,
-			attack.knockup_force * knockup_factor,
-			attack.attack_direction.y * attack.knockback_force * knockback_factor,
-		)
-		#if is_instance_valid(plat_comp):
-			#plat_comp.velocity_z += attack.knockup_force * knockup_factor
+	if is_instance_valid(plat_comp):
+		plat_comp.knock(attack.attack_direction * attack.knockback_force, attack.knockup_force)
+	elif target is CharacterBody3D:
+		target.velocity += Global.xz_from_vec2(attack.attack_direction * attack.knockback_force)
+		target.velocity.y = attack.knockup_force
 	#var current_damage := attack.attack_damage if not is_player else attack.player_damage
 	if attack.attack_damage <= 0.0: return
 	if attack.attack_damage - defense <= 0.0: return
@@ -62,7 +62,7 @@ func hurt(attack: Attack):
 	#to be better at hitting low defense entities VS low DPS high damage builds to be better at \
 	#hitting high defense entities but both can still always do some damage at least?
 	health -= attack.attack_damage - defense
-	damage_taken.emit(attack.attack_damage - defense)
+	damage_taken.emit(attack.attack_damage - defense, attack)
 	health_changed.emit(health)
 	
 	if health <= 0.0:

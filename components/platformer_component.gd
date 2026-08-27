@@ -12,6 +12,8 @@ const MAX_FALL_SPEED := -1000.0
 @export var base_jump_force := 12.0
 @export var base_gravity := 30.0
 @export var turn_acceleration := 30.0
+@export var knockback_factor := 1.0
+@export var knockup_factor := 1.0
 
 var last_desired_dir := Vector2.UP
 var move_dir := Vector2.ZERO
@@ -30,14 +32,14 @@ var is_jumping := false
 @onready var gravity := base_gravity
 
 @export_category("Nodes")
-@export var target: CharacterBody3D
-@export var model: Node3D
+@export var target: CharacterBody3D ## Character that this component will calculate movement for.
+@export var model: Node3D ## Rotateable visuals for the character.
 #@export var health_comp: HealthComponent
 
 
 func _ready():
-	if not is_instance_valid(target): push_error("This PlatformerComponent is lacking a target")
-	if not is_instance_valid(model): push_error("This PlatformerComponent is lacking a model")
+	assert(is_instance_valid(target), "This PlatformerComponent is lacking a target")
+	assert(is_instance_valid(model), "This PlatformerComponent is lacking a model")
 	#if health_comp:
 		#health_comp.damage_taken.connect(knockback)
 
@@ -109,6 +111,11 @@ func jump(ignore_ground_check := false) -> void:
 	if not is_on_floor() and not ignore_ground_check: return# or stunned: return
 	target.velocity.y = jump_force
 	is_jumping = true
+
+
+func knock(knockback: Vector2, knockup: float) -> void:
+	target.velocity += Global.xz_from_vec2(knockback * knockback_factor)
+	target.velocity.y = maxf(knockup * knockup_factor, target.velocity.y) # ignore knockup if it would cancel your jump or something
 
 
 #func explode(origin : Vector3, radius : float, power : float, upthrust := 0.0) -> void :

@@ -4,12 +4,21 @@ class_name HitboxComponent
 
 signal struck(attack: Attack)
 
+enum ALIGNMENT {
+	NONE,
+	PLAYER,
+	ENEMY,
+	ENVIRONMENT,
+}
+
+@export var alignment: ALIGNMENT
+@export var target: Node3D
 @export var health_comp: HealthComponent
 
 
 func _ready() -> void:
-	if not collision_layer and not collision_mask:
-		printerr("HitboxComponent of ", get_parent().name, " has no collision bits enabled!")
+	assert(collision_layer and collision_mask, 
+			"HitboxComponent of " + get_parent().name + " has no collision bits enabled!")
 
 
 func strike(attack: Attack) -> void:

@@ -1,10 +1,20 @@
 [gd_scene format=3 uid="uid://nw0kmvmm5cs"]
 
 [ext_resource type="Script" uid="uid://qlcjclmtgwts" path="res://player/player.gd" id="1_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://bmh0i38737jgt" path="res://components/health_component.tscn" id="2_boad6"]
 [ext_resource type="PackedScene" uid="uid://c0g4mht1empq3" path="res://components/platformer_component.tscn" id="2_qjkh3"]
 [ext_resource type="Texture2D" uid="uid://ddnalu3w85bxd" path="res://test/proto-textures/proto-beige.png" id="3_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://cqrprkhrapxbf" path="res://components/hitbox_component.tscn" id="3_rgyib"]
 [ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="4_g6k8r"]
 [ext_resource type="Script" uid="uid://bden2ailx6gmc" path="res://player/spring_arm.gd" id="5_qjkh3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wagxh"]
+size = Vector3(0.5, 1.5, 0.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wagxh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
+radius = 0.2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wagxh"]
 
@@ -53,12 +63,16 @@ size = Vector3(0.78, 0.82, 0.18)
 left_to_right = 0.7
 size = Vector3(0.46, 1.03, 0.24)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_wagxh"]
+[sub_resource type="BoxMesh" id="BoxMesh_g6k8r"]
+size = Vector3(0.043395996, 0.87158203, 0.31982422)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_qjkh3"]
-radius = 0.2
+[sub_resource type="PrismMesh" id="PrismMesh_yllr7"]
+left_to_right = 0.3
+size = Vector3(0.585, 0.635, 0.365)
 
 [node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("plat_comp", "model", "spring_arm", "buffer_timer", "coyote_timer", "debug_label")]
+collision_layer = 272
+collision_mask = 3
 floor_constant_speed = true
 floor_max_angle = 0.80285144
 floor_snap_length = 0.2
@@ -70,9 +84,50 @@ buffer_timer = NodePath("BufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
 debug_label = NodePath("DebugLabel")
 
+[node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("2_boad6")]
+max_health = 10.0
+target = NodePath("..")
+plat_comp = NodePath("../PlatformerComponent")
+
+[node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("3_rgyib")]
+collision_layer = 272
+collision_mask = 256
+alignment = 1
+target = NodePath("..")
+health_comp = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1506506393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_wagxh")
+
 [node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("2_qjkh3")]
 target = NodePath("..")
 model = NodePath("../Model")
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=91309768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_wagxh")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1342301789 node_paths=PackedStringArray("plat_comp", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("SphereShape3D_qjkh3")
+spring_length = 10.0
+margin = 0.1
+script = ExtResource("5_qjkh3")
+plat_comp = NodePath("../PlatformerComponent")
+target = NodePath("../Model")
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1995212915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+fov = 70.0
+
+[node name="BufferTimer" type="Timer" parent="." unique_id=2052782670]
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1601898135]
+wait_time = 0.1
+one_shot = true
 
 [node name="Model" type="MeshInstance3D" parent="." unique_id=1356361414]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -218,33 +273,39 @@ mesh = SubResource("PrismMesh_ebec5")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
-[node name="Collider" type="CollisionShape3D" parent="." unique_id=91309768]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_wagxh")
+[node name="Bird" type="Node3D" parent="Model" unique_id=1807456885]
+visible = false
 
-[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1342301789 node_paths=PackedStringArray("plat_comp", "target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-collision_mask = 2
-shape = SubResource("SphereShape3D_qjkh3")
-spring_length = 10.0
-margin = 0.1
-script = ExtResource("5_qjkh3")
-plat_comp = NodePath("../PlatformerComponent")
-target = NodePath("../Model")
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Bird" unique_id=1261827677]
+transform = Transform3D(-1.1345837e-08, 0.2595625, 0.9657263, -0.9787845, -0.19787017, 0.05318242, -0.20489259, 0.94523793, -0.25405574, -0.211, -0.48548955, -0.859)
+mesh = SubResource("BoxMesh_g6k8r")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1995212915]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
-fov = 70.0
+[node name="EarRight" type="MeshInstance3D" parent="Model/Bird" unique_id=1791919166]
+transform = Transform3D(-0.0005329624, -0.25875753, -0.96594214, 0.97892773, -0.19738643, 0.05233596, 0.20420621, 0.94555956, -0.25341016, 0.211, -0.485, -0.859)
+mesh = SubResource("BoxMesh_g6k8r")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
-[node name="BufferTimer" type="Timer" parent="." unique_id=2052782670]
-wait_time = 0.1
-one_shot = true
+[node name="Horned" type="Node3D" parent="Model" unique_id=1975158735]
+visible = false
 
-[node name="CoyoteTimer" type="Timer" parent="." unique_id=1601898135]
-wait_time = 0.1
-one_shot = true
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Horned" unique_id=1294652868]
+transform = Transform3D(0.68619865, 0.69559866, -0.21277604, -0.71848094, 0.69382894, -0.048849765, 0.11365035, 0.18639618, 0.9758791, 0.4598328, 1.0050001, 0.12004769)
+mesh = SubResource("PrismMesh_yllr7")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Horned" unique_id=2060808204]
+transform = Transform3D(-0.6861987, -0.6955988, 0.21277605, -0.718481, 0.69382906, -0.04884977, 0.11365037, 0.18639621, 0.97587913, -0.46, 1.005, 0.12)
+mesh = SubResource("PrismMesh_yllr7")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
 [node name="DebugLabel" type="Label3D" parent="." unique_id=361566345]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0007677, 0)
 pixel_size = 0.01
 billboard = 1
+
+[connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]

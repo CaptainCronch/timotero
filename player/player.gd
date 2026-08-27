@@ -87,6 +87,26 @@ const SPECIES: Array[Dictionary] = [
 		"texture": preload("uid://cggfpc80ubw21"),
 		"face": preload("uid://ckwwmar45c7up"),
 	},
+	{
+		"ears": "Bird",
+		"texture": preload("uid://dd2vx3pe6nh2q"),
+		"face": preload("uid://cl74j1o8trd7o"),
+	},
+	{
+		"ears": "Horned",
+		"texture": preload("uid://qyodfahhj1eo"),
+		"face": preload("uid://celluoibvs4lo"),
+	},
+	{
+		"ears": "Fox",
+		"texture": preload("uid://xo8rvvcf48tk"),
+		"face": preload("uid://cwx51ump0tlry"),
+	},
+	{
+		"ears": "Sparkle",
+		"texture": preload("uid://b1r6yd3cbi8dc"),
+		"face": preload("uid://dtt72yb3qrqfl"),
+	},
 ]
 var current_species := 0
 
@@ -184,3 +204,7 @@ func vertical_movement() -> void:
 	#debug_label.text = str(gravity_boon.boons.keys()) + " " + str(gravity_boon.banes.keys())
 	#debug_label.text = "cutting: " + str(jump_cut)
 	#debug_label.text = str(plat_comp.gravity)
+
+
+func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
+	debug_label.text = "Took " + str(amount) + " damage!"
