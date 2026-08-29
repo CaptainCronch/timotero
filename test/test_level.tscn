@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cxokfdi0db5ce"]
 
 [ext_resource type="Texture2D" uid="uid://dtl1ioc75ftgd" path="res://test/proto-textures/proto-orange.png" id="1_8rkqs"]
-[ext_resource type="PackedScene" uid="uid://nw0kmvmm5cs" path="res://player/player.tscn" id="2_klfgi"]
 [ext_resource type="Texture2D" uid="uid://bwqt52rut5ecg" path="res://test/proto-textures/proto-violet.png" id="2_ls30l"]
 [ext_resource type="PackedScene" uid="uid://bx7qrcpplghho" path="res://test/test_dummy.tscn" id="4_kgsy5"]
 
@@ -39,38 +38,38 @@ func _on_body_entered(body: Node3D) -> void:
 
 [node name="TestLevel" type="Node3D" unique_id=888138300]
 
-[node name="World" type="Node3D" parent="." unique_id=1046702548]
+[node name="Environment" type="Node3D" parent="." unique_id=1046702548]
 
-[node name="Ground" type="CSGBox3D" parent="World" unique_id=1460988255]
+[node name="Ground" type="CSGBox3D" parent="Environment" unique_id=1460988255]
 transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -0.5, 0)
 use_collision = true
 material = SubResource("StandardMaterial3D_kgsy5")
 
-[node name="Slope" type="CSGBox3D" parent="World" unique_id=149149882]
+[node name="Slope" type="CSGBox3D" parent="Environment" unique_id=149149882]
 transform = Transform3D(0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 0, 0, 0, 1, 12.5, 0.5235691, 2.5818944)
 use_collision = true
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Slope2" type="CSGBox3D" parent="World" unique_id=770804380]
+[node name="Slope2" type="CSGBox3D" parent="Environment" unique_id=770804380]
 transform = Transform3D(0.86602545, -0.50000006, 0, 0.50000006, 0.86602545, 0, 0, 0, 1, 12.5, 0.5235691, -2.8293328)
 use_collision = true
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Slope3" type="CSGBox3D" parent="World" unique_id=269870406]
+[node name="Slope3" type="CSGBox3D" parent="Environment" unique_id=269870406]
 transform = Transform3D(0.70710677, -0.7071068, 0, 0.7071068, 0.70710677, 0, 0, 0, 1, 12.5, 0.5235691, -8.335633)
 use_collision = true
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Slope4" type="CSGBox3D" parent="World" unique_id=511897463]
+[node name="Slope4" type="CSGBox3D" parent="Environment" unique_id=511897463]
 transform = Transform3D(0.49999994, -0.86602545, 0, 0.86602545, 0.49999994, 0, 0, 0, 1, 12.5, 0.5235691, -13.883916)
 use_collision = true
 size = Vector3(50, 0.25, 5)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Platform" type="CSGBox3D" parent="World" unique_id=1778632591]
+[node name="Platform" type="CSGBox3D" parent="Environment" unique_id=1778632591]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.5, 9)
 use_collision = true
 collision_layer = 2
@@ -78,7 +77,7 @@ collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Platform2" type="CSGBox3D" parent="World" unique_id=704060621]
+[node name="Platform2" type="CSGBox3D" parent="Environment" unique_id=704060621]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 11.627)
 use_collision = true
 collision_layer = 2
@@ -86,7 +85,7 @@ collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Platform3" type="CSGBox3D" parent="World" unique_id=1430086221]
+[node name="Platform3" type="CSGBox3D" parent="Environment" unique_id=1430086221]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 14.345)
 use_collision = true
 collision_layer = 2
@@ -94,7 +93,7 @@ collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Platform4" type="CSGBox3D" parent="World" unique_id=2095877427]
+[node name="Platform4" type="CSGBox3D" parent="Environment" unique_id=2095877427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 16.862)
 use_collision = true
 collision_layer = 2
@@ -102,7 +101,7 @@ collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Platform5" type="CSGBox3D" parent="World" unique_id=986162623]
+[node name="Platform5" type="CSGBox3D" parent="Environment" unique_id=986162623]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.5, 19.39)
 use_collision = true
 collision_layer = 2
@@ -110,7 +109,7 @@ collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Platform6" type="CSGBox3D" parent="World" unique_id=100595876]
+[node name="Platform6" type="CSGBox3D" parent="Environment" unique_id=100595876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, 21.889)
 use_collision = true
 collision_layer = 2
@@ -118,7 +117,7 @@ collision_mask = 2
 size = Vector3(2, 0.1, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap" type="CSGBox3D" parent="World" unique_id=1725153330]
+[node name="Gap" type="CSGBox3D" parent="Environment" unique_id=1725153330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 9)
 use_collision = true
 collision_layer = 2
@@ -126,7 +125,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap2" type="CSGBox3D" parent="World" unique_id=1919732498]
+[node name="Gap2" type="CSGBox3D" parent="Environment" unique_id=1919732498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 9)
 use_collision = true
 collision_layer = 2
@@ -134,7 +133,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap3" type="CSGBox3D" parent="World" unique_id=1133586957]
+[node name="Gap3" type="CSGBox3D" parent="Environment" unique_id=1133586957]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 11.627766)
 use_collision = true
 collision_layer = 2
@@ -142,7 +141,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap4" type="CSGBox3D" parent="World" unique_id=1546844415]
+[node name="Gap4" type="CSGBox3D" parent="Environment" unique_id=1546844415]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 11.628)
 use_collision = true
 collision_layer = 2
@@ -150,7 +149,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap5" type="CSGBox3D" parent="World" unique_id=413934517]
+[node name="Gap5" type="CSGBox3D" parent="Environment" unique_id=413934517]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 14.343124)
 use_collision = true
 collision_layer = 2
@@ -158,7 +157,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap6" type="CSGBox3D" parent="World" unique_id=1561889480]
+[node name="Gap6" type="CSGBox3D" parent="Environment" unique_id=1561889480]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 14.343)
 use_collision = true
 collision_layer = 2
@@ -166,7 +165,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap7" type="CSGBox3D" parent="World" unique_id=1565754254]
+[node name="Gap7" type="CSGBox3D" parent="Environment" unique_id=1565754254]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 16.948994)
 use_collision = true
 collision_layer = 2
@@ -174,7 +173,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap8" type="CSGBox3D" parent="World" unique_id=228480197]
+[node name="Gap8" type="CSGBox3D" parent="Environment" unique_id=228480197]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, 16.949)
 use_collision = true
 collision_layer = 2
@@ -182,7 +181,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap9" type="CSGBox3D" parent="World" unique_id=246522104]
+[node name="Gap9" type="CSGBox3D" parent="Environment" unique_id=246522104]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 19.423473)
 use_collision = true
 collision_layer = 2
@@ -190,7 +189,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap10" type="CSGBox3D" parent="World" unique_id=112822733]
+[node name="Gap10" type="CSGBox3D" parent="Environment" unique_id=112822733]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 1, 19.423409)
 use_collision = true
 collision_layer = 2
@@ -198,7 +197,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap11" type="CSGBox3D" parent="World" unique_id=1181369042]
+[node name="Gap11" type="CSGBox3D" parent="Environment" unique_id=1181369042]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 21.963644)
 use_collision = true
 collision_layer = 2
@@ -206,7 +205,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Gap12" type="CSGBox3D" parent="World" unique_id=160893201]
+[node name="Gap12" type="CSGBox3D" parent="Environment" unique_id=160893201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 1, 21.964)
 use_collision = true
 collision_layer = 2
@@ -214,7 +213,7 @@ collision_mask = 2
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Pole" type="CSGCylinder3D" parent="World" unique_id=1698923444]
+[node name="Pole" type="CSGCylinder3D" parent="Environment" unique_id=1698923444]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5563087, 5.0086093, 17.443819)
 use_collision = true
 collision_layer = 2
@@ -222,117 +221,117 @@ collision_mask = 2
 height = 10.0
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Pole2" type="CSGCylinder3D" parent="World" unique_id=1585542973]
+[node name="Pole2" type="CSGCylinder3D" parent="Environment" unique_id=1585542973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9901514, 5.0086093, 17.443819)
 use_collision = true
 height = 10.0
 material = SubResource("StandardMaterial3D_wagxh")
 
-[node name="Label3D" type="Label3D" parent="World" unique_id=1137227458]
+[node name="Label3D" type="Label3D" parent="Environment" unique_id=1137227458]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.693673, 3.8735654, 2.5208101)
 pixel_size = 0.025
 billboard = 1
 text = "15°"
 
-[node name="Label3D2" type="Label3D" parent="World" unique_id=293065280]
+[node name="Label3D2" type="Label3D" parent="Environment" unique_id=293065280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.693673, 3.8735654, -2.7771626)
 pixel_size = 0.025
 billboard = 1
 text = "30°"
 
-[node name="Label3D3" type="Label3D" parent="World" unique_id=1425414009]
+[node name="Label3D3" type="Label3D" parent="Environment" unique_id=1425414009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.693673, 3.8735654, -8.374213)
 pixel_size = 0.025
 billboard = 1
 text = "45°"
 
-[node name="Label3D4" type="Label3D" parent="World" unique_id=1616167133]
+[node name="Label3D4" type="Label3D" parent="Environment" unique_id=1616167133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.693673, 3.8735654, -14.099442)
 pixel_size = 0.025
 billboard = 1
 text = "60°"
 
-[node name="Label3D5" type="Label3D" parent="World" unique_id=1599375669]
+[node name="Label3D5" type="Label3D" parent="Environment" unique_id=1599375669]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997341, 3.8735654, 9.057825)
 pixel_size = 0.025
 billboard = 1
 text = "0.5m"
 
-[node name="Label3D6" type="Label3D" parent="World" unique_id=1223237843]
+[node name="Label3D6" type="Label3D" parent="Environment" unique_id=1223237843]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997341, 3.8735654, 11.633001)
 pixel_size = 0.025
 billboard = 1
 text = "1.0m"
 
-[node name="Label3D7" type="Label3D" parent="World" unique_id=1534366247]
+[node name="Label3D7" type="Label3D" parent="Environment" unique_id=1534366247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997341, 3.8735654, 14.302388)
 pixel_size = 0.025
 billboard = 1
 text = "1.5m"
 
-[node name="Label3D8" type="Label3D" parent="World" unique_id=1455984144]
+[node name="Label3D8" type="Label3D" parent="Environment" unique_id=1455984144]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997341, 3.8735654, 16.783348)
 pixel_size = 0.025
 billboard = 1
 text = "2.0m"
 
-[node name="Label3D9" type="Label3D" parent="World" unique_id=1930781441]
+[node name="Label3D9" type="Label3D" parent="Environment" unique_id=1930781441]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997341, 3.8735654, 19.295715)
 pixel_size = 0.025
 billboard = 1
 text = "2.5m"
 
-[node name="Label3D10" type="Label3D" parent="World" unique_id=947630259]
+[node name="Label3D10" type="Label3D" parent="Environment" unique_id=947630259]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.997341, 3.8735654, 21.902294)
 pixel_size = 0.025
 billboard = 1
 text = "3.0m"
 
-[node name="Label3D11" type="Label3D" parent="World" unique_id=2012758581]
+[node name="Label3D11" type="Label3D" parent="Environment" unique_id=2012758581]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4912281, 3.8735654, 18.82605)
 pixel_size = 0.025
 billboard = 1
 text = "no
 block"
 
-[node name="Label3D12" type="Label3D" parent="World" unique_id=1054895268]
+[node name="Label3D12" type="Label3D" parent="Environment" unique_id=1054895268]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.891965, 3.8735654, 18.82605)
 pixel_size = 0.025
 billboard = 1
 text = "camera
 block"
 
-[node name="Label3D13" type="Label3D" parent="World" unique_id=745779506]
+[node name="Label3D13" type="Label3D" parent="Environment" unique_id=745779506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.062695, 3.8735654, 8.898037)
 pixel_size = 0.025
 billboard = 1
 text = "2m"
 
-[node name="Label3D14" type="Label3D" parent="World" unique_id=2030408701]
+[node name="Label3D14" type="Label3D" parent="Environment" unique_id=2030408701]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.01604, 3.8735654, 11.579322)
 pixel_size = 0.025
 billboard = 1
 text = "4m"
 
-[node name="Label3D15" type="Label3D" parent="World" unique_id=1084694123]
+[node name="Label3D15" type="Label3D" parent="Environment" unique_id=1084694123]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.939594, 3.8735654, 14.32019)
 pixel_size = 0.025
 billboard = 1
 text = "6m"
 
-[node name="Label3D16" type="Label3D" parent="World" unique_id=4917336]
+[node name="Label3D16" type="Label3D" parent="Environment" unique_id=4917336]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.012108, 3.8735654, 16.9121)
 pixel_size = 0.025
 billboard = 1
 text = "7m"
 
-[node name="Label3D17" type="Label3D" parent="World" unique_id=706722546]
+[node name="Label3D17" type="Label3D" parent="Environment" unique_id=706722546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.025036, 3.8735654, 19.38484)
 pixel_size = 0.025
 billboard = 1
 text = "8m"
 
-[node name="Label3D18" type="Label3D" parent="World" unique_id=2112095030]
+[node name="Label3D18" type="Label3D" parent="Environment" unique_id=2112095030]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.037966, 3.8735654, 22.006542)
 pixel_size = 0.025
 billboard = 1
@@ -352,8 +351,6 @@ script = SubResource("GDScript_7qk3k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Teleport" unique_id=142623080]
 shape = SubResource("WorldBoundaryShape3D_wagxh")
-
-[node name="Player" parent="." unique_id=1381430318 instance=ExtResource("2_klfgi")]
 
 [node name="TestDummy" parent="." unique_id=627899500 instance=ExtResource("4_kgsy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.081768, 0, 9.92841)

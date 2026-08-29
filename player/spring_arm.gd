@@ -20,8 +20,8 @@ var cam_lock := false
 @onready var x_rotation_limit_range: PackedFloat32Array = [(-PI/2.0) + x_rotation_limit_buffer, (PI/2.0) - x_rotation_limit_buffer]
 
 
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#func _ready() -> void:
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _process(delta: float) -> void:

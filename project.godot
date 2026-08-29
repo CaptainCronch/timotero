@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Timotero"
-run/main_scene="uid://cxokfdi0db5ce"
+run/main_scene="uid://ysmw2u1nh3fr"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -25,6 +25,7 @@ Global="*uid://hsqrwqsighjy"
 
 [display]
 
+window/size/initial_position_type=0
 window/stretch/mode="canvas_items"
 
 [file_customization]

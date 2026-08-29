@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ysmw2u1nh3fr"]
+
+[ext_resource type="PackedScene" uid="uid://cxokfdi0db5ce" path="res://test/test_level.tscn" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://nw0kmvmm5cs" path="res://player/player.tscn" id="2_feb5d"]
+
+[node name="Game" type="Node" unique_id=759877435]
+
+[node name="LevelHolder" type="Node" parent="." unique_id=1973087917]
+
+[node name="TestLevel" parent="LevelHolder" unique_id=888138300 instance=ExtResource("1_e2o6t")]
+
+[node name="PlayerHolder" type="Node" parent="." unique_id=57407888]
+
+[node name="Player" parent="PlayerHolder" unique_id=1381430318 instance=ExtResource("2_feb5d")]
+
+[node name="ServerInterface" type="Node" parent="." unique_id=1851893058]
+
+[node name="ENetServer" type="Node" parent="ServerInterface" unique_id=1209306754]
+
+[node name="ServerConnector" type="Node" parent="ServerInterface" unique_id=1514652395]

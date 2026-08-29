@@ -1,5 +1,37 @@
 extends Node
 
+enum PEER_TYPE {NONE, HOST, CLIENT}
+
+var local_peer_type: PEER_TYPE = PEER_TYPE.NONE
+var local_peer_name := ""
+
+
+func _ready() -> void:
+	var anything := false
+	var args := OS.get_cmdline_args()
+	for arg in args:
+		if arg.begins_with("--"):
+			if arg.contains("client"):
+				local_peer_type = PEER_TYPE.CLIENT
+			elif arg.contains("host"):
+				local_peer_type = PEER_TYPE.HOST
+			elif arg.contains("name"):
+				var name_index := args.find("--name") + 1
+				if (args.size() - 1) >= name_index:
+					anything = true
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+					local_peer_name = args[name_index]
+					get_window().title = local_peer_name
+					match local_peer_name[0].to_upper():
+						"A":
+							get_window().position = Vector2i(0, 200)
+						"B":
+							get_window().position = Vector2i(1300, 200)
+	
+	if not anything:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_window().mode = Window.MODE_FULLSCREEN
+
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
