@@ -1,4 +1,5 @@
 extends SpringArm3D
+class_name CameraHolder
 
 @export var mouse_sensitivity := 0.005
 @export var analog_sensitivity := 0.75
@@ -14,13 +15,16 @@ var smooth_rotation: Vector2 = accumulated_rotation
 var _analog_look := 0.0
 var cam_lock := false
 
+@export var camera: Camera3D
 @export var plat_comp: PlatformerComponent
 @export var target: Node3D
 
 @onready var x_rotation_limit_range: PackedFloat32Array = [(-PI/2.0) + x_rotation_limit_buffer, (PI/2.0) - x_rotation_limit_buffer]
 
 
-#func _ready() -> void:
+func _ready() -> void:
+	if is_multiplayer_authority():
+		camera.make_current()
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -68,5 +72,3 @@ func _unhandled_input(event: InputEvent) -> void:
 			transform.basis = Basis() # reset rotation
 			rotate_object_local(Vector3(0, 1, 0), accumulated_rotation.y) # first rotate in Y
 			rotate_object_local(Vector3(1, 0, 0), accumulated_rotation.x) # then rotate in X
-	elif event.is_action_pressed("toggle_strafe"):
-		cam_lock = !cam_lock

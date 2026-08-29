@@ -49,7 +49,8 @@ var move_vector := Vector2()
 @export var plat_comp: PlatformerComponent
 
 
-func _process(_delta: float) -> void: # how how you do this better
+func _process(_delta: float) -> void: # how do you do this better
+	if not is_multiplayer_authority(): return
 	if not enabled: return
 	puppet_plat_comp()
 	move_vector = Input.get_vector("left", "right", "forwards", "backwards")

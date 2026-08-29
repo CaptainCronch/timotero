@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="4_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://g8f0kq3pafy6" path="res://components/input_component.tscn" id="4_rgyib"]
 [ext_resource type="Script" uid="uid://cwmtuce3mypoy" path="res://classes/attack.gd" id="5_2ieo8"]
-[ext_resource type="Script" uid="uid://bden2ailx6gmc" path="res://player/spring_arm.gd" id="5_qjkh3"]
+[ext_resource type="Script" uid="uid://bden2ailx6gmc" path="res://player/camera_holder.gd" id="5_qjkh3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wagxh"]
 size = Vector3(0.5, 1.5, 0.5)
@@ -33,11 +33,13 @@ radius = 0.2
 [sub_resource type="CylinderMesh" id="CylinderMesh_wagxh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qk3k"]
+resource_local_to_scene = true
 albedo_texture = ExtResource("3_qjkh3")
 
 [sub_resource type="QuadMesh" id="QuadMesh_wagxh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rmco"]
+resource_local_to_scene = true
 transparency = 1
 shading_mode = 0
 albedo_texture = ExtResource("4_g6k8r")
@@ -176,7 +178,15 @@ _data = {
 &"swing": SubResource("Animation_2ieo8")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "plat_comp", "spring_arm", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8t03j"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Model:rotation:y")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
 collision_layer = 272
 collision_mask = 3
 floor_constant_speed = true
@@ -187,7 +197,7 @@ health_comp = NodePath("HealthComponent")
 hurtbox_comp = NodePath("HurtboxComponent")
 input_comp = NodePath("InputComponent")
 plat_comp = NodePath("PlatformerComponent")
-spring_arm = NodePath("SpringArm3D")
+camera_holder = NodePath("CameraHolder")
 buffer_timer = NodePath("BufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
 model = NodePath("Model")
@@ -224,7 +234,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012599945, 1.0092773, 2.002
 shape = SubResource("BoxShape3D_7qk3k")
 
 [node name="InputComponent" parent="." unique_id=436256818 node_paths=PackedStringArray("spring_arm", "plat_comp") instance=ExtResource("4_rgyib")]
-spring_arm = NodePath("../SpringArm3D")
+spring_arm = NodePath("../CameraHolder")
 plat_comp = NodePath("../PlatformerComponent")
 
 [node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("2_qjkh3")]
@@ -235,18 +245,18 @@ model = NodePath("../Model")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_wagxh")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1342301789 node_paths=PackedStringArray("plat_comp", "target")]
+[node name="CameraHolder" type="SpringArm3D" parent="." unique_id=1342301789 node_paths=PackedStringArray("camera", "plat_comp", "target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_qjkh3")
 spring_length = 10.0
 margin = 0.1
 script = ExtResource("5_qjkh3")
+camera = NodePath("Camera3D")
 plat_comp = NodePath("../PlatformerComponent")
 target = NodePath("../Model")
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1995212915]
+[node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=1995212915]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
-visible = false
 fov = 70.0
 
 [node name="BufferTimer" type="Timer" parent="." unique_id=2052782670]
@@ -505,8 +515,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0007677, 0)
 pixel_size = 0.01
 billboard = 1
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=949270946]
+replication_config = SubResource("SceneReplicationConfig_8t03j")
+
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
 [connection signal="jump" from="InputComponent" to="." method="_on_input_jump"]
 [connection signal="jump_release" from="InputComponent" to="." method="_on_input_jump_release"]
 [connection signal="primary" from="InputComponent" to="." method="_on_input_primary"]
+[connection signal="toggle_strafe_release" from="InputComponent" to="." method="_on_input_toggle_strafe_release"]
 [connection signal="knocked_up" from="PlatformerComponent" to="." method="_on_plat_comp_knocked_up"]

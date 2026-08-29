@@ -133,12 +133,12 @@ const SPECIES: Array[Dictionary] = [
 		"face": preload("uid://riu0nsp5s1vc"),
 	},
 ]
-var current_species := 0
 
 @export var jump_boost := 0.3
 @export var peak_velocity_range := 2.0
 @export var peak_gravity_bane := 0.3
 @export var falling_gravity_boon := 0.6
+@export var current_species := 0
 
 var holding_jump := false
 var buffer_time := 0.1
@@ -151,13 +151,19 @@ var jump_cut := false
 @export var hurtbox_comp: HurtboxComponent
 @export var input_comp: InputComponent
 @export var plat_comp: PlatformerComponent
-@export var spring_arm: SpringArm3D
+@export var camera_holder: CameraHolder
 @export var buffer_timer: Timer
 @export var coyote_timer: Timer
 @export var model: MeshInstance3D
 @export var weapon_holder: Node3D
 @export var animation_player: AnimationPlayer
 @export var debug_label: Label3D
+
+
+func _enter_tree() -> void:
+	var peer_id: int = str(name).to_int()
+	set_multiplayer_authority(peer_id)
+	debug_label.text = name
 
 
 func _process(_delta: float) -> void:
@@ -182,7 +188,7 @@ func set_input() -> void:
 	#plat_comp.move_dir.x = Input.get_axis("left", "right")
 	#plat_comp.move_dir.y = Input.get_axis("forward", "back")
 	plat_comp.move_dir = input_comp.move_vector
-	plat_comp.move_dir = plat_comp.move_dir.rotated(Global.vec2_from_xz(spring_arm.transform.basis.z).angle() - PI/2.0)
+	plat_comp.move_dir = plat_comp.move_dir.rotated(Global.vec2_from_xz(camera_holder.transform.basis.z).angle() - PI/2.0)
 	
 	if not holding_jump and plat_comp.is_jumping:
 		jump_cut = true
@@ -190,7 +196,7 @@ func set_input() -> void:
 		#gravity_boon.add_boon("falling", falling_gravity_boon)
 		#gravity_boon.remove_bane("peak")
 	
-	if Input.is_action_just_released("debug_key"):
+	if Input.is_action_just_released("debug_key") and is_multiplayer_authority():
 		current_species += 1
 		if current_species > SPECIES.size() - 1: current_species = 0
 		
@@ -238,8 +244,8 @@ func vertical_movement() -> void:
 	#debug_label.text = str(plat_comp.gravity)
 
 
-func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
-	debug_label.text = "Took " + str(amount) + " damage!"
+#func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
+	#debug_label.text = "Took " + str(amount) + " damage!"
 
 
 func _on_input_jump() -> void:
@@ -258,7 +264,12 @@ func _on_plat_comp_knocked_up() -> void:
 
 func _on_input_primary() -> void:
 	if health_comp.dead: return
-	animation_player.stop()
-	animation_player.play("swing")
 	hurtbox_comp.attack.attack_direction = plat_comp.last_desired_dir
 	hurtbox_comp.check_collision()
+	animation_player.play("RESET")
+	await animation_player.animation_finished
+	animation_player.play("swing")
+
+
+func _on_input_toggle_strafe_release() -> void:
+	camera_holder.cam_lock = not camera_holder.cam_lock

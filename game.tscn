@@ -1,20 +1,99 @@
 [gd_scene format=3 uid="uid://ysmw2u1nh3fr"]
 
 [ext_resource type="PackedScene" uid="uid://cxokfdi0db5ce" path="res://test/test_level.tscn" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://nw0kmvmm5cs" path="res://player/player.tscn" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://j5fsopklfuye" path="res://game.gd" id="1_ryrav"]
+[ext_resource type="Script" uid="uid://j8wbckudvjp6" path="res://network_panel.gd" id="3_7jktm"]
+[ext_resource type="Script" uid="uid://c7lkcx07dbbr3" path="res://player_holder.gd" id="3_eow3j"]
+[ext_resource type="Script" uid="uid://dc5wncrcdg8lw" path="res://network/server_runner.gd" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://bfr3lc2kfwmii" path="res://network/client_connector.gd" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://yhh7dvxdlbg3" path="res://console_panel.gd" id="5_eow3j"]
 
-[node name="Game" type="Node" unique_id=759877435]
+[node name="Game" type="Node" unique_id=759877435 node_paths=PackedStringArray("player_holder", "network_panel", "server_runner", "client_connector")]
+script = ExtResource("1_ryrav")
+player_holder = NodePath("PlayerHolder")
+network_panel = NodePath("UIHolder/NetworkPanel")
+server_runner = NodePath("ServerInterface/ServerRunner")
+client_connector = NodePath("ServerInterface/ClientConnector")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1473235698]
+_spawnable_scenes = PackedStringArray("uid://nw0kmvmm5cs")
+spawn_path = NodePath("../PlayerHolder")
 
 [node name="LevelHolder" type="Node" parent="." unique_id=1973087917]
 
 [node name="TestLevel" parent="LevelHolder" unique_id=888138300 instance=ExtResource("1_e2o6t")]
 
 [node name="PlayerHolder" type="Node" parent="." unique_id=57407888]
+script = ExtResource("3_eow3j")
 
-[node name="Player" parent="PlayerHolder" unique_id=1381430318 instance=ExtResource("2_feb5d")]
+[node name="UIHolder" type="Node" parent="." unique_id=830435686]
+
+[node name="NetworkPanel" type="MarginContainer" parent="UIHolder" unique_id=426669234 node_paths=PackedStringArray("ip_box", "port_box")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("3_7jktm")
+ip_box = NodePath("VBoxContainer/HBoxContainer/LineEdit")
+port_box = NodePath("VBoxContainer/HBoxContainer/LineEdit2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIHolder/NetworkPanel" unique_id=699724205]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIHolder/NetworkPanel/VBoxContainer" unique_id=1554625593]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer" unique_id=599495112]
+layout_mode = 2
+placeholder_text = "ip"
+
+[node name="Label" type="Label" parent="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer" unique_id=693592331]
+layout_mode = 2
+text = ":"
+
+[node name="LineEdit2" type="LineEdit" parent="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer" unique_id=951352697]
+layout_mode = 2
+placeholder_text = "port"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UIHolder/NetworkPanel/VBoxContainer" unique_id=835727448]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer2" unique_id=442652612]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "host"
+
+[node name="Button2" type="Button" parent="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer2" unique_id=576906334]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "join"
+
+[node name="ConsolePanel" type="MarginContainer" parent="UIHolder" unique_id=1407541332]
+offset_right = 600.0
+offset_bottom = 335.0
+script = ExtResource("5_eow3j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIHolder/ConsolePanel" unique_id=898949050]
+layout_mode = 2
 
 [node name="ServerInterface" type="Node" parent="." unique_id=1851893058]
 
-[node name="ENetServer" type="Node" parent="ServerInterface" unique_id=1209306754]
+[node name="ServerRunner" type="Node" parent="ServerInterface" unique_id=1209306754]
+script = ExtResource("3_feb5d")
 
-[node name="ServerConnector" type="Node" parent="ServerInterface" unique_id=1514652395]
+[node name="ClientConnector" type="Node" parent="ServerInterface" unique_id=1514652395]
+script = ExtResource("4_fc0e3")
+
+[connection signal="host_server" from="UIHolder/NetworkPanel" to="." method="_on_network_panel_host_server"]
+[connection signal="join_server" from="UIHolder/NetworkPanel" to="." method="_on_network_panel_join_server"]
+[connection signal="pressed" from="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer2/Button" to="UIHolder/NetworkPanel" method="_on_host_button_pressed"]
+[connection signal="pressed" from="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer2/Button2" to="UIHolder/NetworkPanel" method="_on_join_button_pressed"]
+[connection signal="created_server" from="ServerInterface/ServerRunner" to="." method="_on_created_server"]

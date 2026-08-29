@@ -8,13 +8,18 @@ var local_peer_name := ""
 
 func _ready() -> void:
 	var anything := false
+	var game: Game = get_tree().current_scene
 	var args := OS.get_cmdline_args()
 	for arg in args:
 		if arg.begins_with("--"):
 			if arg.contains("client"):
 				local_peer_type = PEER_TYPE.CLIENT
+				await game.ready
+				game.client_connector.connect_to_server()
 			elif arg.contains("host"):
 				local_peer_type = PEER_TYPE.HOST
+				await game.ready
+				game.server_runner.create_server(game.MAX_PLAYERS)
 			elif arg.contains("name"):
 				var name_index := args.find("--name") + 1
 				if (args.size() - 1) >= name_index:
@@ -22,6 +27,10 @@ func _ready() -> void:
 					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 					local_peer_name = args[name_index]
 					get_window().title = local_peer_name
+					var namer := Node.new()
+					namer.name = local_peer_name
+					add_child(namer)
+					push_warning("My name is " + local_peer_name)
 					match local_peer_name[0].to_upper():
 						"A":
 							get_window().position = Vector2i(0, 200)
