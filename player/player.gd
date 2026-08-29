@@ -107,6 +107,31 @@ const SPECIES: Array[Dictionary] = [
 		"texture": preload("uid://b1r6yd3cbi8dc"),
 		"face": preload("uid://dtt72yb3qrqfl"),
 	},
+	{
+		"ears": "Lop",
+		"texture": preload("uid://bps40p8oleq7g"),
+		"face": preload("uid://cv447mysh22jd"),
+	},
+	{
+		"ears": "Hat",
+		"texture": preload("uid://dgufdxyw5l6nk"),
+		"face": preload("uid://c5aictwhqr7g"),
+	},
+	{
+		"ears": "Capy",
+		"texture": preload("uid://c28qr7g8swj7v"),
+		"face": preload("uid://ctpxe0i600d3c"),
+	},
+	{
+		"ears": "Flop",
+		"texture": preload("uid://yug4m0u83d11"),
+		"face": preload("uid://bsfwwnqc5ioiu"),
+	},
+	{
+		"ears": "Monkey",
+		"texture": preload("uid://yug4m0u83d11"),
+		"face": preload("uid://riu0nsp5s1vc"),
+	},
 ]
 var current_species := 0
 
@@ -115,22 +140,31 @@ var current_species := 0
 @export var peak_gravity_bane := 0.3
 @export var falling_gravity_boon := 0.6
 
+var holding_jump := false
 var buffer_time := 0.1
 var coyote_time := 0.1
 var gravity_boon := BoonManager.new(true)
 var jump_cut := false
 #var speed_boon := BoonManager.new(false)
 
+@export var health_comp: HealthComponent
+@export var hurtbox_comp: HurtboxComponent
+@export var input_comp: InputComponent
 @export var plat_comp: PlatformerComponent
-@export var model: MeshInstance3D
 @export var spring_arm: SpringArm3D
 @export var buffer_timer: Timer
 @export var coyote_timer: Timer
+@export var model: MeshInstance3D
+@export var weapon_holder: Node3D
+@export var animation_player: AnimationPlayer
 @export var debug_label: Label3D
 
 
 func _process(_delta: float) -> void:
-	get_input()
+	set_input()
+	var face_angle := Global.rotation_y_from_vec2(plat_comp.last_desired_dir)
+	hurtbox_comp.rotation.y = face_angle
+	weapon_holder.rotation.y = model.rotation.y
 
 
 func _physics_process(_delta: float) -> void:
@@ -142,17 +176,15 @@ func _physics_process(_delta: float) -> void:
 		#buffer_timer.start(buffer_time) # waits until you touch the ground to jump
 
 
-func get_input() -> void:
+func set_input() -> void:
 	plat_comp.move_dir = Vector2.ZERO
 
 	#plat_comp.move_dir.x = Input.get_axis("left", "right")
 	#plat_comp.move_dir.y = Input.get_axis("forward", "back")
-	plat_comp.move_dir = Input.get_vector("left", "right", "forwards", "backwards")
+	plat_comp.move_dir = input_comp.move_vector
 	plat_comp.move_dir = plat_comp.move_dir.rotated(Global.vec2_from_xz(spring_arm.transform.basis.z).angle() - PI/2.0)
 	
-	if Input.is_action_just_pressed("jump"):
-		buffer_timer.start(buffer_time) # waits until you touch the ground to jump
-	if not Input.is_action_pressed("jump") and plat_comp.is_jumping:
+	if not holding_jump and plat_comp.is_jumping:
 		jump_cut = true
 		#print("cutting")
 		#gravity_boon.add_boon("falling", falling_gravity_boon)
@@ -208,3 +240,25 @@ func vertical_movement() -> void:
 
 func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
 	debug_label.text = "Took " + str(amount) + " damage!"
+
+
+func _on_input_jump() -> void:
+	buffer_timer.start(buffer_time) # waits until you touch the ground to jump
+	holding_jump = true
+
+
+func _on_input_jump_release() -> void:
+	holding_jump = false
+
+
+func _on_plat_comp_knocked_up() -> void:
+	gravity_boon.remove_boon("falling")
+	gravity_boon.remove_bane("peak")
+
+
+func _on_input_primary() -> void:
+	if health_comp.dead: return
+	animation_player.stop()
+	animation_player.play("swing")
+	hurtbox_comp.attack.attack_direction = plat_comp.last_desired_dir
+	hurtbox_comp.check_collision()

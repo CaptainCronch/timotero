@@ -6,9 +6,9 @@ signal hit(hitbox: HitboxComponent)
 
 @export var attack: Attack
 @export var alignment: HitboxComponent.ALIGNMENT
-@export var direct_towards_hit := false
+@export var direct_towards_target := false
 @export var updates := true ## If true, the hurtbox will check for hits automatically
-@export var update_delay := -1.0 ## Will check overlaps every frame if set to less than  and updates is set to true.
+@export var update_delay := -1.0 ## Will check overlaps every frame if set to less than 0.0 and updates is set to true.
 @export var multihit := false ## If true, the hurtbox can strike multiple hitboxes per update or check.
 #@export var detection_groups: PackedStringArray
 
@@ -20,6 +20,8 @@ var update_timer := 0.0
 func _ready():
 	if alignment == HitboxComponent.ALIGNMENT.NONE:
 		push_warning(name + " has no alignment set!")
+	if not collision_layer and not collision_mask:
+		push_warning(name + " has no collision bits set!")
 	#if not is_instance_valid(collider):
 		#push_error(name + " is missing a collider!")
 	#if detection_groups[0].is_empty():
@@ -42,16 +44,17 @@ func check_collision() -> bool: ## Emits hit signal for every hitbox damaged. Re
 	for area in get_overlapping_areas():
 		if area is HitboxComponent:
 			if area.alignment == alignment: continue
+			if not area.detectable: continue
 			
-			if direct_towards_hit:
-				var directed_attack := attack.duplicate()
-				directed_attack.attack_direction = Global.vec2_from_xz(global_position.direction_to(area.global_position)).normalized()
+			var new_attack := Attack.copy(attack)
+			if direct_towards_target:
+				new_attack.attack_direction = Global.vec2_from_xz(global_position.direction_to(area.global_position)).normalized()
 				hit.emit(area)
-				area.strike(directed_attack)
-				attack.attack_direction = Vector2.ZERO
+				area.strike(new_attack)
+				#attack.attack_direction = Vector2.ZERO
 			else:
 				hit.emit(area)
-				area.strike(attack.duplicate())
+				area.strike(new_attack)
 			
 			hit_anything = true
 			if not multihit: break

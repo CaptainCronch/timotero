@@ -11,6 +11,8 @@ enum ALIGNMENT {
 	ENVIRONMENT,
 }
 
+var detectable := true
+
 @export var alignment: ALIGNMENT
 @export var target: Node3D
 @export var health_comp: HealthComponent
@@ -19,6 +21,8 @@ enum ALIGNMENT {
 func _ready() -> void:
 	assert(collision_layer and collision_mask, 
 			"HitboxComponent of " + get_parent().name + " has no collision bits enabled!")
+	#if is_instance_valid(health_comp):
+		#health_comp.death.connect(func(_attack): detectable = false)
 
 
 func strike(attack: Attack) -> void:

@@ -13,7 +13,7 @@
 
 [sub_resource type="Resource" id="Resource_7qk3k"]
 script = ExtResource("5_g7mv1")
-attack_damage = 0.1
+attack_damage = 1.0
 knockback_force = 5.0
 knockup_force = 2.0
 origin_name = "Test Dummy"
@@ -63,7 +63,7 @@ target = NodePath("..")
 health_comp = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=606370035]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_wagxh")
 
 [node name="HurtboxComponent" parent="." unique_id=2113987217 instance=ExtResource("4_4ceke")]
@@ -71,7 +71,7 @@ collision_layer = 256
 collision_mask = 256
 attack = SubResource("Resource_7qk3k")
 alignment = 2
-direct_towards_hit = true
+direct_towards_target = true
 update_delay = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=907685239]
@@ -82,11 +82,11 @@ target = NodePath("..")
 model = NodePath("../Model")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=1149076503]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_wagxh")
 
 [node name="Model" type="MeshInstance3D" parent="." unique_id=172650213]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("PrismMesh_wagxh")
 surface_material_override/0 = SubResource("StandardMaterial3D_wagxh")
 

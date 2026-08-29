@@ -8,7 +8,7 @@ class_name Attack
 @export var origin_name: String
 #@export var attack_type: ATTACK_TYPE
 
-var attack_position := Vector2.ZERO
+#var attack_position := Vector2.ZERO
 var attack_direction := Vector2.ZERO
 var origin_node: Node = null
 
@@ -23,7 +23,7 @@ func _init(
 		up := knockup_force,
 		stun := stun_time,
 		name := origin_name,
-		pos := attack_position,
+		#pos := attack_position,
 		dir := attack_direction,
 		origin := origin_node,
 		):
@@ -32,8 +32,20 @@ func _init(
 	knockup_force = up
 	stun_time = stun
 	origin_name = name
-	attack_position = pos
+	#attack_position = pos
 	attack_direction = dir
 	origin_node = origin
 	
 	resource_local_to_scene = true
+
+
+static func copy(attack: Attack) -> Attack:
+	var new := Attack.new()
+	new.attack_damage = attack.attack_damage
+	new.knockback_force = attack.knockback_force
+	new.knockup_force = attack.knockup_force
+	new.stun_time = attack.stun_time
+	new.origin_name = attack.origin_name
+	new.attack_direction = attack.attack_direction
+	new.origin_node = attack.origin_node
+	return new

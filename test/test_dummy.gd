@@ -25,7 +25,7 @@ func _ready() -> void:
 func _on_hurtbox_area_entered(area: Area3D) -> void:
 	#model.transform.basis = Basis()
 	#model.rotate_y(global_position.direction_to(area.global_position).angle_to(Vector3.FORWARD))
-	model.rotation.y = Global.rotation_y_from_dir(global_position.direction_to(area.global_position))
+	model.rotation.y = Global.rotation_y_from_vec3(global_position.direction_to(area.global_position))
 	if attack_type == "On Enter" and area is HitboxComponent:
 		hurtbox_comp.check_collision()
 
@@ -43,3 +43,4 @@ func _on_hitbox_struck(attack: Attack) -> void:
 
 func _on_health_component_death(_attack: Attack) -> void:
 	debug_label.text = "I'm dead!"
+	hurtbox_comp.monitoring = false

@@ -85,5 +85,9 @@ func xz_from_vec2(vector: Vector2, y := 0.0) -> Vector3:
 	return Vector3(vector.x, y, vector.y)
 
 
-func rotation_y_from_dir(vector: Vector3) -> float:
+func rotation_y_from_vec3(vector: Vector3) -> float:
 	return -vec2_from_xz(vector).angle() + (PI/2.0)
+
+
+func rotation_y_from_vec2(vector: Vector2) -> float:
+	return -vector.angle() + (PI/2.0)

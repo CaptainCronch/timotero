@@ -1,6 +1,8 @@
 extends Node
 class_name PlatformerComponent
 
+signal knocked_up
+
 const MAX_FALL_SPEED := -1000.0
 
 @export_category("Values")
@@ -15,11 +17,12 @@ const MAX_FALL_SPEED := -1000.0
 @export var knockback_factor := 1.0
 @export var knockup_factor := 1.0
 
-var last_desired_dir := Vector2.UP
+var last_desired_dir := Vector2.DOWN ## Down is model forward.
 var move_dir := Vector2.ZERO
 #var move_multiplier := 1.0
 #var explosive_jumping := false
-#var stunned := false
+var stunned := false
+var frozen := false
 #var turning := true
 var turn_target := Vector2()
 var is_jumping := false
@@ -44,18 +47,18 @@ func _ready():
 		#health_comp.damage_taken.connect(knockback)
 
 
-func _process(_delta) -> void :
+func _process(_delta: float) -> void:
 	model_controls(move_dir if turn_target == Vector2() else turn_target)
 
 
-func _physics_process(delta) -> void :
+func _physics_process(delta: float) -> void:
 	vertical_movement(delta)
 	horizontal_movement(delta)
 	target.move_and_slide()
 	if is_on_floor(): is_jumping = false
 
 
-func vertical_movement(delta) -> void :
+func vertical_movement(delta: float) -> void:
 	if is_on_floor(): return
 	#if target.velocity.y >= peak_range: gravity = base_gravity
 	#elif target.velocity.y <= -peak_range: gravity = fall_gravity
@@ -65,8 +68,9 @@ func vertical_movement(delta) -> void :
 	target.velocity.y = maxf(target.velocity.y, MAX_FALL_SPEED)
 
 
-func horizontal_movement(delta : float) -> void :
+func horizontal_movement(delta: float) -> void:
 	var desired_velocity := move_dir * speed# * move_multiplier
+	if stunned or frozen: desired_velocity *= 0.0
 
 	if is_on_floor():
 		acceleration = base_acceleration
@@ -97,7 +101,8 @@ func horizontal_movement(delta : float) -> void :
 		#target.velocity.z = Global.decay_towards(target.velocity.z, 0.0, friction, delta)
 
 
-func model_controls(dir: Vector2) -> void :
+func model_controls(dir: Vector2) -> void:
+	if frozen: return
 	if not dir.is_zero_approx():# and turning and not stunned:
 		last_desired_dir = dir
 		model.rotation.y = Global.decay_angle_towards(
@@ -108,14 +113,17 @@ func model_controls(dir: Vector2) -> void :
 
 
 func jump(ignore_ground_check := false) -> void:
-	if not is_on_floor() and not ignore_ground_check: return# or stunned: return
+	if stunned or frozen: return
+	if not is_on_floor() and not ignore_ground_check: return #or stunned: return
 	target.velocity.y = jump_force
 	is_jumping = true
 
 
 func knock(knockback: Vector2, knockup: float) -> void:
 	target.velocity += Global.xz_from_vec2(knockback * knockback_factor)
-	target.velocity.y = maxf(knockup * knockup_factor, target.velocity.y) # ignore knockup if it would cancel your jump or something
+	if knockup * knockup_factor > target.velocity.y: # ignore knockup if it would cancel your jump or something
+		target.velocity.y = knockup * knockup_factor
+		knocked_up.emit()
 
 
 #func explode(origin : Vector3, radius : float, power : float, upthrust := 0.0) -> void :
@@ -154,7 +162,7 @@ func knock(knockback: Vector2, knockup: float) -> void:
 	#target.velocity.z = direction.y
 
 
-func is_on_floor() -> bool :
+func is_on_floor() -> bool:
 	return target.is_on_floor()
 
 

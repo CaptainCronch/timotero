@@ -46,14 +46,15 @@ func _process(delta: float) -> void:
 
 
 func hurt(attack: Attack):
-	if dead: return
 	#if not invincibility_timer.is_stopped(): return
-	stun(attack)
 	if is_instance_valid(plat_comp):
 		plat_comp.knock(attack.attack_direction * attack.knockback_force, attack.knockup_force)
 	elif target is CharacterBody3D:
 		target.velocity += Global.xz_from_vec2(attack.attack_direction * attack.knockback_force)
 		target.velocity.y = attack.knockup_force
+	
+	if dead: return
+	stun(attack)
 	#var current_damage := attack.attack_damage if not is_player else attack.player_damage
 	if attack.attack_damage <= 0.0: return
 	if attack.attack_damage - defense <= 0.0: return
@@ -86,6 +87,7 @@ func die(attack: Attack):
 		#target.velocity += attack.attack_direction * attack.knockback_force * knockback_factor
 		#if is_instance_valid(plat_comp):
 			#plat_comp.velocity_z += attack.knockup_force * knockup_factor - 5.0
+	if is_instance_valid(plat_comp): plat_comp.frozen = true
 	dead = true
 	death.emit(attack)
 	#target.queue_free()
