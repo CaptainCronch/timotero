@@ -5,12 +5,14 @@ const MAX_PLAYERS := 1000
 
 @export var player_holder: PlayerHolder
 @export var network_panel: NetworkPanel
+@export var console_panel: ConsolePanel
 @export var server_runner: ServerRunner
 @export var client_connector: ClientConnector
 
 
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	Global.game = self
 
 
 func _on_network_panel_host_server(port: int) -> void:
@@ -28,4 +30,4 @@ func _on_connected_to_server() -> void:
 func _on_created_server() -> void:
 	network_panel.hide()
 	player_holder.spawn_player(1)
-	push_warning("created server")
+	#push_warning("created server")

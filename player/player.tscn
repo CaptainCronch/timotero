@@ -182,9 +182,24 @@ _data = {
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("Model:rotation:y")
+properties/1/path = NodePath("PlatformerComponent:turn_target")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("PlatformerComponent:move_dir")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("PlatformerComponent:forced_look")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("PlatformerComponent:stunned")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("PlatformerComponent:frozen")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("PlatformerComponent:is_jumping")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
 collision_layer = 272
@@ -193,6 +208,11 @@ floor_constant_speed = true
 floor_max_angle = 0.80285144
 floor_snap_length = 0.2
 script = ExtResource("1_g1dw6")
+jump_boost = null
+peak_velocity_range = null
+peak_gravity_bane = null
+falling_gravity_boon = null
+current_species = null
 health_comp = NodePath("HealthComponent")
 hurtbox_comp = NodePath("HurtboxComponent")
 input_comp = NodePath("InputComponent")
@@ -221,13 +241,13 @@ health_comp = NodePath("../HealthComponent")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_wagxh")
 
-[node name="HurtboxComponent" parent="." unique_id=2113987217 instance=ExtResource("4_8t03j")]
+[node name="HurtboxComponent" parent="." unique_id=2113987217 node_paths=PackedStringArray("excluded_hitboxes") instance=ExtResource("4_8t03j")]
 collision_layer = 272
 collision_mask = 256
 attack = SubResource("Resource_wagxh")
-alignment = 1
 updates = false
 multihit = true
+excluded_hitboxes = [NodePath("../HitboxComponent")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=2103848835]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012599945, 1.0092773, 2.0024948)
@@ -247,6 +267,7 @@ shape = SubResource("CylinderShape3D_wagxh")
 
 [node name="CameraHolder" type="SpringArm3D" parent="." unique_id=1342301789 node_paths=PackedStringArray("camera", "plat_comp", "target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+top_level = true
 shape = SubResource("SphereShape3D_qjkh3")
 spring_length = 10.0
 margin = 0.1

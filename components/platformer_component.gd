@@ -17,15 +17,9 @@ const MAX_FALL_SPEED := -1000.0
 @export var knockback_factor := 1.0
 @export var knockup_factor := 1.0
 
-var last_desired_dir := Vector2.DOWN ## Down is model forward.
-var move_dir := Vector2.ZERO
 #var move_multiplier := 1.0
 #var explosive_jumping := false
-var stunned := false
-var frozen := false
-#var turning := true
-var turn_target := Vector2()
-var is_jumping := false
+var last_desired_dir := Vector2.DOWN ## Down is model forward.
 
 #@onready var stun_timer: Timer = $StunTimer
 @onready var speed := base_speed
@@ -39,6 +33,14 @@ var is_jumping := false
 @export var model: Node3D ## Rotateable visuals for the character.
 #@export var health_comp: HealthComponent
 
+@export_category("Synced")
+@export var turn_target := Vector2()
+@export var move_dir := Vector2.ZERO
+@export var forced_look := false
+@export var stunned := false
+@export var frozen := false
+@export var is_jumping := false
+
 
 func _ready():
 	assert(is_instance_valid(target), "This PlatformerComponent is lacking a target")
@@ -48,10 +50,18 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
-	model_controls(move_dir if turn_target == Vector2() else turn_target)
+	#if not forced_look:
+		#if not move_dir.is_zero_approx():
+			#last_desired_dir = move_dir
+	#elif turn_target.is_zero_approx():
+		#last_desired_dir = turn_target
+	#last_desired_dir = move_dir if turn_target == Vector2() else turn_target
+	model_controls(turn_target if forced_look else move_dir)
+	#if not is_multiplayer_authority(): Global.console_panel.add_message(str(turn_target))
 
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
 	vertical_movement(delta)
 	horizontal_movement(delta)
 	target.move_and_slide()

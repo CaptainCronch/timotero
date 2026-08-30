@@ -4,21 +4,24 @@ enum PEER_TYPE {NONE, HOST, CLIENT}
 
 var local_peer_type: PEER_TYPE = PEER_TYPE.NONE
 var local_peer_name := ""
+var game: Game
+var console_panel: ConsolePanel
 
 
 func _ready() -> void:
+	game = get_tree().current_scene
+	console_panel = game.console_panel
+	await game.ready
 	var anything := false
-	var game: Game = get_tree().current_scene
+	#var game: Game = get_tree().current_scene
 	var args := OS.get_cmdline_args()
 	for arg in args:
 		if arg.begins_with("--"):
 			if arg.contains("client"):
 				local_peer_type = PEER_TYPE.CLIENT
-				await game.ready
 				game.client_connector.connect_to_server()
 			elif arg.contains("host"):
 				local_peer_type = PEER_TYPE.HOST
-				await game.ready
 				game.server_runner.create_server(game.MAX_PLAYERS)
 			elif arg.contains("name"):
 				var name_index := args.find("--name") + 1
@@ -36,6 +39,8 @@ func _ready() -> void:
 							get_window().position = Vector2i(0, 200)
 						"B":
 							get_window().position = Vector2i(1300, 200)
+						"C":
+							get_window().position = Vector2i(300, 0)
 	
 	if not anything:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

@@ -7,8 +7,8 @@ class_name CameraHolder
 @export var x_rotation_limit_buffer := 0.1
 @export var rotation_distance_range: Array[Array] = [[TAU/8.0, 3.0], [-TAU/4.0, 15.0]] ## [[min_angle, min_distance], [max_angle, max_distance]]
 #@export var distance_range: PackedFloat32Array = [5.0, 10.0]
-@export var smooth_look := true
-@export var smooth_power := 40.0
+@export var smooth_look := false
+@export var smooth_power := 20.0
 
 var accumulated_rotation := Vector2()
 var smooth_rotation: Vector2 = accumulated_rotation
@@ -29,6 +29,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
+	global_position = target.global_position
 	#$"../UI/FPS".text = str(Engine.get_frames_per_second())
 	#_analog_look = Input.get_axis("look_left", "look_right")
 	rotate_y(deg_to_rad(_analog_look * analog_sensitivity))
@@ -37,17 +40,14 @@ func _process(delta: float) -> void:
 	#global_position.y = target.global_position.y# + offset.y
 	#if player.is_on_floor() or absf(player.velocity.y) > player.plat_comp.jump_force * 1.5 or player.plat_comp.explosive_jumping:
 	#	global_position.y = player.global_position.y + offset.y
-	if cam_lock:
-		plat_comp.turn_target = Vector2.UP.rotated(-rotation.y)
-	else:
-		plat_comp.turn_target = Vector2()
+	plat_comp.turn_target = Vector2.UP.rotated(-rotation.y)
 	
 	spring_length = \
 	clampf(
 		remap(rotation.x,
 		rotation_distance_range[0][0], rotation_distance_range[1][0],
-		rotation_distance_range[0][1], rotation_distance_range[1][1]
-	), rotation_distance_range[0][1], rotation_distance_range[1][1])
+		rotation_distance_range[0][1], rotation_distance_range[1][1]),
+		rotation_distance_range[0][1], rotation_distance_range[1][1])
 	
 	if smooth_look:
 		smooth_rotation = Global.decay_towards_vec2(smooth_rotation, accumulated_rotation, smooth_power, delta)

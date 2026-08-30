@@ -35,7 +35,7 @@ folder_colors={
 "res://classes/": "red",
 "res://components/": "orange",
 "res://environment/": "yellow",
-"res://network/": "green",
+"res://game/": "green",
 "res://player/": "teal",
 "res://test/": "gray"
 }

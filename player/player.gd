@@ -140,6 +140,7 @@ const SPECIES: Array[Dictionary] = [
 @export var falling_gravity_boon := 0.6
 @export var current_species := 0
 
+var owner_peer_id: int
 var holding_jump := false
 var buffer_time := 0.1
 var coyote_time := 0.1
@@ -159,11 +160,14 @@ var jump_cut := false
 @export var animation_player: AnimationPlayer
 @export var debug_label: Label3D
 
+@onready var player_holder: PlayerHolder = $".."
+
 
 func _enter_tree() -> void:
 	var peer_id: int = str(name).to_int()
 	set_multiplayer_authority(peer_id)
-	debug_label.text = name
+	#debug_label.text = str(owner_peer_id)
+	#debug_label.text = player_holder.player_nodes
 
 
 func _process(_delta: float) -> void:
@@ -183,6 +187,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func set_input() -> void:
+	if not is_multiplayer_authority(): return
 	plat_comp.move_dir = Vector2.ZERO
 
 	#plat_comp.move_dir.x = Input.get_axis("left", "right")
@@ -196,7 +201,7 @@ func set_input() -> void:
 		#gravity_boon.add_boon("falling", falling_gravity_boon)
 		#gravity_boon.remove_bane("peak")
 	
-	if Input.is_action_just_released("debug_key") and is_multiplayer_authority():
+	if Input.is_action_just_released("debug_key"):# and is_multiplayer_authority():
 		current_species += 1
 		if current_species > SPECIES.size() - 1: current_species = 0
 		
@@ -210,6 +215,8 @@ func set_input() -> void:
 
 
 func vertical_movement() -> void:
+	if not is_multiplayer_authority(): return
+	
 	if is_on_floor():
 		coyote_timer.start(coyote_time) # starts letting you jump
 		jump_cut = false
@@ -247,6 +254,14 @@ func vertical_movement() -> void:
 #func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
 	#debug_label.text = "Took " + str(amount) + " damage!"
 
+@rpc("call_local")
+func hit() -> void:
+	hurtbox_comp.attack.attack_direction = plat_comp.last_desired_dir
+	hurtbox_comp.check_collision()
+	animation_player.play("RESET")
+	await animation_player.animation_finished
+	animation_player.play("swing")
+
 
 func _on_input_jump() -> void:
 	buffer_timer.start(buffer_time) # waits until you touch the ground to jump
@@ -264,12 +279,8 @@ func _on_plat_comp_knocked_up() -> void:
 
 func _on_input_primary() -> void:
 	if health_comp.dead: return
-	hurtbox_comp.attack.attack_direction = plat_comp.last_desired_dir
-	hurtbox_comp.check_collision()
-	animation_player.play("RESET")
-	await animation_player.animation_finished
-	animation_player.play("swing")
+	hit.rpc()
 
 
 func _on_input_toggle_strafe_release() -> void:
-	camera_holder.cam_lock = not camera_holder.cam_lock
+	plat_comp.forced_look = not plat_comp.forced_look
