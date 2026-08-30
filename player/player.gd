@@ -202,16 +202,7 @@ func set_input() -> void:
 		#gravity_boon.remove_bane("peak")
 	
 	if Input.is_action_just_released("debug_key"):# and is_multiplayer_authority():
-		current_species += 1
-		if current_species > SPECIES.size() - 1: current_species = 0
-		
-		for child in model.get_children():
-			if child.name == "Face": continue
-			elif child.name == SPECIES[current_species]["ears"]: child.visible = true
-			else: child.visible = false
-		
-		$Model/Face.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["face"]
-		model.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["texture"]
+		cycle_character.rpc()
 
 
 func vertical_movement() -> void:
@@ -265,6 +256,19 @@ func respawn() -> void:
 	health_comp.health = health_comp.max_health
 	plat_comp.frozen = false
 	debug_label.text = "I'm alive!"
+
+@rpc("call_local")
+func cycle_character() -> void:
+	current_species += 1
+	if current_species > SPECIES.size() - 1: current_species = 0
+	
+	for child in model.get_children():
+		if child.name == "Face": continue
+		elif child.name == SPECIES[current_species]["ears"]: child.visible = true
+		else: child.visible = false
+	
+	$Model/Face.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["face"]
+	model.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["texture"]
 
 
 func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
