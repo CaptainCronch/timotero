@@ -182,24 +182,6 @@ _data = {
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("PlatformerComponent:turn_target")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("PlatformerComponent:move_dir")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("PlatformerComponent:forced_look")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath("PlatformerComponent:stunned")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath("PlatformerComponent:frozen")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath("PlatformerComponent:is_jumping")
-properties/6/spawn = true
-properties/6/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
 collision_layer = 272
@@ -208,11 +190,6 @@ floor_constant_speed = true
 floor_max_angle = 0.80285144
 floor_snap_length = 0.2
 script = ExtResource("1_g1dw6")
-jump_boost = null
-peak_velocity_range = null
-peak_gravity_bane = null
-falling_gravity_boon = null
-current_species = null
 health_comp = NodePath("HealthComponent")
 hurtbox_comp = NodePath("HurtboxComponent")
 input_comp = NodePath("InputComponent")
@@ -540,6 +517,7 @@ billboard = 1
 replication_config = SubResource("SceneReplicationConfig_8t03j")
 
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
+[connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]
 [connection signal="jump" from="InputComponent" to="." method="_on_input_jump"]
 [connection signal="jump_release" from="InputComponent" to="." method="_on_input_jump_release"]
 [connection signal="primary" from="InputComponent" to="." method="_on_input_primary"]

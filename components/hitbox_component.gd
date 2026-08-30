@@ -24,7 +24,8 @@ func _ready() -> void:
 	#if is_instance_valid(health_comp):
 		#health_comp.death.connect(func(_attack): detectable = false)
 
-
-func strike(attack: Attack) -> void:
+@rpc("any_peer", "call_local")
+func strike(data: Dictionary[String, Variant]) -> void:
+	var attack := Attack.deserialize(data)
 	struck.emit(attack)
 	if is_instance_valid(health_comp): health_comp.hurt(attack)

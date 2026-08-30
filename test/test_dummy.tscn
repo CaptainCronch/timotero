@@ -39,6 +39,11 @@ texture_filter = 0
 radius = 2.0
 height = 4.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4ceke"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="TestDummy" type="CharacterBody3D" unique_id=627899500 node_paths=PackedStringArray("hitbox_comp", "hurtbox_comp", "plat_comp", "model", "hit_visual", "debug_label")]
 collision_layer = 256
 collision_mask = 3
@@ -70,9 +75,9 @@ shape = SubResource("BoxShape3D_wagxh")
 collision_layer = 256
 collision_mask = 256
 attack = SubResource("Resource_7qk3k")
-alignment = 2
 direct_towards_target = true
 update_delay = 0.5
+alignment = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=907685239]
 shape = SubResource("SphereShape3D_wagxh")
@@ -104,6 +109,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wagxh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5512624, 0)
 pixel_size = 0.01
 billboard = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1883665085]
+replication_config = SubResource("SceneReplicationConfig_4ceke")
 
 [connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]
 [connection signal="struck" from="HitboxComponent" to="." method="_on_hitbox_struck"]

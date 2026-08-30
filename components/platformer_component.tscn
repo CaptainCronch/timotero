@@ -2,5 +2,28 @@
 
 [ext_resource type="Script" uid="uid://bshexa1ocsv5k" path="res://components/platformer_component.gd" id="1_o2j65"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o2j65"]
+properties/0/path = NodePath(".:turn_target")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:move_dir")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:forced_look")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:stunned")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:frozen")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:is_jumping")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+
 [node name="PlatformerComponent" type="Node3D" unique_id=533376382]
 script = ExtResource("1_o2j65")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1397005767]
+replication_config = SubResource("SceneReplicationConfig_o2j65")

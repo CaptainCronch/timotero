@@ -55,12 +55,11 @@ func check_collision() -> bool: ## Emits hit signal for every hitbox damaged. Re
 			var new_attack := Attack.copy(attack)
 			if direct_towards_target:
 				new_attack.attack_direction = Global.vec2_from_xz(global_position.direction_to(area.global_position)).normalized()
-				hit.emit(area)
-				area.strike(new_attack)
+				#hit.emit(area)
+				#area.strike.rpc(new_attack)
 				#attack.attack_direction = Vector2.ZERO
-			else:
-				hit.emit(area)
-				area.strike(new_attack)
+			hit.emit(area)
+			area.strike.rpc(Attack.serialize(new_attack))
 			
 			hit_anything = true
 			if not multihit: break

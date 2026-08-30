@@ -49,3 +49,27 @@ static func copy(attack: Attack) -> Attack:
 	new.attack_direction = attack.attack_direction
 	new.origin_node = attack.origin_node
 	return new
+
+
+static func serialize(attack: Attack) -> Dictionary[String, Variant]:
+	return {
+		"attack_damage" = attack.attack_damage,
+		"knockback_force" = attack.knockback_force,
+		"knockup_force" = attack.knockup_force,
+		"stun_time" = attack.stun_time,
+		"origin_name" = attack.origin_name,
+		"attack_direction" = attack.attack_direction,
+		"origin_node" = attack.origin_node,
+	}
+
+
+static func deserialize(data: Dictionary[String, Variant]) -> Attack:
+	return Attack.new(
+			data["attack_damage"],
+			data["knockback_force"],
+			data["knockup_force"],
+			data["stun_time"],
+			data["origin_name"],
+			data["attack_direction"],
+			data["origin_node"],
+	)

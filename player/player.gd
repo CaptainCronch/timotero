@@ -251,9 +251,6 @@ func vertical_movement() -> void:
 	#debug_label.text = str(plat_comp.gravity)
 
 
-#func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
-	#debug_label.text = "Took " + str(amount) + " damage!"
-
 @rpc("call_local")
 func hit() -> void:
 	hurtbox_comp.attack.attack_direction = plat_comp.last_desired_dir
@@ -261,6 +258,14 @@ func hit() -> void:
 	animation_player.play("RESET")
 	await animation_player.animation_finished
 	animation_player.play("swing")
+
+
+func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
+	debug_label.text = "Took " + str(amount) + " damage!"
+
+
+func _on_health_component_death(_attack: Attack) -> void:
+	debug_label.text = "I'm dead!"
 
 
 func _on_input_jump() -> void:
