@@ -259,6 +259,13 @@ func hit() -> void:
 	await animation_player.animation_finished
 	animation_player.play("swing")
 
+@rpc("call_local")
+func respawn() -> void:
+	health_comp.dead = false
+	health_comp.health = health_comp.max_health
+	plat_comp.frozen = false
+	debug_label.text = "I'm alive!"
+
 
 func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
 	debug_label.text = "Took " + str(amount) + " damage!"
@@ -266,6 +273,9 @@ func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
 
 func _on_health_component_death(_attack: Attack) -> void:
 	debug_label.text = "I'm dead!"
+	if not is_multiplayer_authority(): return
+	await get_tree().create_timer(5.0).timeout
+	respawn.rpc()
 
 
 func _on_input_jump() -> void:
