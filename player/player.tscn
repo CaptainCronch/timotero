@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://qlcjclmtgwts" path="res://player/player.gd" id="1_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://bmh0i38737jgt" path="res://components/health_component.tscn" id="2_boad6"]
 [ext_resource type="PackedScene" uid="uid://c0g4mht1empq3" path="res://components/platformer_component.tscn" id="2_qjkh3"]
-[ext_resource type="Texture2D" uid="uid://ddnalu3w85bxd" path="res://test/proto-textures/proto-beige.png" id="3_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://cqrprkhrapxbf" path="res://components/hitbox_component.tscn" id="3_rgyib"]
 [ext_resource type="PackedScene" uid="uid://1ljsygj5qxht" path="res://components/hurtbox_component.tscn" id="4_8t03j"]
-[ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="4_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://g8f0kq3pafy6" path="res://components/input_component.tscn" id="4_rgyib"]
 [ext_resource type="Script" uid="uid://cwmtuce3mypoy" path="res://classes/attack.gd" id="5_2ieo8"]
 [ext_resource type="Script" uid="uid://bden2ailx6gmc" path="res://player/camera_holder.gd" id="5_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://ddnalu3w85bxd" path="res://test/proto-textures/proto-beige.png" id="9_8t03j"]
+[ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="10_2ieo8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wagxh"]
 size = Vector3(0.5, 1.5, 0.5)
@@ -34,7 +34,7 @@ radius = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qk3k"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_qjkh3")
+albedo_texture = ExtResource("9_8t03j")
 
 [sub_resource type="QuadMesh" id="QuadMesh_wagxh"]
 
@@ -42,7 +42,7 @@ albedo_texture = ExtResource("3_qjkh3")
 resource_local_to_scene = true
 transparency = 1
 shading_mode = 0
-albedo_texture = ExtResource("4_g6k8r")
+albedo_texture = ExtResource("10_2ieo8")
 texture_filter = 0
 
 [sub_resource type="PrismMesh" id="PrismMesh_wagxh"]
@@ -110,6 +110,14 @@ size = Vector3(0.455, 0.8, 0.425)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rgyib"]
 size = Vector3(0.192, 0.299, 0.18766797)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2ieo8"]
+top_radius = 0.30322266
+bottom_radius = 0.30322266
+height = 0.7012329
+
+[sub_resource type="PrismMesh" id="PrismMesh_tqiix"]
+size = Vector3(1.555, 0.39, 0.345)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7qk3k"]
 top_radius = 0.125
@@ -182,6 +190,12 @@ _data = {
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:display_name")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:current_species")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
 collision_layer = 272
@@ -203,9 +217,9 @@ animation_player = NodePath("AnimationPlayer")
 debug_label = NodePath("DebugLabel")
 
 [node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("2_boad6")]
-max_health = 10.0
 target = NodePath("..")
 plat_comp = NodePath("../PlatformerComponent")
+max_health = 10.0
 
 [node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("3_rgyib")]
 collision_layer = 272
@@ -499,10 +513,41 @@ mesh = SubResource("BoxMesh_rgyib")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
+[node name="Tail" type="Node3D" parent="Model" unique_id=1830601995]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Tail" unique_id=1475408616]
+transform = Transform3D(1, 0, 0, 0, 0.25605744, -0.9666617, 0, 0.9666617, 0.25605744, 0, -0.58409, -0.72251695)
+mesh = SubResource("CylinderMesh_2ieo8")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Tail" unique_id=1840439430]
+transform = Transform3D(0.75, 0, 0, 0, 0.09734443, -0.7476283, 0, 1.2211262, 0.059598684, 0, -0.71834457, -1.4017799)
+mesh = SubResource("CylinderMesh_2ieo8")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="Combo" type="Node3D" parent="Model" unique_id=233812713]
+visible = false
+
+[node name="EarLeft" type="MeshInstance3D" parent="Model/Combo" unique_id=925613618]
+transform = Transform3D(-0.4013784, -0.91591233, 0, 0.91591233, -0.4013784, 0, 0, 0, 0.9999999, 0.27122217, 0.73712456, 0)
+mesh = SubResource("PrismMesh_tqiix")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
+[node name="EarRight" type="MeshInstance3D" parent="Model/Combo" unique_id=920503060]
+transform = Transform3D(-0.4019478, 0.9156626, 0, -0.9156626, -0.4019478, 0, 0, 0, 0.9999999, -0.271, 0.737, 0)
+mesh = SubResource("PrismMesh_tqiix")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
+
 [node name="WeaponHolder" type="Node3D" parent="." unique_id=326619374]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponHolder" unique_id=206024074]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0.73478425, 2.1175554, 0)
+visible = false
 mesh = SubResource("CylinderMesh_7qk3k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=107280351]

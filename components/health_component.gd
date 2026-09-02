@@ -1,7 +1,7 @@
 extends Node3D
 class_name HealthComponent
 
-#TODO: emit percentage change in signals
+# emit percentage change in signals?
 signal damage_taken(amount: float, attack: Attack)
 signal healed(amount: float)
 signal health_changed(total: float)
@@ -12,27 +12,30 @@ signal blood_level_changed(total: float)
 signal stunned(attack: Attack)
 signal unstunned()
 
-@export var max_health: float
-#@export var invincibility_time := 0.0
-@export var defense := 0.0
+@export_category("Nodes")
 @export var target: Node3D
 @export var plat_comp: PlatformerComponent
+#@onready var invincibility_timer: Timer = $Invincibility
 
 var blood_ratio := 1.0 ## Ratio of blood level to max health.
-var dead := false
-var is_stunned := false
 var stun_timer := 0.0
 
-@onready var health := max_health
-@onready var blood_level := max_health:
+@export_category("Synced") # Do all of these really need to be synced? Because the actions that cause them to change should synced... These are a good failsafe though
+@export var max_health: float
+@export var defense := 0.0
+@export var health := max_health
+@export var blood_level := max_health:
 	set(value):
 		blood_level = value
 		blood_ratio = blood_level / max_health
-
-#@onready var invincibility_timer: Timer = $Invincibility
+@export var dead := false
+@export var is_stunned := false
+#@export var invincibility_time := 0.0
 
 
 func _ready() -> void:
+	health = max_health
+	blood_level = max_health
 	if is_zero_approx(max_health):
 		push_warning("HealthComponent spawned with 0 max health!")
 
@@ -59,9 +62,9 @@ func hurt(attack: Attack):
 	if attack.attack_damage <= 0.0: return
 	if attack.attack_damage - defense <= 0.0: return
 	#TODO: use the more complicated defense formula from that one blogpost that makes defense \
-	#more effective the higher the damage is which effectively enables high DPS low damage builds \
-	#to be better at hitting low defense entities VS low DPS high damage builds to be better at \
-	#hitting high defense entities but both can still always do some damage at least?
+	#      more effective the higher the damage is which effectively enables high DPS low damage builds \
+	#      to be better at hitting low defense entities VS low DPS high damage builds to be better at \
+	#      hitting high defense entities but both can still always do some damage at least?
 	health -= attack.attack_damage - defense
 	damage_taken.emit(attack.attack_damage - defense, attack)
 	health_changed.emit(health)

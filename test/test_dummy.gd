@@ -21,6 +21,13 @@ func _ready() -> void:
 		hurtbox_comp.updates = false
 		debug_label.text = "I attack when I see something!"
 
+@rpc("call_local")
+func flash_hit(hitbox_title: String) -> void:
+	debug_label.text = "I just hit " + hitbox_title + "!"
+	hit_visual.visible = true
+	await get_tree().create_timer(0.1).timeout
+	hit_visual.visible = false
+
 
 func _on_hurtbox_area_entered(area: Area3D) -> void:
 	#model.transform.basis = Basis()
@@ -31,10 +38,7 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 
 
 func _on_hurtbox_hit(hitbox: HitboxComponent) -> void:
-	debug_label.text = "I just hit " + hitbox.get_parent().name + "!"
-	hit_visual.visible = true
-	await get_tree().create_timer(0.1).timeout
-	hit_visual.visible = false
+	flash_hit.rpc(hitbox.get_parent().name)
 
 
 func _on_hitbox_struck(attack: Attack) -> void:

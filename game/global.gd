@@ -9,6 +9,9 @@ var console_panel: ConsolePanel
 
 
 func _ready() -> void:
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	Engine.max_fps = 60
+	
 	game = get_tree().current_scene
 	console_panel = game.console_panel
 	await game.ready
@@ -17,22 +20,16 @@ func _ready() -> void:
 	var args := OS.get_cmdline_args()
 	for arg in args:
 		if arg.begins_with("--"):
-			if arg.contains("client"):
-				local_peer_type = PEER_TYPE.CLIENT
-				game.client_connector.connect_to_server()
-			elif arg.contains("host"):
-				local_peer_type = PEER_TYPE.HOST
-				game.server_runner.create_server(game.MAX_PLAYERS)
-			elif arg.contains("name"):
+			if arg.contains("name"):
 				var name_index := args.find("--name") + 1
 				if (args.size() - 1) >= name_index:
 					anything = true
 					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 					local_peer_name = args[name_index]
 					get_window().title = local_peer_name
-					var namer := Node.new()
-					namer.name = local_peer_name
-					add_child(namer)
+					#var namer := Node.new()
+					#namer.name = local_peer_name
+					#add_child(namer)
 					push_warning("My name is " + local_peer_name)
 					match local_peer_name[0].to_upper():
 						"A":
@@ -41,6 +38,12 @@ func _ready() -> void:
 							get_window().position = Vector2i(1300, 200)
 						"C":
 							get_window().position = Vector2i(300, 0)
+			elif arg.contains("client"):
+				local_peer_type = PEER_TYPE.CLIENT
+				game.client_connector.connect_to_server()
+			elif arg.contains("host"):
+				local_peer_type = PEER_TYPE.HOST
+				game.server_runner.create_server(game.MAX_PLAYERS)
 	
 	if not anything:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

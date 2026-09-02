@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 
 
 func check_collision() -> bool: ## Emits hit signal for every hitbox damaged. Returns true if any hitbox was hit.
-	if not is_multiplayer_authority(): return false
+	if not is_multiplayer_authority(): return false # if this wasn't here people would be damaged once locally and another time from the network
 	
 	var hit_anything := false
 	for area in get_overlapping_areas():

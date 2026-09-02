@@ -1,146 +1,164 @@
 extends CharacterBody3D
 class_name Player
 
-const SPECIES: Array[Dictionary] = [
+var species_dict: Array[Dictionary] = [
 	{
 		"ears": "Bunny",
-		"texture": preload("uid://ddnalu3w85bxd"),
-		"face": preload("uid://bmi03s6dgewoj"),
+		"texture": load("uid://ddnalu3w85bxd"),
+		"face": load("uid://bmi03s6dgewoj"),
 	},
 	{
 		"ears": "Capy",
-		"texture": preload("uid://l6a5h0elmrqi"),
-		"face": preload("uid://g4oiluox7fq1"),
+		"texture": load("uid://l6a5h0elmrqi"),
+		"face": load("uid://g4oiluox7fq1"),
 	},
 	{
 		"ears": "Kitty",
-		"texture": preload("uid://bwqt52rut5ecg"),
-		"face": preload("uid://b3gq08y3fat6c"),
+		"texture": load("uid://bwqt52rut5ecg"),
+		"face": load("uid://b3gq08y3fat6c"),
 	},
 	{
 		"ears": "Fox",
-		"texture": preload("uid://bps40p8oleq7g"),
-		"face": preload("uid://dwvek7mgsrihw"),
+		"texture": load("uid://bps40p8oleq7g"),
+		"face": load("uid://dwvek7mgsrihw"),
 	},
 	{
 		"ears": "Derg",
-		"texture": preload("uid://dlqajrarf3um4"),
-		"face": preload("uid://4mvy3t8187da"),
+		"texture": load("uid://dlqajrarf3um4"),
+		"face": load("uid://4mvy3t8187da"),
 	},
 	{
 		"ears": "Racc",
-		"texture": preload("uid://xalsfixindqb"),
-		"face": preload("uid://dq0ou37v6o4qe"),
+		"texture": load("uid://xalsfixindqb"),
+		"face": load("uid://dq0ou37v6o4qe"),
 	},
 	{
 		"ears": "Badger",
-		"texture": preload("uid://cfu2q5qpnw2ot"),
-		"face": preload("uid://du2jmnlpk3hdt"),
+		"texture": load("uid://cfu2q5qpnw2ot"),
+		"face": load("uid://du2jmnlpk3hdt"),
 	},
 	{
 		"ears": "Sparkle",
-		"texture": preload("uid://c75uwlm4sjgpt"),
-		"face": preload("uid://ccjw27wydxybm"),
+		"texture": load("uid://c75uwlm4sjgpt"),
+		"face": load("uid://ccjw27wydxybm"),
 	},
 	{
 		"ears": "Chamois",
-		"texture": preload("uid://dhae0yd01wks"),
-		"face": preload("uid://bgjecbjhhwyod"),
+		"texture": load("uid://dhae0yd01wks"),
+		"face": load("uid://bgjecbjhhwyod"),
 	},
 	{
 		"ears": "Kitty",
-		"texture": preload("uid://chphs1ovrpfd4"),
-		"face": preload("uid://br6ga0wm5bift"),
+		"texture": load("uid://chphs1ovrpfd4"),
+		"face": load("uid://br6ga0wm5bift"),
 	},
 	{
 		"ears": "Fox",
-		"texture": preload("uid://bps40p8oleq7g"),
-		"face": preload("uid://buoe4ubhtjkf0"),
+		"texture": load("uid://bps40p8oleq7g"),
+		"face": load("uid://buoe4ubhtjkf0"),
 	},
 	{
 		"ears": "Badger",
-		"texture": preload("uid://bo4mmsugh08el"),
-		"face": preload("uid://thdgal88y6ts"),
+		"texture": load("uid://bo4mmsugh08el"),
+		"face": load("uid://thdgal88y6ts"),
 	},
 	{
 		"ears": "Capy",
-		"texture": preload("uid://cw4q0pwveeu68"),
-		"face": preload("uid://c6ogvoo134aoy"),
+		"texture": load("uid://cw4q0pwveeu68"),
+		"face": load("uid://c6ogvoo134aoy"),
 	},
 	{
 		"ears": "Fox",
-		"texture": preload("uid://cqk6875dbohhs"),
-		"face": preload("uid://bon71ubk8crgc"),
+		"texture": load("uid://cqk6875dbohhs"),
+		"face": load("uid://bon71ubk8crgc"),
 	},
 	{
 		"ears": "Fox",
-		"texture": preload("uid://c4brwswnyipu8"),
-		"face": preload("uid://uarhe68pqcpa"),
+		"texture": load("uid://c4brwswnyipu8"),
+		"face": load("uid://uarhe68pqcpa"),
 	},
 	{
 		"ears": "Kitty",
-		"texture": preload("uid://8fbj2m4uso7l"),
-		"face": preload("uid://b1ft0rmgdxqhx"),
+		"texture": load("uid://8fbj2m4uso7l"),
+		"face": load("uid://b1ft0rmgdxqhx"),
 	},
 	{
 		"ears": "Bunny",
-		"texture": preload("uid://cggfpc80ubw21"),
-		"face": preload("uid://ckwwmar45c7up"),
+		"texture": load("uid://cggfpc80ubw21"),
+		"face": load("uid://ckwwmar45c7up"),
 	},
 	{
 		"ears": "Bird",
-		"texture": preload("uid://dd2vx3pe6nh2q"),
-		"face": preload("uid://cl74j1o8trd7o"),
+		"texture": load("uid://dd2vx3pe6nh2q"),
+		"face": load("uid://cl74j1o8trd7o"),
 	},
 	{
 		"ears": "Horned",
-		"texture": preload("uid://qyodfahhj1eo"),
-		"face": preload("uid://celluoibvs4lo"),
+		"texture": load("uid://qyodfahhj1eo"),
+		"face": load("uid://celluoibvs4lo"),
 	},
 	{
 		"ears": "Fox",
-		"texture": preload("uid://xo8rvvcf48tk"),
-		"face": preload("uid://cwx51ump0tlry"),
+		"texture": load("uid://xo8rvvcf48tk"),
+		"face": load("uid://cwx51ump0tlry"),
 	},
 	{
 		"ears": "Sparkle",
-		"texture": preload("uid://b1r6yd3cbi8dc"),
-		"face": preload("uid://dtt72yb3qrqfl"),
+		"texture": load("uid://b1r6yd3cbi8dc"),
+		"face": load("uid://dtt72yb3qrqfl"),
 	},
 	{
 		"ears": "Lop",
-		"texture": preload("uid://bps40p8oleq7g"),
-		"face": preload("uid://cv447mysh22jd"),
+		"texture": load("uid://bps40p8oleq7g"),
+		"face": load("uid://cv447mysh22jd"),
 	},
 	{
 		"ears": "Hat",
-		"texture": preload("uid://dgufdxyw5l6nk"),
-		"face": preload("uid://c5aictwhqr7g"),
+		"texture": load("uid://dgufdxyw5l6nk"),
+		"face": load("uid://c5aictwhqr7g"),
 	},
 	{
 		"ears": "Capy",
-		"texture": preload("uid://c28qr7g8swj7v"),
-		"face": preload("uid://ctpxe0i600d3c"),
+		"texture": load("uid://c28qr7g8swj7v"),
+		"face": load("uid://ctpxe0i600d3c"),
 	},
 	{
 		"ears": "Flop",
-		"texture": preload("uid://yug4m0u83d11"),
-		"face": preload("uid://bsfwwnqc5ioiu"),
+		"texture": load("uid://yug4m0u83d11"),
+		"face": load("uid://bsfwwnqc5ioiu"),
 	},
 	{
 		"ears": "Monkey",
-		"texture": preload("uid://yug4m0u83d11"),
-		"face": preload("uid://riu0nsp5s1vc"),
+		"texture": load("uid://yug4m0u83d11"),
+		"face": load("uid://riu0nsp5s1vc"),
+	},
+	{
+		"ears": "Tail",
+		"texture": load("uid://dlqajrarf3um4"),
+		"face": load("uid://dp2364pxkmo4b"),
+	},
+	{
+		"ears": "Kitty",
+		"texture": load("uid://bps40p8oleq7g"),
+		"face": load("uid://2fvxt5piq6m6"),
+	},
+	{
+		"ears": "Combo",
+		"texture": load("uid://bps40p8oleq7g"),
+		"face": load("uid://c135xpt5sfd1t"),
 	},
 ]
 
+@export_category("Values")
 @export var jump_boost := 0.3
 @export var peak_velocity_range := 2.0
 @export var peak_gravity_bane := 0.3
 @export var falling_gravity_boon := 0.6
-@export var current_species := 0
+@export var owner_peer_id: int#:
+	#set(id):
+		#owner_peer_id = id
+		#set_multiplayer_authority(id)
 
-var owner_peer_id: int
 var holding_jump := false
 var buffer_time := 0.1
 var coyote_time := 0.1
@@ -148,6 +166,7 @@ var gravity_boon := BoonManager.new(true)
 var jump_cut := false
 #var speed_boon := BoonManager.new(false)
 
+@export_category("Nodes")
 @export var health_comp: HealthComponent
 @export var hurtbox_comp: HurtboxComponent
 @export var input_comp: InputComponent
@@ -160,14 +179,36 @@ var jump_cut := false
 @export var animation_player: AnimationPlayer
 @export var debug_label: Label3D
 
+@export_category("Synced")
+@export var display_name: String:
+	set(value):
+		display_name = value
+		debug_label.text = value
+@export var current_species := 0
+
 @onready var player_holder: PlayerHolder = $".."
 
 
 func _enter_tree() -> void:
-	var peer_id: int = str(name).to_int()
-	set_multiplayer_authority(peer_id)
+	#var peer_id: int = str(name).to_int()
+	#Global.console_panel.add_message(name)
+	set_multiplayer_authority(str(name).to_int())
+	#set_multiplayer_authority(owner_peer_id)
+	#print(str(name))
+	#print(get_multiplayer_authority())
+	#display_name = Global.local_peer_name#name
 	#debug_label.text = str(owner_peer_id)
 	#debug_label.text = player_holder.player_nodes
+
+
+func _ready() -> void:
+	if is_multiplayer_authority():
+		#print(Global.local_peer_name)
+		#Global.console_panel.add_message(Global.local_peer_name)
+		#set_display_name.rpc(Global.local_peer_name)
+		display_name = Global.local_peer_name
+		#debug_label.text = display_name
+	update_character(current_species)
 
 
 func _process(_delta: float) -> void:
@@ -202,7 +243,9 @@ func set_input() -> void:
 		#gravity_boon.remove_bane("peak")
 	
 	if Input.is_action_just_released("debug_key"):# and is_multiplayer_authority():
-		cycle_character.rpc()
+		current_species += 1
+		if current_species > species_dict.size() - 1: current_species = 0
+		update_character.rpc(current_species)
 
 
 func vertical_movement() -> void:
@@ -258,17 +301,18 @@ func respawn() -> void:
 	debug_label.text = "I'm alive!"
 
 @rpc("call_local")
-func cycle_character() -> void:
-	current_species += 1
-	if current_species > SPECIES.size() - 1: current_species = 0
-	
+func update_character(index: int) -> void:
 	for child in model.get_children():
 		if child.name == "Face": continue
-		elif child.name == SPECIES[current_species]["ears"]: child.visible = true
+		elif child.name == species_dict[index]["ears"]: child.visible = true
 		else: child.visible = false
 	
-	$Model/Face.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["face"]
-	model.get_surface_override_material(0).albedo_texture = SPECIES[current_species]["texture"]
+	$Model/Face.get_surface_override_material(0).albedo_texture = species_dict[index]["face"]
+	model.get_surface_override_material(0).albedo_texture = species_dict[index]["texture"]
+
+@rpc("any_peer", "call_local")
+func set_display_name(new_name: String) -> void:
+	debug_label.text = new_name
 
 
 func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
