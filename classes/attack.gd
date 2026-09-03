@@ -6,13 +6,13 @@ class_name Attack
 @export var knockup_force := 0.0 ## Vertical force inflicted on target.
 @export var stun_time := 0.0
 @export var origin_name: String
-#@export var attack_type: ATTACK_TYPE
+#@export var attack_type: AttackType
 
 #var attack_position := Vector2.ZERO
 var attack_direction := Vector2.ZERO
 var origin_node: Node = null
 
-#enum ATTACK_TYPE {
+#enum AttackType {
 #
 #}
 

@@ -4,7 +4,7 @@ class_name HitboxComponent
 
 signal struck(attack: Attack)
 
-enum ALIGNMENT {
+enum Alignment {
 	NONE,
 	PLAYER,
 	ENEMY,
@@ -13,7 +13,7 @@ enum ALIGNMENT {
 
 var detectable := true
 
-@export var alignment: ALIGNMENT
+@export var alignment: Alignment
 @export var target: Node3D
 @export var health_comp: HealthComponent
 

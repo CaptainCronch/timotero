@@ -9,7 +9,7 @@ signal hit(hitbox: HitboxComponent)
 @export var updates := true ## If true, the hurtbox will check for hits automatically
 @export var update_delay := -1.0 ## Will check overlaps every frame if set to less than 0.0 and updates is set to true.
 @export var multihit := false ## If true, the hurtbox can strike multiple hitboxes per update or check.
-@export var alignment: HitboxComponent.ALIGNMENT
+@export var alignment: HitboxComponent.Alignment
 @export var excluded_hitboxes: Array[HitboxComponent] = []
 #@export var detection_groups: PackedStringArray
 
@@ -19,7 +19,7 @@ var update_timer := 0.0
 
 
 func _ready():
-	#if alignment == HitboxComponent.ALIGNMENT.NONE:
+	#if alignment == HitboxComponent.Alignment.NONE:
 		#push_warning(name + " has no alignment set!")
 	if not collision_layer and not collision_mask:
 		push_warning(name + " has no collision bits set!")
@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 
 func check_collision() -> bool: ## Emits hit signal for every hitbox damaged. Returns true if any hitbox was hit.
 	if not is_multiplayer_authority(): return false # if this wasn't here people would be damaged once locally and another time from the network
-	
+
 	var hit_anything := false
 	for area in get_overlapping_areas():
 		if area is HitboxComponent:
