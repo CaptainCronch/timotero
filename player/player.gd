@@ -158,6 +158,7 @@ var species_dict: Array[Dictionary] = [
 	#set(id):
 		#owner_peer_id = id
 		#set_multiplayer_authority(id)
+@export var inventory: InventoryRef
 
 var holding_jump := false
 var buffer_time := 0.1
@@ -203,10 +204,12 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	if is_multiplayer_authority():
+		player_holder.game.local_player = self
 		#print(Global.local_peer_name)
 		#Global.console_panel.add_message(Global.local_peer_name)
 		#set_display_name.rpc(Global.local_peer_name)
 		display_name = Global.local_peer_name
+		#Global.local_player = self
 		#debug_label.text = display_name
 	update_character(current_species)
 

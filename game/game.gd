@@ -3,6 +3,8 @@ class_name Game
 
 const MAX_PLAYERS := 1000
 
+var local_player: Player
+
 @export var player_holder: PlayerHolder
 @export var network_panel: NetworkPanel
 @export var console_panel: ConsolePanel

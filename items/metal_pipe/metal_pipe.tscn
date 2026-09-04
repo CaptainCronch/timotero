@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bx1niidtmjdlf"]
+
+[ext_resource type="Script" uid="uid://c3j473kg82evs" path="res://classes/item.gd" id="1_ggc30"]
+[ext_resource type="Script" uid="uid://cfwtmbbsuxnem" path="res://classes/slot_ref.gd" id="2_oa2e3"]
+[ext_resource type="Resource" uid="uid://c4qnqf5a4qk8s" path="res://items/metal_pipe/metal_pipe.tres" id="2_syr51"]
+[ext_resource type="PackedScene" uid="uid://bmh0i38737jgt" path="res://components/health_component.tscn" id="4_6vdd4"]
+[ext_resource type="PackedScene" uid="uid://cqrprkhrapxbf" path="res://components/hitbox_component.tscn" id="4_invhg"]
+[ext_resource type="PackedScene" uid="uid://c0g4mht1empq3" path="res://components/platformer_component.tscn" id="4_qdkjt"]
+
+[sub_resource type="Resource" id="Resource_wagxh"]
+script = ExtResource("2_oa2e3")
+itemref = ExtResource("2_syr51")
+metadata/_custom_type_script = "uid://cfwtmbbsuxnem"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7qk3k"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_invhg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_invhg"]
+top_radius = 0.125
+bottom_radius = 0.125
+height = 3.0239258
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_invhg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="MetalPipe" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("plat_comp", "hitbox_comp", "health_comp")]
+collision_layer = 256
+collision_mask = 3
+floor_constant_speed = true
+floor_max_angle = 0.80285144
+floor_snap_length = 0.2
+script = ExtResource("1_ggc30")
+slotref = SubResource("Resource_wagxh")
+plat_comp = NodePath("PlatformerComponent")
+hitbox_comp = NodePath("HitboxComponent")
+health_comp = NodePath("HealthComponent")
+
+[node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("4_6vdd4")]
+target = NodePath("..")
+plat_comp = NodePath("../PlatformerComponent")
+defense = inf
+
+[node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("4_invhg")]
+collision_layer = 256
+collision_mask = 256
+target = NodePath("..")
+health_comp = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1647812004]
+shape = SubResource("BoxShape3D_7qk3k")
+
+[node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("4_qdkjt")]
+bounce_factor = 0.8
+target = NodePath("..")
+model = NodePath("../MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=845472123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_invhg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=26456565]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
+mesh = SubResource("CylinderMesh_invhg")
+
+[node name="DroppedPos" type="Marker3D" parent="." unique_id=852467141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
+
+[node name="HeldPos" type="Marker3D" parent="." unique_id=817742549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778826321]
+replication_config = SubResource("SceneReplicationConfig_invhg")

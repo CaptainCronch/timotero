@@ -42,7 +42,8 @@ signal item_next
 signal item_previous
 #endregion
 
-var enabled = true
+var enabled = true ## If the InputComponent should run at all.
+var ui_enabled := false ## If the InputComponent should ignore UI-related inputs.
 var move_vector := Vector2()
 
 @export var spring_arm: SpringArm3D
@@ -75,13 +76,13 @@ func _process(_delta: float) -> void: # how do you do this better
 	if Input.is_action_pressed("jump"): jump_hold.emit()
 	if Input.is_action_just_released("jump"): jump_release.emit()
 	
-	if Input.is_action_just_pressed("primary"): primary.emit()
-	if Input.is_action_pressed("primary"): primary_hold.emit()
-	if Input.is_action_just_released("primary"): primary_release.emit()
+	if Input.is_action_just_pressed("primary") and not ui_enabled: primary.emit()
+	if Input.is_action_pressed("primary") and not ui_enabled: primary_hold.emit()
+	if Input.is_action_just_released("primary") and not ui_enabled: primary_release.emit()
 	
-	if Input.is_action_just_pressed("secondary"): secondary.emit()
-	if Input.is_action_pressed("secondary"): secondary_hold.emit()
-	if Input.is_action_just_released("secondary"): secondary_release.emit()
+	if Input.is_action_just_pressed("secondary") and not ui_enabled: secondary.emit()
+	if Input.is_action_pressed("secondary") and not ui_enabled: secondary_hold.emit()
+	if Input.is_action_just_released("secondary") and not ui_enabled: secondary_release.emit()
 	
 	if Input.is_action_just_pressed("tertiary"): tertiary.emit()
 	if Input.is_action_pressed("tertiary"): tertiary_hold.emit()

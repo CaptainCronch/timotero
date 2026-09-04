@@ -11,6 +11,8 @@ var player_info: Dictionary[String, String] = {"name": "Name"}
 var player_nodes: Dictionary[int, Player] = {}
 #var player_names: Dictionary[int, String] = {}
 
+@export var game: Game
+
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)

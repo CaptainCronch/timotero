@@ -4,9 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cxokfdi0db5ce" path="res://test/test_level.tscn" id="2_y36n6"]
 [ext_resource type="Script" uid="uid://c7lkcx07dbbr3" path="res://game/player_holder.gd" id="3_l8g03"]
 [ext_resource type="Script" uid="uid://j8wbckudvjp6" path="res://game/network_panel.gd" id="4_j8tme"]
+[ext_resource type="Script" uid="uid://cicmg0vpk44oh" path="res://game/inventory_panel.gd" id="4_y36n6"]
 [ext_resource type="Script" uid="uid://yhh7dvxdlbg3" path="res://game/console_panel.gd" id="5_3vho3"]
 [ext_resource type="Script" uid="uid://dc5wncrcdg8lw" path="res://game/server_runner.gd" id="6_qf6n1"]
 [ext_resource type="Script" uid="uid://bfr3lc2kfwmii" path="res://game/client_connector.gd" id="7_vsp63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sysqh"]
+bg_color = Color(0, 0, 0, 0.2)
 
 [node name="Game" type="Node" unique_id=759877435 node_paths=PackedStringArray("player_holder", "network_panel", "console_panel", "server_runner", "client_connector")]
 script = ExtResource("1_u5opy")
@@ -24,10 +28,38 @@ spawn_path = NodePath("../PlayerHolder")
 
 [node name="TestLevel" parent="LevelHolder" unique_id=888138300 instance=ExtResource("2_y36n6")]
 
-[node name="PlayerHolder" type="Node" parent="." unique_id=57407888]
+[node name="PlayerHolder" type="Node" parent="." unique_id=57407888 node_paths=PackedStringArray("game")]
 script = ExtResource("3_l8g03")
+game = NodePath("..")
 
 [node name="UIHolder" type="Node" parent="." unique_id=830435686]
+
+[node name="InventoryPanel" type="MarginContainer" parent="UIHolder" unique_id=2106304386 node_paths=PackedStringArray("game", "grid_container")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 0
+theme_override_constants/margin_right = 25
+script = ExtResource("4_y36n6")
+game = NodePath("../..")
+grid_container = NodePath("GridContainer")
+
+[node name="Panel" type="Panel" parent="UIHolder/InventoryPanel" unique_id=1776551828]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sysqh")
+
+[node name="GridContainer" type="GridContainer" parent="UIHolder/InventoryPanel" unique_id=700658303]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 6
 
 [node name="NetworkPanel" type="MarginContainer" parent="UIHolder" unique_id=426669234 node_paths=PackedStringArray("ip_box", "port_box")]
 anchors_preset = 2
@@ -96,6 +128,8 @@ script = ExtResource("6_qf6n1")
 [node name="ClientConnector" type="Node" parent="ServerInterface" unique_id=1514652395]
 script = ExtResource("7_vsp63")
 
+[connection signal="mouse_entered" from="UIHolder/InventoryPanel" to="UIHolder/InventoryPanel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="UIHolder/InventoryPanel" to="UIHolder/InventoryPanel" method="_on_mouse_exited"]
 [connection signal="host_server" from="UIHolder/NetworkPanel" to="." method="_on_network_panel_host_server"]
 [connection signal="join_server" from="UIHolder/NetworkPanel" to="." method="_on_network_panel_join_server"]
 [connection signal="pressed" from="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer2/Button" to="UIHolder/NetworkPanel" method="_on_host_button_pressed"]

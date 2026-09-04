@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemRef" format=3 uid="uid://c4qnqf5a4qk8s"]
+
+[ext_resource type="Texture2D" uid="uid://dca0ygsqkk26q" path="res://items/metal_pipe/metal_pipe_icon.jpeg" id="1_kcmv5"]
+[ext_resource type="Script" uid="uid://b3yfjtnss5qeh" path="res://classes/item_ref.gd" id="2_xescn"]
+
+[resource]
+script = ExtResource("2_xescn")
+image = ExtResource("1_kcmv5")
+name = "Metal Pipe"
+description = "it makes the sfx"
+stackable = false
+max_stack = 1
+inherent_tags = Array[int]([2, 4, 5])
+dropped_item = "uid://bx1niidtmjdlf"
+metadata/_custom_type_script = "uid://b3yfjtnss5qeh"

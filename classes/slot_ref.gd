@@ -10,14 +10,48 @@ class_name SlotRef
 #         - the inventory timer would probably need to tick every frame for something like this
 
 @export var itemref: ItemRef
-@export var amount := 1:
-	set(value):
-		if not itemref.stackable and value > 1:
-			push_error(str(self) + "Tried to stack " + str(itemref.name) + ", which is unstackable.")
-			return
-		amount = value
+@export var amount := 1: set = set_amount
 
-var slot_tags
+#var transient_tags: Array[SlotRef.Tag] = [] ???
+
+
+func can_merge_with(other_slotref: SlotRef, single := false) -> bool: ## Check if other SlotRef can merge with this one. Set single to true if only merging one from other pile rather than all.
+	return (itemref == other_slotref.itemref
+			and itemref.stackable
+			and amount < itemref.max_stack
+			and (other_slotref.amount < itemref.max_stack or single))
+
+
+func merge_with(other_slotref: SlotRef, single := false) -> SlotRef: ## Add the amounts of both SlotRefs together. Set single to true if only merging one from other pile rather than all.
+	if single:
+		set_amount(amount + 1)
+		other_slotref.set_amount(other_slotref.amount - 1)
+		if other_slotref.amount == 0:
+			return null
+		else: return other_slotref
+
+	var total := amount + other_slotref.amount
+	if total > itemref.max_stack:
+		set_amount(itemref.max_stack)
+		other_slotref.set_amount(total - itemref.max_stack)
+		return other_slotref
+	else:
+		set_amount(total)
+		return null
+
+
+func create_single_slotref() -> SlotRef:
+	var new_slotref : SlotRef = duplicate()
+	new_slotref.set_amount(1)
+	set_amount(amount - 1)
+	return new_slotref
+
+
+func set_amount(value: int) -> void:
+	amount = value
+	if not itemref.stackable and amount > 1:
+		amount = 1
+		push_error(str(self) + "Tried to stack " + str(itemref.name) + ", which is unstackable.")
 
 
 static func serialize(slotref: SlotRef) -> Dictionary:

@@ -36,7 +36,8 @@ folder_colors={
 "res://components/": "orange",
 "res://environment/": "yellow",
 "res://game/": "green",
-"res://player/": "teal",
+"res://items/": "teal",
+"res://player/": "blue",
 "res://test/": "gray"
 }
 

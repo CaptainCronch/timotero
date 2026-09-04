@@ -9,6 +9,7 @@ class_name CameraHolder
 #@export var distance_range: PackedFloat32Array = [5.0, 10.0]
 @export var smooth_look := false
 @export var smooth_power := 20.0
+@export var offset := Vector3(0.0, 2.0, 0.0)
 
 var accumulated_rotation := Vector2()
 var smooth_rotation: Vector2 = accumulated_rotation
@@ -31,7 +32,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
-	global_position = target.global_position
+	global_position = target.global_position + offset
 	#$"../UI/FPS".text = str(Engine.get_frames_per_second())
 	#_analog_look = Input.get_axis("look_left", "look_right")
 	rotate_y(deg_to_rad(_analog_look * analog_sensitivity))

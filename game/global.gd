@@ -4,8 +4,12 @@ enum PEER_TYPE {NONE, HOST, CLIENT}
 
 var local_peer_type: PEER_TYPE = PEER_TYPE.NONE
 var local_peer_name := ""
+#var local_player: Player
 var game: Game
-var console_panel: ConsolePanel
+#var console_panel: ConsolePanel
+#var inventory_panel: InventoryPanel
+
+@onready var inventory_panel: InventoryPanel = $/root/Game/UIHolder/InventoryPanel
 
 
 func _ready() -> void:
@@ -13,7 +17,7 @@ func _ready() -> void:
 	Engine.max_fps = 60
 	
 	game = get_tree().current_scene
-	console_panel = game.console_panel
+	#console_panel = game.console_panel
 	await game.ready
 	var anything := false
 	#var game: Game = get_tree().current_scene

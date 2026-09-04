@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dtl1ioc75ftgd" path="res://test/proto-textures/proto-orange.png" id="1_8rkqs"]
 [ext_resource type="Texture2D" uid="uid://bwqt52rut5ecg" path="res://test/proto-textures/proto-violet.png" id="2_ls30l"]
 [ext_resource type="PackedScene" uid="uid://bx7qrcpplghho" path="res://test/test_dummy.tscn" id="4_kgsy5"]
+[ext_resource type="PackedScene" uid="uid://bx1niidtmjdlf" path="res://items/metal_pipe/metal_pipe.tscn" id="4_oxjuh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgsy5"]
 albedo_texture = ExtResource("1_8rkqs")
@@ -362,5 +363,8 @@ attack_type = "Timed Multihit"
 [node name="TestDummy3" parent="." unique_id=1960929110 instance=ExtResource("4_kgsy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.021591, 0, -0.24167919)
 attack_type = "On Enter"
+
+[node name="MetalPipe" parent="." unique_id=932024774 instance=ExtResource("4_oxjuh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4729013, 0, -5.5863814)
 
 [connection signal="body_entered" from="Teleport" to="Teleport" method="_on_body_entered"]

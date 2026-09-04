@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cjnfw5e7hvhfi"]
+
+[ext_resource type="Script" uid="uid://i41ur5ifr0pb" path="res://game/slot_display.gd" id="1_sysqh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wagxh"]
+font_size = 12
+
+[node name="SlotDisplay" type="MarginContainer" unique_id=355620571 node_paths=PackedStringArray("texture_rect", "label")]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+script = ExtResource("1_sysqh")
+texture_rect = NodePath("TextureRect")
+label = NodePath("Label")
+
+[node name="Panel" type="Panel" parent="." unique_id=1434523984]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=859125264]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="." unique_id=1850376066]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "99"
+label_settings = SubResource("LabelSettings_wagxh")
+horizontal_alignment = 2
+vertical_alignment = 2

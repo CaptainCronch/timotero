@@ -48,9 +48,12 @@ func check_collision() -> bool: ## Emits hit signal for every hitbox damaged. Re
 	var hit_anything := false
 	for area in get_overlapping_areas():
 		if area is HitboxComponent:
-			if area.alignment == alignment: continue
 			if not area.detectable: continue
 			if area in excluded_hitboxes: continue
+			if area.alignment == alignment and \
+					not area.alignment == HitboxComponent.Alignment.NONE and \
+					not alignment == HitboxComponent.Alignment.NONE: continue
+
 			
 			var new_attack := Attack.copy(attack)
 			if direct_towards_target:

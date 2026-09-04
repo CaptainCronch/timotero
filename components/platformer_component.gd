@@ -16,6 +16,7 @@ const MAX_FALL_SPEED := -1000.0
 @export var turn_acceleration := 30.0
 @export var knockback_factor := 1.0
 @export var knockup_factor := 1.0
+@export var bounce_factor := 0.0
 
 #var move_multiplier := 1.0
 #var explosive_jumping := false
@@ -45,6 +46,9 @@ var last_desired_dir := Vector2.DOWN ## Down is model forward.
 func _ready():
 	assert(is_instance_valid(target), "This PlatformerComponent is lacking a target")
 	assert(is_instance_valid(model), "This PlatformerComponent is lacking a model")
+	target.floor_constant_speed = true
+	target.floor_max_angle = deg_to_rad(46.0) # Extra degreee to make sure 45 degree slopes can be climed without issue
+	target.floor_snap_length = 0.2
 	#if health_comp:
 		#health_comp.damage_taken.connect(knockback)
 
@@ -64,18 +68,22 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	vertical_movement(delta)
 	horizontal_movement(delta)
-	target.move_and_slide()
+	
+	if bounce_factor <= 0.0:
+		target.move_and_slide()
+	else:
+		var collision := target.move_and_collide(target.velocity * delta)
+		if not collision == null:
+			target.velocity = target.velocity.bounce(collision.get_normal()) * bounce_factor
+		#for i in target.get_slide_collision_count():
+			#target.velocity = target.get_slide_collision(i).get_travel().normalized() * target.velocity * bounce_factor
 	if is_on_floor(): is_jumping = false
 
 
 func vertical_movement(delta: float) -> void:
-	if is_on_floor(): return
-	#if target.velocity.y >= peak_range: gravity = base_gravity
-	#elif target.velocity.y <= -peak_range: gravity = fall_gravity
-	#else: gravity = peak_gravity # dfferent gravities applied based on y velocity
-
-	target.velocity.y -= gravity * delta # gravity
-	target.velocity.y = maxf(target.velocity.y, MAX_FALL_SPEED)
+	if not is_on_floor():
+		target.velocity.y -= gravity * delta # gravity
+		target.velocity.y = maxf(target.velocity.y, MAX_FALL_SPEED)
 
 
 func horizontal_movement(delta: float) -> void:
