@@ -56,9 +56,9 @@ hit_visual = NodePath("HitVisual")
 debug_label = NodePath("DebugLabel")
 
 [node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("2_w48vd")]
-max_health = 10.0
 target = NodePath("..")
 plat_comp = NodePath("../PlatformerComponent")
+max_health = 10.0
 
 [node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("3_4ceke")]
 collision_layer = 256

@@ -6,6 +6,7 @@ const MAX_PLAYERS := 1000
 var local_player: Player
 
 @export var player_holder: PlayerHolder
+@export var inventory_panel: InventoryPanel
 @export var network_panel: NetworkPanel
 @export var console_panel: ConsolePanel
 @export var server_runner: ServerRunner
@@ -33,3 +34,7 @@ func _on_created_server() -> void:
 	network_panel.hide()
 	player_holder.spawn_player(1)
 	#push_warning("created server")
+
+
+func _on_inventory_panel_override_active(slotref: SlotRef) -> void:
+	local_player.inventory_comp.set_override_active(slotref)

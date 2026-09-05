@@ -10,6 +10,6 @@ name = "Metal Pipe"
 description = "it makes the sfx"
 stackable = false
 max_stack = 1
-inherent_tags = Array[int]([2, 4, 5])
+inherent_tags = Array[int]([2, 5])
 dropped_item = "uid://bx1niidtmjdlf"
 metadata/_custom_type_script = "uid://b3yfjtnss5qeh"

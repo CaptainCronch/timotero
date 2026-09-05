@@ -40,6 +40,7 @@ var last_desired_dir := Vector2.DOWN ## Down is model forward.
 @export var forced_look := false
 @export var stunned := false
 @export var frozen := false
+@export var disabled := false
 @export var is_jumping := false
 
 
@@ -54,6 +55,7 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
+	if disabled: return
 	#if not forced_look:
 		#if not move_dir.is_zero_approx():
 			#last_desired_dir = move_dir
@@ -66,6 +68,7 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
+	if disabled: return
 	vertical_movement(delta)
 	horizontal_movement(delta)
 	

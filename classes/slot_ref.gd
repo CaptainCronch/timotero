@@ -15,6 +15,18 @@ class_name SlotRef
 #var transient_tags: Array[SlotRef.Tag] = [] ???
 
 
+func _init() -> void:
+	resource_local_to_scene = true
+
+
+func update(delta: float) -> void:
+	pass
+
+
+func physics_update(delta: float) -> void:
+	pass
+
+
 func can_merge_with(other_slotref: SlotRef, single := false) -> bool: ## Check if other SlotRef can merge with this one. Set single to true if only merging one from other pile rather than all.
 	return (itemref == other_slotref.itemref
 			and itemref.stackable

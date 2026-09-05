@@ -27,7 +27,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="MetalPipe" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("plat_comp", "hitbox_comp", "health_comp")]
+[node name="MetalPipe" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker")]
 collision_layer = 256
 collision_mask = 3
 floor_constant_speed = true
@@ -35,13 +35,18 @@ floor_max_angle = 0.80285144
 floor_snap_length = 0.2
 script = ExtResource("1_ggc30")
 slotref = SubResource("Resource_wagxh")
-plat_comp = NodePath("PlatformerComponent")
-hitbox_comp = NodePath("HitboxComponent")
 health_comp = NodePath("HealthComponent")
+hitbox_comp = NodePath("HitboxComponent")
+plat_comp = NodePath("PlatformerComponent")
+collider = NodePath("CollisionShape3D")
+model = NodePath("MeshInstance3D")
+dropped_marker = NodePath("DroppedMarker")
+held_marker = NodePath("HeldMarker")
 
 [node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("4_6vdd4")]
 target = NodePath("..")
 plat_comp = NodePath("../PlatformerComponent")
+max_health = 100.0
 defense = inf
 
 [node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("4_invhg")]
@@ -66,11 +71,11 @@ shape = SubResource("SphereShape3D_invhg")
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
 mesh = SubResource("CylinderMesh_invhg")
 
-[node name="DroppedPos" type="Marker3D" parent="." unique_id=852467141]
+[node name="DroppedMarker" type="Marker3D" parent="." unique_id=852467141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
 
-[node name="HeldPos" type="Marker3D" parent="." unique_id=817742549]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
+[node name="HeldMarker" type="Marker3D" parent="." unique_id=817742549]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0.73478425, 2.1175554, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778826321]
 replication_config = SubResource("SceneReplicationConfig_invhg")

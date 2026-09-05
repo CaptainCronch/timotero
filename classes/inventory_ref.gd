@@ -2,10 +2,8 @@ extends Resource
 class_name InventoryRef
 
 signal inventory_interacted(ref: InventoryRef, index: int, type: InteractType)
-signal inventory_updated(invred: InventoryRef, index: int)
-signal slotref_changed(old_ref: SlotRef, new_ref: SlotRef)
-
-const DEFAULT_INVENTORY_SIZE := 30
+signal inventory_updated(invref: InventoryRef, index: int)
+signal slotref_changed(old_ref: SlotRef, new_ref: SlotRef) # unused for now
 
 enum InteractType {
 	NONE, ## Used for initializing or invalid button.
@@ -15,6 +13,11 @@ enum InteractType {
 
 @export var slot_list: Array[SlotRef] = []
 @export var filter_tag: ItemRef.Tag
+@export var max_active_index := 5
+
+
+func _init() -> void:
+	resource_local_to_scene = true
 
 
 func set_slotref(index: int, new_slotref: SlotRef) -> void:
@@ -34,8 +37,8 @@ func grab_slotref(index: int) -> SlotRef: ## Called on primary interact with emp
 
 
 func grab_half_slotref(index: int) -> SlotRef: ## Called on secondary interact with empty hand. Grabber keeps the extra on odd numbers.
-	var slotref = slot_list[index].duplicate()
-	if slotref:
+	if slot_list[index]:
+		var slotref = slot_list[index].duplicate()
 		if slotref.amount == 1: return grab_slotref(index)
 		var half_amount = roundi(slotref.amount / 2.0)
 		slot_list[index].amount = half_amount

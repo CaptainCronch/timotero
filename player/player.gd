@@ -158,19 +158,20 @@ var species_dict: Array[Dictionary] = [
 	#set(id):
 		#owner_peer_id = id
 		#set_multiplayer_authority(id)
-@export var inventory: InventoryRef
 
 var holding_jump := false
 var buffer_time := 0.1
 var coyote_time := 0.1
 var gravity_boon := BoonManager.new(true)
 var jump_cut := false
+var held_item: Item = null
 #var speed_boon := BoonManager.new(false)
 
 @export_category("Nodes")
 @export var health_comp: HealthComponent
 @export var hurtbox_comp: HurtboxComponent
 @export var input_comp: InputComponent
+@export var inventory_comp: InventoryComponent
 @export var plat_comp: PlatformerComponent
 @export var camera_holder: CameraHolder
 @export var buffer_timer: Timer
@@ -205,6 +206,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	if is_multiplayer_authority():
 		player_holder.game.local_player = self
+		player_holder.game.inventory_panel.set_inventory_data(inventory_comp.invref)
 		#print(Global.local_peer_name)
 		#Global.console_panel.add_message(Global.local_peer_name)
 		#set_display_name.rpc(Global.local_peer_name)
@@ -350,3 +352,25 @@ func _on_input_primary() -> void:
 
 func _on_input_toggle_strafe_release() -> void:
 	plat_comp.forced_look = not plat_comp.forced_look
+
+
+func _on_inventory_component_active_changed(slotref: SlotRef) -> void:
+	if is_instance_valid(held_item): held_item.queue_free()
+	if is_instance_valid(slotref):
+		var new_item: Item = load(slotref.itemref.dropped_item).instantiate()
+		new_item.pick_up()
+		weapon_holder.add_child(new_item)
+		held_item = new_item
+	else:
+		held_item = null
+	
+	#Global.game.console_panel.add_message(str(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index))
+	player_holder.game.inventory_panel.switch_active(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index)
+
+
+func _on_input_item_next() -> void:
+	inventory_comp.crement_active(1)
+
+
+func _on_input_item_previous() -> void:
+	inventory_comp.crement_active(-1)

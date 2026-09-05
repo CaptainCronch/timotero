@@ -27,6 +27,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="." unique_id=1850376066]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8

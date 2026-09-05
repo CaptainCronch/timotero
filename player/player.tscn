@@ -10,12 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://g8f0kq3pafy6" path="res://components/input_component.tscn" id="4_rgyib"]
 [ext_resource type="Script" uid="uid://cwmtuce3mypoy" path="res://classes/attack.gd" id="5_2ieo8"]
 [ext_resource type="Script" uid="uid://bden2ailx6gmc" path="res://player/camera_holder.gd" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://btdagfce8jymj" path="res://components/inventory_component.tscn" id="7_2ieo8"]
 [ext_resource type="Texture2D" uid="uid://ddnalu3w85bxd" path="res://test/proto-textures/proto-beige.png" id="9_8t03j"]
 [ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="10_2ieo8"]
-
-[sub_resource type="Resource" id="Resource_8t03j"]
-script = ExtResource("2_2ieo8")
-metadata/_custom_type_script = "uid://b2yh01wgw2qeb"
+[ext_resource type="Resource" uid="uid://c4qnqf5a4qk8s" path="res://items/metal_pipe/metal_pipe.tres" id="10_kb6p2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wagxh"]
 size = Vector3(0.5, 1.5, 0.5)
@@ -30,6 +28,20 @@ metadata/_custom_type_script = "uid://cwmtuce3mypoy"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7qk3k"]
 size = Vector3(3.0064316, 2.5043945, 4.007736)
+
+[sub_resource type="Resource" id="Resource_yllr7"]
+script = ExtResource("3_ebec5")
+itemref = ExtResource("10_kb6p2")
+metadata/_custom_type_script = "uid://cfwtmbbsuxnem"
+
+[sub_resource type="Resource" id="Resource_2ieo8"]
+script = ExtResource("2_2ieo8")
+slot_list = Array[ExtResource("3_ebec5")]([SubResource("Resource_yllr7"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+metadata/_custom_type_script = "uid://b2yh01wgw2qeb"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wagxh"]
+radius = 1.0
+height = 3.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wagxh"]
 
@@ -203,17 +215,17 @@ properties/2/path = NodePath(".:current_species")
 properties/2/spawn = true
 properties/2/replication_mode = 2
 
-[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
+[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "inventory_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
 collision_layer = 272
 collision_mask = 3
 floor_constant_speed = true
 floor_max_angle = 0.80285144
 floor_snap_length = 0.2
 script = ExtResource("1_g1dw6")
-inventory = SubResource("Resource_8t03j")
 health_comp = NodePath("HealthComponent")
 hurtbox_comp = NodePath("HurtboxComponent")
 input_comp = NodePath("InputComponent")
+inventory_comp = NodePath("InventoryComponent")
 plat_comp = NodePath("PlatformerComponent")
 camera_holder = NodePath("CameraHolder")
 buffer_timer = NodePath("BufferTimer")
@@ -254,6 +266,15 @@ shape = SubResource("BoxShape3D_7qk3k")
 [node name="InputComponent" parent="." unique_id=436256818 node_paths=PackedStringArray("spring_arm", "plat_comp") instance=ExtResource("4_rgyib")]
 spring_arm = NodePath("../CameraHolder")
 plat_comp = NodePath("../PlatformerComponent")
+
+[node name="InventoryComponent" parent="." unique_id=1344578157 instance=ExtResource("7_2ieo8")]
+inventory_name = "Player"
+invref = SubResource("Resource_2ieo8")
+pickup_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InventoryComponent" unique_id=824694385]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_wagxh")
 
 [node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("2_qjkh3")]
 bounce_factor = -1.0
@@ -554,6 +575,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponHolder" unique_id=206024074]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0.73478425, 2.1175554, 0)
+visible = false
 mesh = SubResource("CylinderMesh_7qk3k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=107280351]
@@ -569,8 +591,11 @@ replication_config = SubResource("SceneReplicationConfig_8t03j")
 
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
 [connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]
+[connection signal="item_next" from="InputComponent" to="." method="_on_input_item_next"]
+[connection signal="item_previous" from="InputComponent" to="." method="_on_input_item_previous"]
 [connection signal="jump" from="InputComponent" to="." method="_on_input_jump"]
 [connection signal="jump_release" from="InputComponent" to="." method="_on_input_jump_release"]
 [connection signal="primary" from="InputComponent" to="." method="_on_input_primary"]
 [connection signal="toggle_strafe_release" from="InputComponent" to="." method="_on_input_toggle_strafe_release"]
+[connection signal="active_changed" from="InventoryComponent" to="." method="_on_inventory_component_active_changed"]
 [connection signal="knocked_up" from="PlatformerComponent" to="." method="_on_plat_comp_knocked_up"]

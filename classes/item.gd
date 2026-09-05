@@ -4,9 +4,13 @@ class_name Item
 const PICK_UP_DELAY := 0.5
 
 @export var slotref: SlotRef
-@export var plat_comp: PlatformerComponent
-@export var hitbox_comp: HitboxComponent
 @export var health_comp: HealthComponent
+@export var hitbox_comp: HitboxComponent
+@export var plat_comp: PlatformerComponent
+@export var collider: CollisionShape3D
+@export var model: Node3D
+@export var dropped_marker: Marker3D
+@export var held_marker: Marker3D
 
 var pickupable := false
 var pick_up_timer := PICK_UP_DELAY
@@ -30,12 +34,18 @@ func _process(delta: float) -> void:
 
 
 func pick_up() -> void:
-	plat_comp.frozen = true
+	plat_comp.disabled = true
 	hitbox_comp.detectable = false
+	collider.disabled = true
+	pickupable = false
+	pick_up_timer = -1.0
+	model.transform = held_marker.transform
 
 
 func drop() -> void:
-	plat_comp.frozen = false
+	plat_comp.disabled = false
 	hitbox_comp.detectable = true
+	collider.disabled = false
 	pickupable = false
 	pick_up_timer = PICK_UP_DELAY
+	model.transform = dropped_marker.transform

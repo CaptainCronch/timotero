@@ -36,8 +36,8 @@ var stun_timer := 0.0
 func _ready() -> void:
 	health = max_health
 	blood_level = max_health
-	if is_zero_approx(max_health):
-		push_warning("HealthComponent spawned with 0 max health!")
+	#if is_zero_approx(max_health):
+	assert(not is_zero_approx(max_health), "HealthComponent spawned with 0 max health!")
 
 
 func _process(delta: float) -> void:

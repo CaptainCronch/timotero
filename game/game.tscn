@@ -6,15 +6,20 @@
 [ext_resource type="Script" uid="uid://j8wbckudvjp6" path="res://game/network_panel.gd" id="4_j8tme"]
 [ext_resource type="Script" uid="uid://cicmg0vpk44oh" path="res://game/inventory_panel.gd" id="4_y36n6"]
 [ext_resource type="Script" uid="uid://yhh7dvxdlbg3" path="res://game/console_panel.gd" id="5_3vho3"]
+[ext_resource type="PackedScene" uid="uid://cjnfw5e7hvhfi" path="res://game/slot_display.tscn" id="5_l8g03"]
 [ext_resource type="Script" uid="uid://dc5wncrcdg8lw" path="res://game/server_runner.gd" id="6_qf6n1"]
 [ext_resource type="Script" uid="uid://bfr3lc2kfwmii" path="res://game/client_connector.gd" id="7_vsp63"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sysqh"]
 bg_color = Color(0, 0, 0, 0.2)
 
-[node name="Game" type="Node" unique_id=759877435 node_paths=PackedStringArray("player_holder", "network_panel", "console_panel", "server_runner", "client_connector")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wagxh"]
+bg_color = Color(1, 1, 1, 0.5)
+
+[node name="Game" type="Node" unique_id=759877435 node_paths=PackedStringArray("player_holder", "inventory_panel", "network_panel", "console_panel", "server_runner", "client_connector")]
 script = ExtResource("1_u5opy")
 player_holder = NodePath("PlayerHolder")
+inventory_panel = NodePath("UIHolder/InventoryPanel")
 network_panel = NodePath("UIHolder/NetworkPanel")
 console_panel = NodePath("UIHolder/ConsolePanel")
 server_runner = NodePath("ServerInterface/ServerRunner")
@@ -34,7 +39,7 @@ game = NodePath("..")
 
 [node name="UIHolder" type="Node" parent="." unique_id=830435686]
 
-[node name="InventoryPanel" type="MarginContainer" parent="UIHolder" unique_id=2106304386 node_paths=PackedStringArray("game", "grid_container")]
+[node name="InventoryPanel" type="MarginContainer" parent="UIHolder" unique_id=2106304386 node_paths=PackedStringArray("game", "grab_display", "grid_container", "active_overlay")]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -48,7 +53,9 @@ mouse_filter = 0
 theme_override_constants/margin_right = 25
 script = ExtResource("4_y36n6")
 game = NodePath("../..")
+grab_display = NodePath("SlotDisplay")
 grid_container = NodePath("GridContainer")
+active_overlay = NodePath("ActiveOverlay")
 
 [node name="Panel" type="Panel" parent="UIHolder/InventoryPanel" unique_id=1776551828]
 layout_mode = 2
@@ -60,6 +67,109 @@ layout_mode = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 6
+
+[node name="SlotDisplay" parent="UIHolder/InventoryPanel/GridContainer" unique_id=355620571 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay2" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1665941816 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay3" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1778199095 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay4" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1986559855 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay5" parent="UIHolder/InventoryPanel/GridContainer" unique_id=673630290 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay6" parent="UIHolder/InventoryPanel/GridContainer" unique_id=113182224 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay7" parent="UIHolder/InventoryPanel/GridContainer" unique_id=887058246 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay8" parent="UIHolder/InventoryPanel/GridContainer" unique_id=648372159 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay9" parent="UIHolder/InventoryPanel/GridContainer" unique_id=591850761 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay10" parent="UIHolder/InventoryPanel/GridContainer" unique_id=358584602 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay11" parent="UIHolder/InventoryPanel/GridContainer" unique_id=617516095 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay12" parent="UIHolder/InventoryPanel/GridContainer" unique_id=611470348 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay13" parent="UIHolder/InventoryPanel/GridContainer" unique_id=617786605 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay14" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1325767366 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay15" parent="UIHolder/InventoryPanel/GridContainer" unique_id=2094595552 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay16" parent="UIHolder/InventoryPanel/GridContainer" unique_id=228651054 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay17" parent="UIHolder/InventoryPanel/GridContainer" unique_id=472857302 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay18" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1271767273 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay19" parent="UIHolder/InventoryPanel/GridContainer" unique_id=2005847886 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay20" parent="UIHolder/InventoryPanel/GridContainer" unique_id=669390761 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay21" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1913962844 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay22" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1162882406 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay23" parent="UIHolder/InventoryPanel/GridContainer" unique_id=2124499881 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay24" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1853457015 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay25" parent="UIHolder/InventoryPanel/GridContainer" unique_id=302939699 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay26" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1314400632 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay27" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1598853835 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay28" parent="UIHolder/InventoryPanel/GridContainer" unique_id=526598659 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay29" parent="UIHolder/InventoryPanel/GridContainer" unique_id=1313000204 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay30" parent="UIHolder/InventoryPanel/GridContainer" unique_id=131083410 instance=ExtResource("5_l8g03")]
+layout_mode = 2
+
+[node name="SlotDisplay" parent="UIHolder/InventoryPanel" unique_id=1287641131 instance=ExtResource("5_l8g03")]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ActiveOverlay" type="Panel" parent="UIHolder/InventoryPanel" unique_id=630888135]
+custom_minimum_size = Vector2(50, 50)
+custom_maximum_size = Vector2(50, 50)
+layout_mode = 2
+offset_transform_enabled = true
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wagxh")
 
 [node name="NetworkPanel" type="MarginContainer" parent="UIHolder" unique_id=426669234 node_paths=PackedStringArray("ip_box", "port_box")]
 anchors_preset = 2
@@ -130,6 +240,7 @@ script = ExtResource("7_vsp63")
 
 [connection signal="mouse_entered" from="UIHolder/InventoryPanel" to="UIHolder/InventoryPanel" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="UIHolder/InventoryPanel" to="UIHolder/InventoryPanel" method="_on_mouse_exited"]
+[connection signal="override_active" from="UIHolder/InventoryPanel" to="." method="_on_inventory_panel_override_active"]
 [connection signal="host_server" from="UIHolder/NetworkPanel" to="." method="_on_network_panel_host_server"]
 [connection signal="join_server" from="UIHolder/NetworkPanel" to="." method="_on_network_panel_join_server"]
 [connection signal="pressed" from="UIHolder/NetworkPanel/VBoxContainer/HBoxContainer2/Button" to="UIHolder/NetworkPanel" method="_on_host_button_pressed"]
