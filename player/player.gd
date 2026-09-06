@@ -154,6 +154,8 @@ var species_dict: Array[Dictionary] = [
 @export var peak_velocity_range := 2.0
 @export var peak_gravity_bane := 0.3
 @export var falling_gravity_boon := 0.6
+@export var max_throw_force := Vector3(0.0, 10.0, 30.0)
+@export var max_throw_time := 2.0
 @export var owner_peer_id: int#:
 	#set(id):
 		#owner_peer_id = id
@@ -165,6 +167,9 @@ var coyote_time := 0.1
 var gravity_boon := BoonManager.new(true)
 var jump_cut := false
 var held_item: Item = null
+#var throw_force := Vector3.ZERO
+var throw_timer := 0.0
+var charging_throw := false
 #var speed_boon := BoonManager.new(false)
 
 @export_category("Nodes")
@@ -173,11 +178,12 @@ var held_item: Item = null
 @export var input_comp: InputComponent
 @export var inventory_comp: InventoryComponent
 @export var plat_comp: PlatformerComponent
+@export var wield_comp: WieldComponent
 @export var camera_holder: CameraHolder
 @export var buffer_timer: Timer
 @export var coyote_timer: Timer
 @export var model: MeshInstance3D
-@export var weapon_holder: Node3D
+#@export var weapon_holder: Node3D
 @export var animation_player: AnimationPlayer
 @export var debug_label: Label3D
 
@@ -188,7 +194,7 @@ var held_item: Item = null
 		debug_label.text = value
 @export var current_species := 0
 
-@onready var player_holder: PlayerHolder = $".."
+@onready var player_holder: PlayerHolder = get_parent()
 
 
 func _enter_tree() -> void:
@@ -220,7 +226,7 @@ func _process(_delta: float) -> void:
 	set_input()
 	var face_angle := Global.rotation_y_from_vec2(plat_comp.last_desired_dir)
 	hurtbox_comp.rotation.y = face_angle
-	weapon_holder.rotation.y = model.rotation.y
+	#weapon_holder.rotation.y = model.rotation.y
 
 
 func _physics_process(_delta: float) -> void:
@@ -331,6 +337,15 @@ func _on_health_component_death(_attack: Attack) -> void:
 	respawn.rpc()
 
 
+func _on_plat_comp_knocked_up() -> void:
+	gravity_boon.remove_boon("falling")
+	gravity_boon.remove_bane("peak")
+
+
+func _on_inventory_component_active_changed(_slotref: SlotRef) -> void:
+	player_holder.game.inventory_panel.switch_active(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index)
+
+
 func _on_input_jump() -> void:
 	buffer_timer.start(buffer_time) # waits until you touch the ground to jump
 	holding_jump = true
@@ -338,11 +353,6 @@ func _on_input_jump() -> void:
 
 func _on_input_jump_release() -> void:
 	holding_jump = false
-
-
-func _on_plat_comp_knocked_up() -> void:
-	gravity_boon.remove_boon("falling")
-	gravity_boon.remove_bane("peak")
 
 
 func _on_input_primary() -> void:
@@ -354,23 +364,33 @@ func _on_input_toggle_strafe_release() -> void:
 	plat_comp.forced_look = not plat_comp.forced_look
 
 
-func _on_inventory_component_active_changed(slotref: SlotRef) -> void:
-	if is_instance_valid(held_item): held_item.queue_free()
-	if is_instance_valid(slotref):
-		var new_item: Item = load(slotref.itemref.dropped_item).instantiate()
-		new_item.pick_up()
-		weapon_holder.add_child(new_item)
-		held_item = new_item
-	else:
-		held_item = null
-	
-	#Global.game.console_panel.add_message(str(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index))
-	player_holder.game.inventory_panel.switch_active(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index)
-
-
 func _on_input_item_next() -> void:
 	inventory_comp.crement_active(1)
 
 
 func _on_input_item_previous() -> void:
 	inventory_comp.crement_active(-1)
+
+
+func _on_input_throw() -> void:
+	charging_throw = true
+
+
+func _on_input_throw_hold() -> void:
+	if is_instance_valid(wield_comp.wielded_item) and charging_throw:
+		throw_timer += get_process_delta_time()
+		if throw_timer >= max_throw_time:
+			_on_input_throw_release()
+
+
+func _on_input_throw_release() -> void:
+	if health_comp.dead or not charging_throw: return
+	if is_instance_valid(wield_comp.wielded_item):
+		var throw_force := max_throw_force
+		throw_force *= clampf(inverse_lerp(0.0, max_throw_time, throw_timer), 0.0, 1.0)
+		wield_comp.throw_wielded_item(throw_force)
+		#throw_force = Vector3.ZERO
+		if is_instance_valid(inventory_comp.override_active):
+			player_holder.game.inventory_panel.delete_single_grabbed()
+	throw_timer = 0.0
+	charging_throw = false

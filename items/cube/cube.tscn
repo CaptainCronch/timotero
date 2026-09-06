@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://01wl1rskr2p2"]
+
+[ext_resource type="Script" uid="uid://c3j473kg82evs" path="res://classes/item.gd" id="1_jxqhd"]
+[ext_resource type="Resource" uid="uid://fpiyww1wtils" path="res://items/cube/cube.tres" id="2_jxqhd"]
+[ext_resource type="Script" uid="uid://cfwtmbbsuxnem" path="res://classes/slot_ref.gd" id="3_gpf8b"]
+[ext_resource type="PackedScene" uid="uid://bmh0i38737jgt" path="res://components/health_component.tscn" id="4_qx28t"]
+[ext_resource type="PackedScene" uid="uid://cqrprkhrapxbf" path="res://components/hitbox_component.tscn" id="5_vce3g"]
+[ext_resource type="PackedScene" uid="uid://c0g4mht1empq3" path="res://components/platformer_component.tscn" id="6_uy800"]
+
+[sub_resource type="Resource" id="Resource_wagxh"]
+script = ExtResource("3_gpf8b")
+itemref = ExtResource("2_jxqhd")
+metadata/_custom_type_script = "uid://cfwtmbbsuxnem"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7qk3k"]
+size = Vector3(1.25, 1.25, 1.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rkf10"]
+size = Vector3(0.75, 0.75, 0.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jvro1"]
+size = Vector3(0.75, 0.75, 0.75)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_invhg"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Cube" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker")]
+collision_layer = 256
+collision_mask = 3
+floor_constant_speed = true
+floor_max_angle = 0.80285144
+floor_snap_length = 0.2
+script = ExtResource("1_jxqhd")
+slotref = SubResource("Resource_wagxh")
+health_comp = NodePath("HealthComponent")
+hitbox_comp = NodePath("HitboxComponent")
+plat_comp = NodePath("PlatformerComponent")
+collider = NodePath("CollisionShape3D")
+model = NodePath("MeshInstance3D")
+dropped_marker = NodePath("DroppedMarker")
+held_marker = NodePath("HeldMarker")
+
+[node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("4_qx28t")]
+target = NodePath("..")
+plat_comp = NodePath("../PlatformerComponent")
+max_health = 100.0
+defense = inf
+
+[node name="HitboxComponent" parent="." unique_id=1679384176 node_paths=PackedStringArray("target", "health_comp") instance=ExtResource("5_vce3g")]
+collision_layer = 256
+collision_mask = 256
+target = NodePath("..")
+health_comp = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=1647812004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39, 0)
+shape = SubResource("BoxShape3D_7qk3k")
+
+[node name="PlatformerComponent" parent="." unique_id=533376382 node_paths=PackedStringArray("target", "model") instance=ExtResource("6_uy800")]
+bounce_factor = 0.6
+target = NodePath("..")
+model = NodePath("../MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=845472123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+shape = SubResource("BoxShape3D_rkf10")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=26456565]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+mesh = SubResource("BoxMesh_jvro1")
+
+[node name="DroppedMarker" type="Marker3D" parent="." unique_id=852467141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+
+[node name="HeldMarker" type="Marker3D" parent="." unique_id=817742549]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 1.0195686, 1.4946926, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778826321]
+replication_config = SubResource("SceneReplicationConfig_invhg")

@@ -1,4 +1,4 @@
-extends Node
+extends Area3D
 class_name InventoryComponent
 
 signal active_changed(slotref: SlotRef)
@@ -33,6 +33,15 @@ func _physics_process(delta: float) -> void:
 	for slot in invref.slot_list:
 		if is_instance_valid(slot):
 			slot.physics_update(delta)
+	
+	if not pickup_enabled: return
+	for area in get_overlapping_areas():
+		var item := area.get_parent()
+		if item is Item and item.pickupable:
+			if not (item.pick_up_timer > 0.0 and item.last_dropped_inventory_comp == self):
+				if invref.add_slotref(item.slotref) == null:
+					item.pick_up()
+					item.queue_free()
 
 
 func crement_active(amount: int) -> void: ## Amount should be 1 or -1.
@@ -59,13 +68,8 @@ func set_override_active(slotref: SlotRef) -> void:
 		active_changed.emit(invref.slot_list[active_index])
 
 
-func _on_area_entered(area: Area3D) -> void:
-	if not pickup_enabled: return
-	var item := area.get_parent()
-	if item is Item and item.pickupable:
-		if invref.add_slotref(item.slotref) == null:
-			item.pick_up()
-			item.queue_free()
+#func _on_area_entered(area: Area3D) -> void:
+	#pass
 
 
 func _on_inventory_updated(_invref: InventoryRef, index: int) -> void:

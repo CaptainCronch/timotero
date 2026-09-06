@@ -53,7 +53,7 @@ func merge_with(other_slotref: SlotRef, single := false) -> SlotRef: ## Add the 
 
 
 func create_single_slotref() -> SlotRef:
-	var new_slotref : SlotRef = duplicate()
+	var new_slotref: SlotRef = duplicate()
 	new_slotref.set_amount(1)
 	set_amount(amount - 1)
 	return new_slotref

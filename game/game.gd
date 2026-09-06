@@ -5,6 +5,7 @@ const MAX_PLAYERS := 1000
 
 var local_player: Player
 
+@export var level_holder: LevelHolder
 @export var player_holder: PlayerHolder
 @export var inventory_panel: InventoryPanel
 @export var network_panel: NetworkPanel

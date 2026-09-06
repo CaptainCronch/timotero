@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://btdagfce8jymj" path="res://components/inventory_component.tscn" id="7_2ieo8"]
 [ext_resource type="Texture2D" uid="uid://ddnalu3w85bxd" path="res://test/proto-textures/proto-beige.png" id="9_8t03j"]
 [ext_resource type="Texture2D" uid="uid://bmi03s6dgewoj" path="res://test/faces/face-bunny.png" id="10_2ieo8"]
-[ext_resource type="Resource" uid="uid://c4qnqf5a4qk8s" path="res://items/metal_pipe/metal_pipe.tres" id="10_kb6p2"]
+[ext_resource type="PackedScene" uid="uid://upjalqc6s65j" path="res://components/wield_component.tscn" id="12_wodsf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wagxh"]
 size = Vector3(0.5, 1.5, 0.5)
@@ -29,14 +29,8 @@ metadata/_custom_type_script = "uid://cwmtuce3mypoy"
 [sub_resource type="BoxShape3D" id="BoxShape3D_7qk3k"]
 size = Vector3(3.0064316, 2.5043945, 4.007736)
 
-[sub_resource type="Resource" id="Resource_yllr7"]
-script = ExtResource("3_ebec5")
-itemref = ExtResource("10_kb6p2")
-metadata/_custom_type_script = "uid://cfwtmbbsuxnem"
-
 [sub_resource type="Resource" id="Resource_2ieo8"]
 script = ExtResource("2_2ieo8")
-slot_list = Array[ExtResource("3_ebec5")]([SubResource("Resource_yllr7"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 metadata/_custom_type_script = "uid://b2yh01wgw2qeb"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wagxh"]
@@ -137,66 +131,13 @@ height = 0.7012329
 [sub_resource type="PrismMesh" id="PrismMesh_tqiix"]
 size = Vector3(1.555, 0.39, 0.345)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_7qk3k"]
-top_radius = 0.125
-bottom_radius = 0.125
-height = 3.0239258
-
 [sub_resource type="Animation" id="Animation_8t03j"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponHolder/MeshInstance3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.73478425, 2.1175554, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponHolder/MeshInstance3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_2ieo8"]
 resource_name = "swing"
 length = 0.2
 step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponHolder/MeshInstance3D:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.049999997, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.73478425, 2.1175554, 0), Vector3(0.06822646, 0.22295082, 2.2131279), Vector3(0.73478425, 2.1175554, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponHolder/MeshInstance3D:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.049999997, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.4159238, 2.84757, 3.1415927), Vector3(0, 0, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ebec5"]
 _data = {
@@ -215,7 +156,7 @@ properties/2/path = NodePath(".:current_species")
 properties/2/spawn = true
 properties/2/replication_mode = 2
 
-[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "inventory_comp", "plat_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "weapon_holder", "animation_player", "debug_label")]
+[node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "inventory_comp", "plat_comp", "wield_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "animation_player", "debug_label")]
 collision_layer = 272
 collision_mask = 3
 floor_constant_speed = true
@@ -227,11 +168,11 @@ hurtbox_comp = NodePath("HurtboxComponent")
 input_comp = NodePath("InputComponent")
 inventory_comp = NodePath("InventoryComponent")
 plat_comp = NodePath("PlatformerComponent")
+wield_comp = NodePath("WieldComponent")
 camera_holder = NodePath("CameraHolder")
 buffer_timer = NodePath("BufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
 model = NodePath("Model")
-weapon_holder = NodePath("WeaponHolder")
 animation_player = NodePath("AnimationPlayer")
 debug_label = NodePath("DebugLabel")
 
@@ -280,6 +221,12 @@ shape = SubResource("CapsuleShape3D_wagxh")
 bounce_factor = -1.0
 target = NodePath("..")
 model = NodePath("../Model")
+
+[node name="WieldComponent" parent="." unique_id=1727289109 node_paths=PackedStringArray("inventory_comp", "plat_comp", "holder_node") instance=ExtResource("12_wodsf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+inventory_comp = NodePath("../InventoryComponent")
+plat_comp = NodePath("../PlatformerComponent")
+holder_node = NodePath("../Holster")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=91309768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -571,12 +518,9 @@ mesh = SubResource("PrismMesh_tqiix")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
-[node name="WeaponHolder" type="Node3D" parent="." unique_id=326619374]
+[node name="Holster" type="Node3D" parent="." unique_id=326619374]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WeaponHolder" unique_id=206024074]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0.73478425, 2.1175554, 0)
-visible = false
-mesh = SubResource("CylinderMesh_7qk3k")
+[node name="WeaponPosition" type="Node3D" parent="Holster" unique_id=1156932746]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=107280351]
 libraries/ = SubResource("AnimationLibrary_ebec5")
@@ -596,6 +540,9 @@ replication_config = SubResource("SceneReplicationConfig_8t03j")
 [connection signal="jump" from="InputComponent" to="." method="_on_input_jump"]
 [connection signal="jump_release" from="InputComponent" to="." method="_on_input_jump_release"]
 [connection signal="primary" from="InputComponent" to="." method="_on_input_primary"]
+[connection signal="throw" from="InputComponent" to="." method="_on_input_throw"]
+[connection signal="throw_hold" from="InputComponent" to="." method="_on_input_throw_hold"]
+[connection signal="throw_release" from="InputComponent" to="." method="_on_input_throw_release"]
 [connection signal="toggle_strafe_release" from="InputComponent" to="." method="_on_input_toggle_strafe_release"]
 [connection signal="active_changed" from="InventoryComponent" to="." method="_on_inventory_component_active_changed"]
 [connection signal="knocked_up" from="PlatformerComponent" to="." method="_on_plat_comp_knocked_up"]

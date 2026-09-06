@@ -55,6 +55,18 @@ func populate_grid(invref: InventoryRef, _index: int) -> void:
 			item_display.set_slotref(slotref)
 
 
+func delete_grabbed() -> void:
+	grabbed_slotref = null
+	update_grabbed_slot()
+
+
+func delete_single_grabbed() -> void:
+	grabbed_slotref.set_amount(grabbed_slotref.amount - 1)
+	if grabbed_slotref.amount < 1:
+		grabbed_slotref = null
+	update_grabbed_slot()
+
+
 func update_grabbed_slot() -> void:
 	if grabbed_slotref:
 		grab_display.visible = true

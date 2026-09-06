@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemRef" format=3 uid="uid://fpiyww1wtils"]
+
+[ext_resource type="Texture2D" uid="uid://smnawvsqndmq" path="res://items/cube/walter-theory.jpg" id="1_kxpx7"]
+[ext_resource type="Script" uid="uid://b3yfjtnss5qeh" path="res://classes/item_ref.gd" id="2_3jkau"]
+
+[resource]
+script = ExtResource("2_3jkau")
+image = ExtResource("1_kxpx7")
+name = "Cube"
+description = "It's what you came here for"
+inherent_tags = Array[int]([1])
+dropped_item = "uid://01wl1rskr2p2"
+metadata/_custom_type_script = "uid://b3yfjtnss5qeh"

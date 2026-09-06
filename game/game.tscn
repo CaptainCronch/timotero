@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ysmw2u1nh3fr"]
 
 [ext_resource type="Script" uid="uid://j5fsopklfuye" path="res://game/game.gd" id="1_u5opy"]
+[ext_resource type="Script" uid="uid://cxaocl34igb82" path="res://game/level_holder.gd" id="2_j8tme"]
 [ext_resource type="PackedScene" uid="uid://cxokfdi0db5ce" path="res://test/test_level.tscn" id="2_y36n6"]
 [ext_resource type="Script" uid="uid://c7lkcx07dbbr3" path="res://game/player_holder.gd" id="3_l8g03"]
 [ext_resource type="Script" uid="uid://j8wbckudvjp6" path="res://game/network_panel.gd" id="4_j8tme"]
@@ -16,8 +17,9 @@ bg_color = Color(0, 0, 0, 0.2)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wagxh"]
 bg_color = Color(1, 1, 1, 0.5)
 
-[node name="Game" type="Node" unique_id=759877435 node_paths=PackedStringArray("player_holder", "inventory_panel", "network_panel", "console_panel", "server_runner", "client_connector")]
+[node name="Game" type="Node" unique_id=759877435 node_paths=PackedStringArray("level_holder", "player_holder", "inventory_panel", "network_panel", "console_panel", "server_runner", "client_connector")]
 script = ExtResource("1_u5opy")
+level_holder = NodePath("LevelHolder")
 player_holder = NodePath("PlayerHolder")
 inventory_panel = NodePath("UIHolder/InventoryPanel")
 network_panel = NodePath("UIHolder/NetworkPanel")
@@ -30,6 +32,7 @@ _spawnable_scenes = PackedStringArray("uid://nw0kmvmm5cs")
 spawn_path = NodePath("../PlayerHolder")
 
 [node name="LevelHolder" type="Node" parent="." unique_id=1973087917]
+script = ExtResource("2_j8tme")
 
 [node name="TestLevel" parent="LevelHolder" unique_id=888138300 instance=ExtResource("2_y36n6")]
 

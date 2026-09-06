@@ -26,6 +26,9 @@ signal secondary_release
 signal tertiary
 signal tertiary_hold
 signal tertiary_release
+signal throw
+signal throw_hold
+signal throw_release
 signal ability
 signal ability_hold
 signal ability_release
@@ -87,6 +90,10 @@ func _process(_delta: float) -> void: # how do you do this better
 	if Input.is_action_just_pressed("tertiary"): tertiary.emit()
 	if Input.is_action_pressed("tertiary"): tertiary_hold.emit()
 	if Input.is_action_just_released("tertiary"): tertiary_release.emit()
+	
+	if Input.is_action_just_pressed("throw"): throw.emit()
+	if Input.is_action_pressed("throw"): throw_hold.emit()
+	if Input.is_action_just_released("throw"): throw_release.emit()
 	
 	if Input.is_action_just_pressed("ability"): ability.emit()
 	if Input.is_action_pressed("ability"): ability_hold.emit()

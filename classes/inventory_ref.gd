@@ -11,6 +11,7 @@ enum InteractType {
 	SECONDARY, ## Clicking with the right mouse button.
 }
 
+@export var size := 30
 @export var slot_list: Array[SlotRef] = []
 @export var filter_tag: ItemRef.Tag
 @export var max_active_index := 5
@@ -18,6 +19,8 @@ enum InteractType {
 
 func _init() -> void:
 	resource_local_to_scene = true
+	slot_list.resize(size)
+	slot_list.fill(null)
 
 
 func set_slotref(index: int, new_slotref: SlotRef) -> void:
@@ -83,6 +86,14 @@ func drop_single_slotref(grabbed_slotref: SlotRef, index: int) -> SlotRef: ## Ca
 func delete_slotref(index: int) -> void:
 	slotref_changed.emit(slot_list[index], null)
 	set_slotref(index, null)
+	emit_updated(index)
+
+
+func delete_single_slotref(index: int) -> void:
+	slotref_changed.emit(slot_list[index], null)
+	slot_list[index].set_amount(slot_list[index].amount - 1)
+	if slot_list[index].amount <= 0:
+		set_slotref(index, null)
 	emit_updated(index)
 
 
