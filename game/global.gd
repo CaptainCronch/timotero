@@ -37,9 +37,9 @@ func _ready() -> void:
 					push_warning("My name is " + local_peer_name)
 					match local_peer_name[0].to_upper():
 						"A":
-							get_window().position = Vector2i(0, 200)
+							get_window().position = Vector2i(0, 500)
 						"B":
-							get_window().position = Vector2i(1300, 200)
+							get_window().position = Vector2i(1300, 0)
 						"C":
 							get_window().position = Vector2i(300, 0)
 			elif arg.contains("client"):

@@ -29,7 +29,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="MetalPipe" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker")]
+[node name="MetalPipe" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker", "multiplayer_synchronizer")]
 collision_layer = 256
 collision_mask = 3
 floor_constant_speed = true
@@ -44,6 +44,7 @@ collider = NodePath("CollisionShape3D")
 model = NodePath("MeshInstance3D")
 dropped_marker = NodePath("DroppedMarker")
 held_marker = NodePath("HeldMarker")
+multiplayer_synchronizer = NodePath("MultiplayerSynchronizer")
 
 [node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("4_6vdd4")]
 target = NodePath("..")

@@ -66,9 +66,18 @@ func set_amount(value: int) -> void:
 		push_error(str(self) + "Tried to stack " + str(itemref.name) + ", which is unstackable.")
 
 
-static func serialize(slotref: SlotRef) -> Dictionary:
-	return {}
+static func serialize(slotref: SlotRef) -> Dictionary[String, Variant]:
+	if is_instance_valid(slotref):
+		return {"itemref": slotref.itemref.resource_path, "amount": slotref.amount} # add transient tags later
+	else:
+		return {}
 
 
-static func deserialize(dict: Dictionary) -> SlotRef:
-	return SlotRef.new()
+static func deserialize(data: Dictionary[String, Variant]) -> SlotRef:
+	if not data == {}:
+		var new := SlotRef.new()
+		new.itemref = load(data["itemref"])
+		new.amount = data["amount"]
+		return new
+	else:
+		return null

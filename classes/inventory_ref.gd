@@ -123,6 +123,15 @@ func check_eligibility(new_slotref: SlotRef) -> bool:
 	else: return false
 
 
+func check_space(new_slotref: SlotRef) -> bool:
+	for space in slot_list:
+		if space == null:
+			return true
+		if space.can_merge_with(new_slotref):
+			return true
+	return false
+
+
 func emit_updated(index := -1) -> void:
 	inventory_updated.emit(self, index)
 

@@ -222,11 +222,11 @@ bounce_factor = -1.0
 target = NodePath("..")
 model = NodePath("../Model")
 
-[node name="WieldComponent" parent="." unique_id=1727289109 node_paths=PackedStringArray("inventory_comp", "plat_comp", "holder_node") instance=ExtResource("12_wodsf")]
+[node name="WieldComponent" parent="." unique_id=1727289109 node_paths=PackedStringArray("inventory_comp", "plat_comp", "remote_transform") instance=ExtResource("12_wodsf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 inventory_comp = NodePath("../InventoryComponent")
 plat_comp = NodePath("../PlatformerComponent")
-holder_node = NodePath("../Holster")
+remote_transform = NodePath("../Holster/WeaponPosition")
 
 [node name="Collider" type="CollisionShape3D" parent="." unique_id=91309768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -520,7 +520,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_7qk3k")
 
 [node name="Holster" type="Node3D" parent="." unique_id=326619374]
 
-[node name="WeaponPosition" type="Node3D" parent="Holster" unique_id=1156932746]
+[node name="WeaponPosition" type="RemoteTransform3D" parent="Holster" unique_id=722245505]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=107280351]
 libraries/ = SubResource("AnimationLibrary_ebec5")

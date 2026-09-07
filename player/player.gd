@@ -155,7 +155,7 @@ var species_dict: Array[Dictionary] = [
 @export var peak_gravity_bane := 0.3
 @export var falling_gravity_boon := 0.6
 @export var max_throw_force := Vector3(0.0, 10.0, 30.0)
-@export var max_throw_time := 2.0
+@export var max_throw_time := 1.0
 @export var owner_peer_id: int#:
 	#set(id):
 		#owner_peer_id = id
@@ -388,7 +388,7 @@ func _on_input_throw_release() -> void:
 	if is_instance_valid(wield_comp.wielded_item):
 		var throw_force := max_throw_force
 		throw_force *= clampf(inverse_lerp(0.0, max_throw_time, throw_timer), 0.0, 1.0)
-		wield_comp.throw_wielded_item(throw_force)
+		wield_comp.throw_wielded_item.rpc(throw_force)
 		#throw_force = Vector3.ZERO
 		if is_instance_valid(inventory_comp.override_active):
 			player_holder.game.inventory_panel.delete_single_grabbed()

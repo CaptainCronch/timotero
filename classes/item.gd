@@ -11,6 +11,7 @@ const PICK_UP_DELAY := 1.0
 @export var model: Node3D
 @export var dropped_marker: Marker3D
 @export var held_marker: Marker3D
+@export var multiplayer_synchronizer: MultiplayerSynchronizer
 
 var pickupable := false
 var pick_up_timer := PICK_UP_DELAY
@@ -34,8 +35,19 @@ func _process(delta: float) -> void:
 		if pick_up_timer <= 0.0:
 			pickupable = true
 
+@rpc("any_peer", "call_local")
+func request_pick_up(path_to_inv_comp: NodePath) -> void:
+	var inv_comp: InventoryComponent = get_node(path_to_inv_comp)
+	#Global.game.console_panel.add_message(inv_comp.get_parent().name + " requested to pick up " + name)
+	inv_comp.pick_up_item.rpc(self)
 
+@rpc("call_local")
 func pick_up() -> void:
+	set_held()
+	queue_free()
+
+
+func set_held() -> void:
 	plat_comp.disabled = true
 	hitbox_comp.detectable = false
 	collider.set_deferred("disabled", true)
@@ -44,7 +56,7 @@ func pick_up() -> void:
 	model.transform = held_marker.transform
 
 
-func drop() -> void:
+func set_dropped() -> void:
 	plat_comp.disabled = false
 	hitbox_comp.detectable = true
 	collider.set_deferred("disabled", false)
