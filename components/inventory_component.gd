@@ -16,6 +16,10 @@ var overlapping_items: Array[Item] = []
 #var last_active: SlotRef = null
 
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(1)
+
+
 func _ready() -> void:
 	assert(is_instance_valid(invref), "Invalid InventoryRef in InventoryComponent!")
 	assert(invref.slot_list.size() > 0, "InventoryRef with 0 slots in InventoryComponent!")
@@ -81,7 +85,7 @@ func set_override_active(slotref: SlotRef) -> void:
 		override_active = null
 		active_changed.emit(invref.slot_list[active_index])
 
-@rpc("any_peer", "call_local")
+@rpc("call_local")
 func pick_up_item(item_path: NodePath) -> void:
 	var item: Item = get_node(item_path)
 	#if item == null:

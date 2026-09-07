@@ -45,14 +45,16 @@ func throw_wielded_item(velocity: Vector3) -> void:
 	else:
 		Global.game.console_panel.add_message("Tried to throw invalid wielded item!")
 
-@rpc("call_local")
-func change_active(slotref_data: Dictionary) -> void:
+#@rpc("call_local")
+func change_active(slotref: SlotRef) -> void:
 	if is_instance_valid(wielded_item): wielded_item.queue_free()
-	if not slotref_data == {}:
-		var slotref := SlotRef.deserialize(slotref_data)
+	#if not slotref_data == {}:
+	if is_instance_valid(slotref):
+		#var slotref := SlotRef.deserialize(slotref_data)
 		var new_item: Item = load(slotref.itemref.dropped_item).instantiate()
 		new_item.set_held()
 		Global.game.level_holder.current_level.add_child(new_item, true)
+		Global.game.console_panel.add_message(new_item.name)
 		remote_transform.remote_path = remote_transform.get_path_to(new_item)
 		#holder_node.add_child(new_item)
 		wielded_item = new_item
@@ -62,6 +64,6 @@ func change_active(slotref_data: Dictionary) -> void:
 
 func _on_inventory_component_active_changed(slotref: SlotRef) -> void:
 	if not is_multiplayer_authority(): return
-	var data := {}
-	if is_instance_valid(slotref): data = SlotRef.serialize(slotref)
-	change_active.rpc(data)
+	#var data := {}
+	#if is_instance_valid(slotref): data = SlotRef.serialize(slotref)
+	change_active(slotref)

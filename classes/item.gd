@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 func request_pick_up(path_to_inv_comp: NodePath) -> void:
 	var inv_comp: InventoryComponent = get_node(path_to_inv_comp)
 	#Global.game.console_panel.add_message(inv_comp.get_parent().name + " requested to pick up " + name)
-	inv_comp.pick_up_item.rpc(self)
+	inv_comp.pick_up_item.rpc(get_path())
 
 @rpc("call_local")
 func pick_up() -> void:
