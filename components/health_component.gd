@@ -1,4 +1,5 @@
-extends Node3D
+@icon("res://addons/at-icons/node/heart.svg")
+extends Node
 class_name HealthComponent
 
 # emit percentage change in signals?

@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node3d/shopping_bag.svg")
 extends Area3D
 class_name InventoryComponent
 
@@ -17,7 +18,7 @@ var overlapping_items: Array[Item] = []
 
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(1)
+	set_multiplayer_authority(1) #maybe
 
 
 func _ready() -> void:
@@ -61,7 +62,7 @@ func check_pickups() -> void:
 	for index in deletion_queue:
 		overlapping_items.remove_at(index)
 
-
+@rpc("any_peer", "call_local")
 func crement_active(amount: int) -> void: ## Amount should be 1 or -1.
 	#assert(not absi(amount * 1) == 1, "Cremented InventoryComponent active_index wrongly!")
 	active_index += amount
@@ -85,14 +86,15 @@ func set_override_active(slotref: SlotRef) -> void:
 		override_active = null
 		active_changed.emit(invref.slot_list[active_index])
 
-@rpc("call_local")
+@rpc("any_peer", "call_local")
 func pick_up_item(item_path: NodePath) -> void:
+	#if is_multiplayer_authority(): print(str(item_path))
 	var item: Item = get_node(item_path)
 	#if item == null:
-		#Global.game.console_panel.add_message(str(item_path) + " is an invalid path!")
+	#Global.game.console_panel.add_message("picked up " + str(item_path))
 		#return
 	if invref.add_slotref(item.slotref) == null:
-		item.pick_up.rpc()
+		item.pick_up()
 
 @rpc
 func synchronize_inventories(data: Array[Dictionary]) -> void:
@@ -118,5 +120,6 @@ func _on_inventory_updated(updated_invref: InventoryRef, index: int) -> void:
 		for slot in updated_invref.slot_list:
 			data.append(SlotRef.serialize(slot))
 		synchronize_inventories.rpc(data)
-	if index == active_index:
-		crement_active(0)
+		if index == active_index:
+			#Global.game.console_panel.add_message("Active index refreshed! = " + str(active_index))
+			crement_active.rpc(0)

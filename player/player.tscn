@@ -155,9 +155,6 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:current_species")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath("Holster/WeaponPosition:remote_path")
-properties/3/spawn = true
-properties/3/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" unique_id=1381430318 node_paths=PackedStringArray("health_comp", "hurtbox_comp", "input_comp", "inventory_comp", "plat_comp", "wield_comp", "camera_holder", "buffer_timer", "coyote_timer", "model", "animation_player", "debug_label")]
 collision_layer = 272
@@ -533,7 +530,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0007677, 0)
 pixel_size = 0.01
 billboard = 1
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=949270946]
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=949270946]
 replication_config = SubResource("SceneReplicationConfig_8t03j")
 
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
@@ -549,3 +546,4 @@ replication_config = SubResource("SceneReplicationConfig_8t03j")
 [connection signal="toggle_strafe_release" from="InputComponent" to="." method="_on_input_toggle_strafe_release"]
 [connection signal="active_changed" from="InventoryComponent" to="." method="_on_inventory_component_active_changed"]
 [connection signal="knocked_up" from="PlatformerComponent" to="." method="_on_plat_comp_knocked_up"]
+[connection signal="threw_wielded_item" from="WieldComponent" to="." method="_on_wield_component_threw_wielded_item"]

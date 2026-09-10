@@ -343,7 +343,8 @@ func _on_plat_comp_knocked_up() -> void:
 
 
 func _on_inventory_component_active_changed(_slotref: SlotRef) -> void:
-	player_holder.game.inventory_panel.switch_active(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index)
+	if is_multiplayer_authority():
+		player_holder.game.inventory_panel.switch_active(-1 if is_instance_valid(inventory_comp.override_active) else inventory_comp.active_index)
 
 
 func _on_input_jump() -> void:
@@ -365,14 +366,15 @@ func _on_input_toggle_strafe_release() -> void:
 
 
 func _on_input_item_next() -> void:
-	inventory_comp.crement_active(1)
+	inventory_comp.crement_active.rpc(1)
 
 
 func _on_input_item_previous() -> void:
-	inventory_comp.crement_active(-1)
+	inventory_comp.crement_active.rpc(-1)
 
 
 func _on_input_throw() -> void:
+	if health_comp.dead: return
 	charging_throw = true
 
 
@@ -385,12 +387,16 @@ func _on_input_throw_hold() -> void:
 
 func _on_input_throw_release() -> void:
 	if health_comp.dead or not charging_throw: return
+	if not wield_comp.is_multiplayer_authority(): return
 	if is_instance_valid(wield_comp.wielded_item):
 		var throw_force := max_throw_force
 		throw_force *= clampf(inverse_lerp(0.0, max_throw_time, throw_timer), 0.0, 1.0)
-		wield_comp.throw_wielded_item.rpc(throw_force)
+		wield_comp.request_throw.rpc_id(1, throw_force)
 		#throw_force = Vector3.ZERO
-		if is_instance_valid(inventory_comp.override_active):
-			player_holder.game.inventory_panel.delete_single_grabbed()
 	throw_timer = 0.0
 	charging_throw = false
+
+
+func _on_wield_component_threw_wielded_item() -> void:
+	if is_instance_valid(inventory_comp.override_active):
+		player_holder.game.inventory_panel.delete_single_grabbed()

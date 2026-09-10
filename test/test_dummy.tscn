@@ -110,7 +110,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5512624, 0)
 pixel_size = 0.01
 billboard = 1
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1883665085]
+[node name="EntitySynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1883665085]
 replication_config = SubResource("SceneReplicationConfig_4ceke")
 
 [connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]

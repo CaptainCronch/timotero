@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/keyboard.svg")
 extends Node
 class_name InputComponent
 

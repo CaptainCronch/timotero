@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node3d/arrow_up_from_bracket.svg")
 extends Area3D
 class_name HurtboxComponent
 ## Exists to detect. Checks for hitboxes and applies damage.

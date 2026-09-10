@@ -4,8 +4,7 @@
 [ext_resource type="Script" uid="uid://bycd1sr4i8qei" path="res://game/item_spawner.gd" id="1_k117l"]
 [ext_resource type="Texture2D" uid="uid://bwqt52rut5ecg" path="res://test/proto-textures/proto-violet.png" id="2_ls30l"]
 [ext_resource type="PackedScene" uid="uid://bx7qrcpplghho" path="res://test/test_dummy.tscn" id="4_kgsy5"]
-[ext_resource type="PackedScene" uid="uid://bx1niidtmjdlf" path="res://items/metal_pipe/metal_pipe.tscn" id="4_oxjuh"]
-[ext_resource type="PackedScene" uid="uid://01wl1rskr2p2" path="res://items/cube/cube.tscn" id="5_oxjuh"]
+[ext_resource type="Script" uid="uid://er5jfa0jyn0l" path="res://test/test_spawner.gd" id="6_k117l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgsy5"]
 albedo_texture = ExtResource("1_8rkqs")
@@ -371,46 +370,12 @@ attack_type = "Timed Multihit"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.021591, 0, -0.24167919)
 attack_type = "On Enter"
 
-[node name="MetalPipe" parent="." unique_id=932024774 instance=ExtResource("4_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4729013, 0, -5.5863814)
+[node name="TestSpawner" type="Node3D" parent="." unique_id=307423850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.384852, 3.6752434, -14.063293)
+script = ExtResource("6_k117l")
+spawned_scene = "res://items/cube/cube.tscn"
 
-[node name="Cube" parent="." unique_id=1563365497 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.0513, 0, -15.876682)
-
-[node name="Cube2" parent="." unique_id=1458337754 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.34567, 0, -17.366348)
-
-[node name="Cube3" parent="." unique_id=1883197575 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.012814, 0, -16.229498)
-
-[node name="Cube4" parent="." unique_id=1447046257 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.954369, 0, -18.150381)
-
-[node name="Cube5" parent="." unique_id=1191358222 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.679241, 0, -19.208828)
-
-[node name="Cube6" parent="." unique_id=1746274412 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.915165, 0, -20.463282)
-
-[node name="Cube7" parent="." unique_id=1908811248 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.563065, 0, -18.97362)
-
-[node name="Cube8" parent="." unique_id=1452186333 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.484661, 0, -16.660719)
-
-[node name="Cube9" parent="." unique_id=2085372703 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.013527, 0, -16.386307)
-
-[node name="Cube10" parent="." unique_id=1306794907 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.4255, 0, -14.779038)
-
-[node name="Cube11" parent="." unique_id=253676014 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.620794, 0, -13.759795)
-
-[node name="Cube12" parent="." unique_id=113944781 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.267263, 0, -14.269418)
-
-[node name="Cube13" parent="." unique_id=1234670591 instance=ExtResource("5_oxjuh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.776886, 0, -12.701352)
+[node name="Timer" type="Timer" parent="TestSpawner" unique_id=136557420]
 
 [connection signal="body_entered" from="Teleport" to="Teleport" method="_on_body_entered"]
+[connection signal="timeout" from="TestSpawner/Timer" to="TestSpawner" method="_on_timer_timeout"]

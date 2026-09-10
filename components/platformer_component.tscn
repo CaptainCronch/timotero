@@ -25,5 +25,5 @@ properties/5/replication_mode = 2
 [node name="PlatformerComponent" type="Node3D" unique_id=533376382]
 script = ExtResource("1_o2j65")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1397005767]
+[node name="PlatformerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1397005767]
 replication_config = SubResource("SceneReplicationConfig_o2j65")

@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node/joypad.svg")
 extends Node
 class_name Game
 

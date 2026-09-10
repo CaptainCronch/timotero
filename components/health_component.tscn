@@ -22,8 +22,8 @@ properties/5/path = NodePath(".:is_stunned")
 properties/5/spawn = true
 properties/5/replication_mode = 2
 
-[node name="HealthComponent" type="Node3D" unique_id=2132747489]
+[node name="HealthComponent" type="Node" unique_id=1407967358]
 script = ExtResource("1_t2tvt")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1152521049]
+[node name="HealthSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1152521049]
 replication_config = SubResource("SceneReplicationConfig_t2tvt")

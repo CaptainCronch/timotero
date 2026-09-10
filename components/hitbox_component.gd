@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node3d/arrow_down_to_bracket.svg")
 extends Area3D
 class_name HitboxComponent
 ## Exists to be detected. Relays attacks from hurtboxes to health components.

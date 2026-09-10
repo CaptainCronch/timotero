@@ -31,6 +31,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:pickupable")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="MetalPipe" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker", "multiplayer_synchronizer")]
 collision_layer = 256
@@ -47,7 +50,7 @@ collider = NodePath("CollisionShape3D")
 model = NodePath("MeshInstance3D")
 dropped_marker = NodePath("DroppedMarker")
 held_marker = NodePath("HeldMarker")
-multiplayer_synchronizer = NodePath("MultiplayerSynchronizer")
+multiplayer_synchronizer = NodePath("ItemSynchronizer")
 
 [node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("4_6vdd4")]
 target = NodePath("..")
@@ -84,5 +87,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5195632, 0)
 [node name="HeldMarker" type="Marker3D" parent="." unique_id=817742549]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0.73478425, 2.1175554, 0)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778826321]
+[node name="ItemSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778826321]
 replication_config = SubResource("SceneReplicationConfig_invhg")
