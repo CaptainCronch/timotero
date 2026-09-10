@@ -11,7 +11,7 @@ var wielded_item: Item
 @export var remote_transform: RemoteTransform3D
 @export var drop_position := Vector3(0.0, 0.0, 1.0)
 
-@onready var raycast: RayCast3D = $RayCast3D
+@onready var raycast: RayCast3D = %RayCast3D
 
 
 #func _enter_tree() -> void:
@@ -75,14 +75,17 @@ func request_change_active(slotref_data: Dictionary[String, Variant]) -> void: #
 		change_active.rpc(slotref_data, "")
 
 @rpc("any_peer", "call_local") #TODO: request to change active from the server instead because only the server can spawn things for the multiplayerspawner
-func change_active(_slotref_data: Dictionary[String, Variant], new_item_path: NodePath) -> void: ## Should be called by the server and ran on all clients.
+func change_active(slotref_data: Dictionary[String, Variant], new_item_path: NodePath) -> void: ## Should be called by the server and ran on all clients.
 	#if is_instance_valid(wielded_item): wielded_item.queue_free()
-	#if not slotref_data == {}:
+	var new_slotref: SlotRef = null
+	if not slotref_data == {}:
+		new_slotref = SlotRef.deserialize(slotref_data)
 	var new_item: Item = get_node_or_null(new_item_path) # will be null if the new active slot is empty
 	#if is_instance_valid(slotref):
 		#var slotref := SlotRef.deserialize(slotref_data)
 		#var new_item: Item = load(slotref.itemref.dropped_item).instantiate()
 	if is_instance_valid(new_item):
+		new_item.slotref = new_slotref
 		new_item.set_held()
 	
 	remote_transform.remote_path = new_item_path

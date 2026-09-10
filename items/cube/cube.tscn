@@ -30,9 +30,9 @@ properties/1/spawn = true
 properties/1/replication_mode = 0
 properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 
-[node name="Cube" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker", "multiplayer_synchronizer")]
+[node name="Cube" type="CharacterBody3D" unique_id=932024774 node_paths=PackedStringArray("health_comp", "hitbox_comp", "plat_comp", "collider", "model", "dropped_marker", "held_marker", "multiplayer_synchronizer", "debug_label")]
 collision_layer = 256
 collision_mask = 3
 floor_constant_speed = true
@@ -48,6 +48,7 @@ model = NodePath("MeshInstance3D")
 dropped_marker = NodePath("DroppedMarker")
 held_marker = NodePath("HeldMarker")
 multiplayer_synchronizer = NodePath("ItemSynchronizer")
+debug_label = NodePath("DebugLabel")
 
 [node name="HealthComponent" parent="." unique_id=2132747489 node_paths=PackedStringArray("target", "plat_comp") instance=ExtResource("4_qx28t")]
 target = NodePath("..")
@@ -86,3 +87,8 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 1.0195686, 1.4946926
 
 [node name="ItemSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778826321]
 replication_config = SubResource("SceneReplicationConfig_invhg")
+
+[node name="DebugLabel" type="Label3D" parent="." unique_id=1239254150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0074513, 2.4778686, 0)
+pixel_size = 0.01
+billboard = 1

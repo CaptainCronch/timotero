@@ -374,6 +374,7 @@ attack_type = "On Enter"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.384852, 3.6752434, -14.063293)
 script = ExtResource("6_k117l")
 spawned_scene = "res://items/cube/cube.tscn"
+spawned_scene_2 = "res://items/metal_pipe/metal_pipe.tscn"
 
 [node name="Timer" type="Timer" parent="TestSpawner" unique_id=136557420]
 

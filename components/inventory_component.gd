@@ -60,7 +60,7 @@ func check_pickups() -> void:
 		i += 1
 	
 	for index in deletion_queue:
-		overlapping_items.remove_at(index)
+		overlapping_items.remove_at(index) #FIXME: out of bounds index error here?
 
 @rpc("any_peer", "call_local")
 func crement_active(amount: int) -> void: ## Amount should be 1 or -1.

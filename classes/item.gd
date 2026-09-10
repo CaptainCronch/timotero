@@ -13,6 +13,7 @@ const PICK_UP_DELAY := 1.0
 @export var dropped_marker: Marker3D
 @export var held_marker: Marker3D
 @export var multiplayer_synchronizer: MultiplayerSynchronizer
+@export var debug_label: Label3D
 
 var pickupable := false
 var pick_up_timer := PICK_UP_DELAY
@@ -29,9 +30,12 @@ func _ready() -> void:
 		assert(is_instance_valid(slotref.itemref), name + " has an invalid ItemRef!")
 	assert(collision_layer == 256 and collision_mask == (1+2), name + " has misconfiguered collision layers / masks!")
 	assert(health_comp.defense == INF)
+	#debug_label.text = str(slotref.amount)
+	#slotref.amount_changed.connect(func(amount): debug_label.text = str(amount))
 
 
 func _process(delta: float) -> void:
+	if is_instance_valid(debug_label): debug_label.text = str(slotref.amount)
 	if pick_up_timer > 0.0:
 		pick_up_timer -= delta
 		if pick_up_timer <= 0.0:

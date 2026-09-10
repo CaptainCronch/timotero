@@ -333,6 +333,8 @@ func _on_health_component_damage_taken(amount: float, _attack: Attack) -> void:
 func _on_health_component_death(_attack: Attack) -> void:
 	debug_label.text = "I'm dead!"
 	if not is_multiplayer_authority(): return
+	throw_timer = 0.0
+	charging_throw = false
 	await get_tree().create_timer(5.0).timeout
 	respawn.rpc()
 
@@ -399,4 +401,4 @@ func _on_input_throw_release() -> void:
 
 func _on_wield_component_threw_wielded_item() -> void:
 	if is_instance_valid(inventory_comp.override_active):
-		player_holder.game.inventory_panel.delete_single_grabbed()
+		player_holder.game.inventory_panel.delete_grabbed()

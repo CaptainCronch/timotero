@@ -1,6 +1,7 @@
 extends Node3D
 
 @export_file_path("*.tscn") var spawned_scene: String
+@export_file_path("*.tscn") var spawned_scene_2: String
 @export var spawn_delay := 5.0
 @export var spawn_force := 5.0
 
@@ -16,7 +17,7 @@ func _ready() -> void:
 func _on_timer_timeout() -> void:
 	#if not multiplayer.is_server(): return
 	if not is_multiplayer_authority(): return
-	var scene: Node3D = load(spawned_scene).instantiate()
+	var scene: Node3D = load(spawned_scene if randi_range(0, 3) < 3 else spawned_scene_2).instantiate()
 	var plat_comp: PlatformerComponent = scene.get_node_or_null("PlatformerComponent")
 	if not plat_comp == null:
 		plat_comp.target.velocity = (Vector3.FORWARD * spawn_force).rotated(Vector3.UP, randf_range(0.0, TAU))

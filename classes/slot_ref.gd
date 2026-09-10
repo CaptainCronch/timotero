@@ -1,6 +1,8 @@
 extends Resource
 class_name SlotRef
 
+signal amount_changed(new_amount: int)
+
 #TBD: Have slotref tags that get added on?
 #TBD: This is where referenced item states should go (such as cooldowns), but how?
 #     - let the items that need it extend from SlotRef to make their own state?
@@ -64,6 +66,7 @@ func set_amount(value: int) -> void:
 	if not itemref.stackable and amount > 1:
 		amount = 1
 		push_error(str(self) + "Tried to stack " + str(itemref.name) + ", which is unstackable.")
+	amount_changed.emit(amount)
 
 
 static func serialize(slotref: SlotRef) -> Dictionary[String, Variant]:
